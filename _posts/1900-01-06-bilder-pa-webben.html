@@ -1,0 +1,138 @@
+---
+layout: default
+title: Bilder på webben
+subtitle: <i lang="en">Watch out; it's time to get graphical</i>
+desc: Elementet för bilder och s.k. <code>alt</code>-texter. Vanliga bildformat.
+category: grunderna
+---
+<p id="summary">I detta kapitel kommer vi gå igenom att icke visuella alternativ måste tillhandahållas för bilder som är menade att förmedla någon information, och några vanliga format att spara bilder i för webben.
+
+<p>I stort sätt använder alla webbplatser sig utav bilder, det är alltså en viktig del av en webbplats och bör också användas för att ge webbplatsen liv och göra den lite roligare att titta på. Detta betyder inte att du ska överanvända bilder, då många bilder betyder längre laddningstid och serverbelastning (när du väl publicerat webbplatsen alltså).
+
+<h2><code>img</code>-elementet</h2>
+<p>För att inkludera bilder i HTML-dokument så används <code>img</code>-elementet. <code>img</code> är en förkortning av <span lang="en">image</span>, som på svenska blir ”bild”. <code>img</code>-elementet kan användas såhär:</p>
+
+<figure><pre><code>&lt;img src="http://example.org/img/far.png" alt="Fåren på Kolmårdens djurpark lever i ett skjul utanför delfinernas pool." title="Fåren på Kolmårdens djurpark"&gt;</code></pre></figure>
+
+<p>Som du ser så består <code>img</code> av en rad attribut, oftast är det <code>src</code> och <code>alt</code> som är av intresse. Vi ska nu gå igenom dem, en efter en.
+
+<h3><code>src</code>-attributet</h3>
+<p>Med <code>src</code>-attributet så talar du om för webbläsaren var bilden ligger, i exemplet ovan så befinner sig bilden på <code>img/far.png</code> på servern <code>example.org</code>. Vi kommer gå in djupare på hur adresser till filer och länkar fungerar i kapitlet som berör länkar. Fast så mycket nytt är det egentligen inte, <code>href</code>-attributet i <code>link</code>-element som används för stilmallar fungerar ju på samma sätt. Så om bilden ligger i samma mapp som webbsidan är räcker det med filnamnet.
+
+<h3><code>alt</code>-attributet</h3>
+<p><code>alt</code>-attributet syfte är att specificera en <strong>alternativ text</strong> då t.ex.:
+
+<ul>
+  <li>Bilden inte kunde nås på platsen som angivits i <code>src</code>-attributet.
+  <li>Bilden är sparad i ett sådant bildformat som besökarens webbläsare inte stödjer.
+  <li>En besökare som använder en icke-grafisk webbläsare, t.ex. en textbaserade eller så är kanske besökaren en sökrobot från t.ex. Google eller Yahoo.
+  <li>En besökare som är blind eller har nedsatt syn och måste använda sig utav en skärmläsare som inte kan förklara bilden.
+  <li>En besökare med långsam uppkoppling (kanske inte så vanligt länge, möjligen från t.ex. mobiltelefoner) eller av någon anledning har inaktiverat bilder i sin webbläsare.
+  <li>En besökare som skriver ut sidan och inte vill slösa med färg.
+</ul>
+
+<p><code>alt</code>-attributet specificera som sagt en alternativ text, vilket innebär att den bara visas när bilden inte visas. Den används <em>istället</em> för bilden helt enkelt. Den alternativa texten ska inte beskriva bilden! Det ska beskriva bildens <strong>mening på sidan</strong>, bildens <strong>funktion på sidan</strong> i andra ord. Notera att <strong>”på sidan”</strong> är med här, samma bild kan ha olika funktion på olika sidor. Det är funktionen den fyller just här och nu. Eller som HTML5-specifikationen säger ”att byta ut alla bilder mot deras <code>alt</code>-text ska inte ändra sidan mening”. En bra tumregel är att <code>alt</code>-texten bör vara det du skulle säga till någon om du skulle läsa upp innehållet på sidan över telefon. Här följer några riktlinjer för specifika fall.
+
+<p><strong>Dekorativa bilder ska inte ha något alternativ text</strong>. Ofta ska faktiskt bilder ha en tomt <code>alt</code>-attributvärde (<code>alt=""</code>) eftersom att många bilder på webbplatser endast används i dekorativt syfte. Om bilden inte tillför någon annan funktion förutom att vara dekorativ så ska den helt enkelt inte ha något <code>alt</code>-attributvärde.
+
+<p><strong>Bilder som förtydligar textens innehåll ska antagligen inte ha något alternativ text</strong>. Även om bilden har en mening på sidan finns det ingen mening att tala om samma sak två gånger. Låt oss säga att vi har en text om hur en traktor är uppbyggd och fungerar, och under denna text en bild på allt detta för att det ska vara lättare att förstå texten och det ser lite roligare ut med ett par bilder utspridda längs med texten. Om bilden inte har någon egen ny information så är det bara onödigt att upprepa sig, om texten inte direkt riktar sig mot bilden. Vi får försöka att tänka ur besökarens perspektiv (utan bilder), om bilden inte visas ersätts den med <code>alt</code>-värdet. Om vi skulle göra detta i vårt traktorexempel skulle det bara verka förvirrande eftersom att vi redan har sagt allt och sedan säger det en gång till.
+
+<p><strong>Använd inte meningslösa alternativa texter</strong>. Det låter självklart, men man ser allt för många <code>alt</code>-attribut som tilldelats värden så som ”röd boll”, ”en tv”, ”700 får” o.s.v. Om bilder används i dekorativ syfte ska de som sagt ha ett tomt <code>alt</code>-attributvärde.
+  
+<p><strong>Använd knapptexten för knappar som alternativa texter för knappar och liknande för logotyper</strong>. Ännu en självklarhet kan tyckas. Om du har en knapp på din sida som t.ex. finns på många forum eller webbaserade mejlsystem så som ”skicka”, ”ändra”, ”svara” o.s.v. Då ska du använda <code>alt</code>-texten ”skicka”, ”ändra”, respektive ”svara” för dessa knappar. Du ska oftast inte heller försöka ersätta knappar med så kallas ASCII-konst. Vilket innebär att du ”ritar” med olika tecken, t.ex. att istället för ”nästa” som <code>alt</code>-text för en nästa-knapp använda <code>alt="--&gt;"</code>. Samma för logotyper, använd t.ex. företagets namn som <code>alt</code>-text.
+
+<p>Tänk även på att <code>alt</code>-texten är till för att hjälpa besökaren och ska fungera i den flytande texten. Om det helt plötsligt dyker upp ett ord mitt i texten som inte har med denna att göra eller att det helt plötsligt kommer upp en mening om något helt annat mitt i en text är det antagligen någon som inte tänkt tillräckligt mycket när denna någon tilldelat <code>alt</code>-texten. Så se till att <code>alt</code>-texten passar in i texten när den väl används. Som t.ex:</p>
+
+<figure><pre><code class="html">&lt;p&gt; Min hamster heter Hubert och är 18 år.
+
+&lt;img src="hubertgullet.png" alt="En bild på min hamster Hubert"&gt;
+
+Han gillar gräs och luddiga sudd, tyvärr blir han sjuk av det senare.&lt;/p&gt;</code></pre></figure>
+
+<p>Såhär visar din webbläsare ovanstående, då vi inte har någon bilder som heter <code>hubertgullet.png</code> kommer <code>alt</code>-texten visas istället:
+
+<blockquote><p>Min hamster heter Hubert, och är 18 år. <img src="hubertgullet.png" alt="En bild på min hamster Hubert."> Han gillar gräs och luddiga sudd, tyvärr blir han sjuk av det senare.</blockquote>
+
+<p>Förhoppningsvis visade din webbläsare följande, men den kan ju hantera <code>alt</code>-texten på ett egendomligt sätt:
+
+<blockquote><p>Min hamster heter Hubert, och är 18 år. En bild på min hamster Hubert. Han gillar gräs och luddiga sudd, tyvärr blir han sjuk av det senare.</blockquote>
+
+<p>Om du läser den korta texten får början till slut ser du att, det är något som inte stämmer här! Hur har ”En bild på min hamster Hubert.” kommit dit och vad tillför den till texten? Om vi istället skulle använda <code>alt="Hubert är en ovanligt liten och lurvig filur."</code> skulle vi få:
+
+<blockquote><p>Min hamster heter Hubert, och är 18 år. Hubert är en ovanligt liten och lurvig filur. Han gillar gräs och luddiga sudd, tyvärr blir han sjuk av det senare.</blockquote>
+
+<p>Så! Perfektion. Nästan i alla fall, om meningen med bilden var att visa hur Hubert ser ut så har vi ju lyckats ganska bra. Nu vet du ju utan att ha sett bilden att Hubert är väldigt liten och lurvig. Om texten istället skulle vara en uppsats om hamstrar skulle vi antagligen behövt en mera ingående alternativ text (eller bara lagt till mera om det i texten kanske skulle vara en alternativ lösning). Förlita dig aldrig helt på bilder i alla fall. Vi säger det ännu en gång: den alternativa texten ska återspegla bildens funktion på sidan.
+
+<p>Som avslutande ord vill vi bara tillägga att: ja, det är ofta mycket svårt att hitta på bra <code>alt</code>-texter. Du är inte ensam om att tycka det.
+
+<p>Några referenser och vidare läsning om <code>alt</code>-texter:
+
+<ul>
+<li><a href="http://dev.w3.org/html5/spec/embedded-content-1.html#attr-img-alt">HTML5-specifikationens långa utlägg om ämnet</a>, mycket läsvärd och grundlig!
+<li><a href="http://www.hixie.ch/advocacy/alttext">Mini FAQ about the alternate text of images</a>
+<li><a href="http://www.cs.tut.fi/~jkorpela/html/alt.html#thumb">Guidelines on <code>alt</code> texts in <code>img</code> elements</a>
+<li><a href="http://webaim.org/techniques/alttext/">Appropriate Use of Alternative Text</a>
+<li><a href="http://www.w3.org/QA/Tips/altAttribute">Use the <code>alt</code> attribute to describe the function of each visual</a>
+</ul>
+
+<h3><code>title</code>-attributet (och ytterligare ett problem med IE)</h3>
+<p><code>title</code>-attributet ger en kortare beskrivning som kan tänkas behövas för att förklara t.ex. vad det är på bilden. Den visas i grafiska webbläsare när muspekaren hålls över bilden en kortare stund. Ett exempel på <code>title</code>-text är <code>"Jag och min hamster, 2015-12-20"</code>. Texten behöver till skillnad mot <code>alt</code> inte beskriva bildens funktion, det är bara en (frivillig) text med lite mer information. Tänk på att det är enkelt att missa <code>title</code>-texten eftersom att den bara visas när muspekaren hålls över bilden, som är det är viktig information som alla troligen vill läsa ändå är det kanske en bättre idé att placera den i den vanliga texten.
+
+<p>Du är väl vid det här laget ganska trött om på att höra om IE-buggar, men: en sak som man bör tänka på när det gäller <code>alt</code> och <code>title</code> är att Microsoft har valt att <code>alt</code> inte enbart betyder alternativ text i IE7 och tidigare, utan även fyller samma funktion som <code>title</code>. Så <code>alt</code>-texten visas på samma sätt som <code>title</code> gör i andra webbläsare. Detta är IE7 och tidigare ganska ensamma om. Alla standardmedvetna webbläsare hanterar <code>alt</code>-attributet på korrekt sätt. Det är bara att ignorera hur dessa IE-versioner gör och följa reglerna vi just gick igenom. Vi nämner detta bara på grund av att det har lett till en del förvirring hur <code>alt</code> och <code>title</code> ska användas, men från och med IE8 är detta problem borta så ju längre tid det går ju mindre bör du störas av detta.
+
+<h2>Bildformat</h2>
+<p>När det kommer till bildformat är det främst Portable Network Graphics (PNG) och Joint Photographic Experts Group (JPEG) som används idag. Graphics Interchange Format (GIF) var populärt förut, och används även nuförtiden om bilderna ska vara animerade; men har en rad andra begränsningar som gör de två tidigare namnda formaten hellre används. Så vi kommer främst att fokusera på PNG och JPEG.
+
+<p>Vad är det ett s.k. bildformat? Jo, det är inget märkvärdigare än på vilket sätt bilden sparas. En dator hanterar ju allt som ettor och nollor som du säkert hört många gånger. Så den kan inte bara ”spara bilder” på (ex.) hårddisken – de måste sparas i någon fördefinierat format, ett ”bildformat”. Vad skiljer då bildformat från varandra, varför räcker det inte bara med ett format? Jo, förenklat är de <em>bra på olika saker</em>. Vissa format klarar av saker som andra inte gör o.s.v.
+
+<p>Först och främst finns det två grupper som bildformaten delas upp i: är komprimeringen förstörande eller icke-försörande (alt. bevarande)? Eller med andra ord: sparas alla detaljer på bilden eller ”slängs” de bort för att spara plats? JPEG har förstörande komprimering medan PNG har en icke-förstörande variant. Det betyder att JPEG-bilder oftast får mindre filstorlek men har sämre kvalité, medan PNG har en (inte nödvändigtviss mycket) större filstorlek och bättre kvalité. (Tänk på att detta är en grov förenkling.)
+
+<p>Så vid val av bildformat (för webben) är det främst balansen mellan kvalité eller filstorlek som är det avgörande valet. Vissa bilder, som t.ex. fotografier kan innehålla väldigt många detaljer och får därför en väldigt stor filstorlek om de skulle sparas med en icke-förstörande algoritm. Då kan det vara lämpligt att spara bilden som en JPEG-bild, så tillåter vissa detaljer att försvinna och resulterar i att filstorleken blir mindre. Till vissa bilder är det dock inte acceptabelt att detaljer försvinner, t.ex. <a href="http://xkcd.com">serier</a>. Då kan ett format som sparar alla detaljer användas istället, som t.ex. det tidigare nämnda PNG.
+
+<p>Så för att sammanfatta: är detaljerna inte viktiga på bilden (t.ex. i många fall foton): använd JPEG. Är detaljerna viktiga (t.ex. om bilden innehåller text): använd PNG. Det handlar ju trots allt om bilder, så några exempel på hur det ser ut när JPEG ”struntar i detaljerna” skulle kanske vara hjälpsamt. Låt säga att du valt att spara en bild som JPEG, när du sparar bilden får du ofta bestämma hur många detaljer som ska bevaras. (Ofta någon skala från 0 till 100 procent.) Ta följande bild som exempel, <a href="http://www.flickr.com/photos/tinyguy/846612541/in/dateposted/">som är tagen av en av författarna till boken</a>.</p>
+
+<figure>
+<img src="/img/flower-100.jpg" alt="">
+<figcaption>Kvalité: 100 %, storlek: 90K. Inga synliga artefakter.</figcaption>
+</figure>
+
+<figure>
+<img src="/img/flower-75.jpg" alt="">
+<figcaption>Kvalité: 75 %, storlek: 17K. Vissa synliga artefakter (acceptabelt dock), speciellt vid blommans kanter, mycket mindre filstorlek dock.</figcaption>
+</figure>
+
+<figure>
+<img src="/img/flower-50.jpg" alt="">
+<figcaption>Kvalité: 50 %, storlek 11K. Artefakter runt blomman tydligare, bakgrunden synligt påverkad också; storleken ungefär samma som föregående dock.</figcaption>
+</figure>
+
+<figure>
+<img src="/img/flower-25.jpg" alt="">
+<figcaption>Kvalité: 25 %, storlek: 7,3K. Tydliga artefakter runt blomman, och bakgrunden ännu värre nu. Halverad filstorlek dock.</figcaption>
+</figure>
+
+<figure>
+<img src="/img/flower-5.jpg" alt="">
+<figcaption>Kvalité: 5 %, storlek: 2,6K. Det är nu nästan svårt att se vad bilden föreställer, men filstorleken har sjunkit en del dock.</figcaption>
+</figure>
+
+<p>Som du ser får varje bild sämre och sämre kvalité, men filstorleken blir bättre och bättre (d.v.s. minskar). Det finns ingen komprimeringsgrad som är rätt och fel här, det är <em>vad du tycker ser lämpligt ut</em>. Det finns inte heller några värde som är bättre än något annat för alla bilder, det som gäller här är att testa sig fram oftast. Låt oss ta en närmare titt på bilden med 75-procentig kvalité:</p>
+
+<figure><img src="/img/flower-75-zoomed.jpg" alt=""></figure>
+
+<p>Det är väldigt tydlig här att många detaljer redan har försvunnit, det är oftast runt skarpa kanter det först visar sig. Vi tycker dock att den icke-inzommade bilden ser helt okej ut. Då den har en ganska mycket mindre filstorlek än den med 100-procentig kvalité så skulle det nog bli vårt val om vi valde mellan dessa.
+
+<p>Okej, då var det avklarat. Nu till PNG och icke-förstörande komprimering. Det är som sagt vikigt att inte använda förstörande komprimering då detaljerna är viktiga, ibland måste filstorleken ofras. Ta följande exempel (denna gång ett urdrag från en inlämninngsuppgift som en av författarna blivit tilldelad):</p>
+
+<figure><img src="/img/game-of-life.png" alt="En skärmdump på en text om en Game of Life-implementation, texten är tydligt läsbar."></figure>
+
+<p>Det ser helt okej ut. Låt säga att någon försökte spara in på filstorleken genom att spara den som en JPEG-bild med 50-procentig kvalité:</p>
+
+<figure><img src="/img/game-of-life.jpg" alt="Samma skärmdump igen, fast denna gång med tydliga artefakter runt all text som gör den mycket svårläst."></figure>
+
+<p>Som du ser lider texten av samma problem som blomman i exemplet ovanför detta, men här är det mycket tydligare. Filstorleken är mindre (85K mot 26K), men bilden är oanvändbar. Vi testade även att köra PNG-bilden genom program som är gjorda för att minimera filstorleken på sådana bilder (bl.a. <a href="http://advsys.net/ken/utils.htm">PNGOUT</a> och <a href="http://pmt.sourceforge.net/pngcrush/">pngcrush</a>), men lyckades inte få den mindre än 71K.
+
+<p>För att spara bilderna användes <a href="http://gimp.org">Gimp</a>.
+
+<h3>Några andra format</h3>
+<p>Det är framför allt de tidigare nämnda formaten som de flesta webbläsare har stöd för, men det finns fler. Där bland SVG som är ett vektorgrafikformat. Vi kan inte gå igenom alla bildformat <a href="http://en.wikipedia.org/wiki/Category:Graphics_file_formats">då det finns massor av dem</a> (inte alla är lämpade för webben dock), men på Wikipedia finns det mer information om dem, t.ex: <a href="http://en.wikipedia.org/wiki/Scalable_Vector_Graphics">SVG på Wikipedia</a>, <a href="http://en.wikipedia.org/wiki/Portable_Network_Graphics">PNG på Wikipedia</a> och så vidare.

@@ -1,0 +1,73 @@
+---
+layout: default
+title: Mer om färger
+subtitle: Om att vänja sig vid en lite annorlunda färgrymd
+desc: Hur färger utöver de inbyggda kostanterna fungerar i CSS.
+category: design
+---
+<p>Än så länge när vi önskat en färg på ett element har vi använt nyckelorden CSS-rekommendationen specificerar, bl.a. <code>red</code>, <code>blue</code> och <code>yellow</code>. Vi kan istället använda <strong>hexvärden</strong> för att specificera vilket färg vi vill använda, vilket ger oss fler valmöjligheter i våra färgval.
+
+<h2>RGB-modellen</h2>
+<p>RGB-modellen går kortfattat ut på att varje färg antas bestå av de tre grundfärgerna röd, grön och blå. Dessa tre grundfärger används sedan för att blanda ihop övriga färger. När olika mycket av de olika grundfärgerna används skapas olika färger. T.ex. blir rött och blått lila, och rött och grönt resulterar i gult. RGB-modellen brukar ofta illustreras med fäljande bild:</p>
+
+<figure id="fig-rgb-modell" style="width:300px;">
+	<img src="/img/rgb.png" alt="">
+	<figcaption>Bilden beskriver RGB-modellen</figcaption>
+</figure>
+
+<p>För att praktiskt ”blanda” färgerna talar man om med ett tal mellan 0 och 255 hur mycket av varje grundfärg som ska användas i resultatfärgen. Som bilden illutererar är grundfärgerna väldigt ljusa, så färgen med röd = 255, grön = 0 och blå = 0 är ljusröd, medan röd = 100, grön = 0 och blå = 0 är en ganska mörk röd färg. Som bilden även illusterar så blir röd = 255, grön = 255 och blå = 255 vitt. När värdena har ett högt värde, det vill säga nära 255, blir alltså resultatfärgen ljus. När de har ett lågt värde blir den inte helt överraskande mörk. Här följer några exempel:</p>
+
+<table>
+  <caption>RGB-värden för några olika färger</caption>
+  <tr><th>Röd<th>Grön<th>Blå
+  <tr style="background:#F00;"><td>röd = 255, <td>grön = 0, <td>blå = 0;
+  <tr style="background:#640000; color:#fff;"><td>röd = 100, <td>grön = 0, <td>blå = 0;
+  <tr style="background:#FF0;"><td>röd = 255, <td>grön = 255, <td>blå = 0;
+  <tr style="background:#7F7F00; color:#fff;"><td>röd = 127, <td>grön = 127, <td>blå = 0;
+  <tr style="background:#326496; color:#fff;"><td>röd = 50, <td>grön = 100, <td>blå = 150;
+  <tr style="background:#00C864; color:#fff;"><td>röd = 0, <td>grön = 200, <td>blå = 100.
+</table>
+
+<h3>CSS-syntax för färger</h3>
+<p>I CSS kan bl.a. RGB-modellen användas för att beskriva vilken färg som önskas. Då anges dock inte grundfärgvärdena i det decimala talsystemet, utan i det hexadcimala talsystemet. Om du känner dig osäker med dessa ord rekommenderar vi att du läser kapitlet om <a href="/talsystem">Talsystem</a> innan du fortsätter med detta kapitel.
+
+<p class="todo">Städa här under, troligen lite ovanför också
+
+<p>Den första delen (<code>#</code>) för RGB-deklaration, den talar om för webbläsaren att här kommer det ett RGB-värde. Tecknen efter <code>#</code> är själva färgvärdet. Varje färg har två tecken, där röd har de två första, grön har de två i mellersta och blå har de två sista. I något kryptisk form och förkortat borde detta bli #RRGGBB. Även här måste vi tänka lite extra, för att t.ex. få en helt röd färg så vill vi ha 255 röd och 0 grön och blå. Det decimala talet 255 blir FF om man skriver det hexadecimalt och 0 blir 00, eftersom att det alltid måste vara två tecken oberoende av värde (så t.ex. 0 blir 09 och 5 blir 05). Så för att få helt klar röd färg bör vi skriva <code>#FF0000</code>, för en spygrön och ögonskärnade färg <code>#00FF00</code> och slutligen blir blå <code>#0000FF</code>.
+
+<h4>Alternativ syntax</h4>
+<p class="note">Behandla rgba och hsv(a)?</p>
+<p>CSS erbjuder ytterligare en syntax för att hantera färgvärden:</p>
+
+<figure id="kod-css-rgb"><pre><code class="css">rgb(röd, grön, blå)</code></pre></figure>
+
+<p>T.ex. talar följande om att texten för klassen <code>news</code> ska vara <code>#00FF33</code>:</p>
+
+<figure id="kod-css-rgb-ex-1"><pre><code class="css">.news {color: rgb(0, 255, 51);}</code></pre></figure>
+
+<p>Inga hexadecimala konstigheter, ett värde från 0 till 255 bara. Du kan även använda dig av procent om du tycker det ser stiligare ut:</p>
+
+<figure id="kod-css-rgb-ex-2"><pre><code class="css">.news {color: rgb(0%, 100%, 20%);}</code></pre></figure>
+
+<p>Dessa är inte lika vanliga och vi har aldrig använt dem, främst eftersom att det är mer att skriva, så vi har inte koll på hur bra webbläsarstöd de har. Det borde inte vara några större problem dock. Det ska mest ses som en notis om vad det är snarare än något du bör använda.
+
+<h3>Färgförkortningar och fördefinierade färger</h3>
+<p>Det finns en syntax som låter dig att förkorta dina RGB-värden till 3 tecken. Den ser ut som följande och fungerar på ett visst antal färger: <code>#RGB</code>, då istället för <code>#RRGGBB</code>. Så bara om de båda tecknen i varje enskilt hexvärdet är lika i fungerar detta. Så om vi skulle ha #FF0012 skulle vi inte kunna förkorta den eftersom att <code>BB</code> inte har två identiska tecken, detta beror på att datorn då inte skulle veta vart gränserna mellan <code>R</code>, <code>G</code> och <code>B</code> går, inte du heller för den delen. Detta är en mycket smidig teknik att kunna och vi har gjort ett par exempel för att förtydliga det hela:</p>
+
+	<table>
+	<caption>Några förkortningar till färgvärde</caption>
+	<tr><th>Färg<th>Förkortning
+	<tr><td><code>#000000</code><td><code>#000</code>
+	<tr><td><code>#FF0000</code><td><code>#F00</code>
+	<tr><td><code>#FFFF00</code><td><code>#FF0</code>
+	<tr><td><code>#FF00FF</code><td><code>#F0F</code>
+	<tr><td><code>#110000</code><td><code>#100</code>
+	<tr><td><code>#001100</code><td><code>#010</code>
+	<tr><td><code>#112233</code><td><code>#123</code>
+	<tr><td><code>#CC8833</code><td><code>#C83</code>
+	</table>
+
+
+<p>Och nu till den andra delen i vår nuvarande rubrik, fördefinierade färger. Om du inte kunde lista ut det så finns det ett par fördefinierade färger som representerar olika färger. Dessa fördefinierade nyckelord består av engelska färgord, som var det enda vi kunde använda innan vi lärde oss hur hexvärden fungerar. Som du säkert redan listat ut finns det massor av färger att hitta här, bland annat <code>blue</code> (<code>#0000FF</code>) och <code>green</code> (<code>#008000</code>). Och lite mera udda färger som till exempel <code>lime</code> (<code>#00FF00</code>) och <code>fuchsia</code> (<code>#FF00FF</code>). Nu är kanske ordet "massor" lite missvisande eftersom att det enligt HTML 4.01 specifikationen finns 16 färger, plus färgen <code>orange</code> (<code>#FFA500</code>) som definieras i CSS2.1 om man ska vara petig. Nu tycker vi inte att det är så spännande att sitta och prata färgnyckelord så vi nöjer oss med en länk till Wikipedias uppslag om <a href="http://en.wikipedia.org/wiki/Web_colors">webbfärger</a> och hoppas på att det ska tillfredsställa alla dina färgbehov. Som du ser finns det något som heter X11-gruppen, som har en del färger.
+
+<p>Om du vill använda nyckelord eller hexvärden är upp till dig. Alla kanske inte vet vilken färg <code>LightGoldenrodYellow</code> är, även om man hör på namnet att det rör sig om någon gul ljus färg så är det fortfarande lite diffust. Och om man vill ändra lite på värde, t.ex. några nivåer mörkare, så kan man inte längre använda dessa nyckelord och måste gå tillbaka till hexvärden.

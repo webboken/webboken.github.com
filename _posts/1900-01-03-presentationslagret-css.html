@@ -1,0 +1,458 @@
+---
+layout: default
+title: "Presentationslagret: CSS"
+subtitle: Eller, ”<i>Det ser ju hemskt ut, vad gör jag nu?</i>”
+desc: Fortsättning med CSS. Olika sätt att associera de två fundamentala lagren. Namngivning. Selektorsyntax. Kaskad och arv. Praktiska problem.
+category: grunderna
+---
+<p id="summary">Sammanfattning: Detta kapitel beskriver CSS närmare, det språk som används för att styra presentationslagret. Hur grunderna fungerar och även centrala koncept så som kaskad och arv. Fokus ligger på syntax och funktionalitet som CSS erbjuder, inte vilka egenskaper som finns tillgängliga för att ändra utseendet på din webbplats. Kapitlet avslutas med en del praktiska tips och utsmyckning av webbsidan från föregående kapitel.
+
+<p>Presentationslagret består av ”Cascading Style Sheets”, eller bara ”CSS”. I detta kapitel ska vi ta en närmare koll på vad detta lager har att erbjuda. Det är CSS som styr <em>allt</em> utseende på din webbplats, allt från vilken teckengrad rubriker har till hur menyn ska vara placerad relativt övriga dela av webbplatsen. Hur vi bygger och placerar menyer och kolumnlayouter kommer vi gå in på i nästa del av boken, som heter Design. I nuvarande del fokuserar vi på grunderna: hur önskade element välj ur trädet, hur kaskad och arv fungerar (och vad det överhuvudtaget är) och en rad egenskaper vi kan påverkar webbplatsens text utseende (vilket kommer i nästa kapitel).
+
+<h2>De olika CSS-nivåerna</h2>
+<p class="todo">Denna sektion är ganska kort och kommer kanske bli längre någon gång.
+
+<p>Precis som HTML finns CSS i olika utgåvor. Fast i ett avseende skiljer sig dessa avsevärt. CSS har flera olika lager snarare än versioner som ersätter de tidigare. Det finns idag tre nivåer av CSS: CSS1, CSS2 och CSS3. Där CSS2 bygger vidare på CSS1, och CSS3 bygger vidare på CSS2. Populära webbläsare idag har fullt stöd för CSS1 och nästan fullt stöd för CSS2. (När vi säger CSS2 menar vi egentligen CSS2.1, det är inte så vikigt.) CSS3 är inte klart ännu, men det finns en del stöd för det i vissa webbläsare. Vi kommer därför främst inrikta oss på CSS1 och CSS2.
+
+<h2>Olika sätt att associera de fundamentala lagren med varandra</h2>
+<p>Då de två fundamentala lagren är separerade måste vi ha något sätt att knyta ihop dessa på och tala om vilket presentationslager som ska användas till vårt nuvarande struktur och betydelse-lager. Det finns tre sätt att göra detta på:
+
+<ul>
+<li>externa stilmallar, där det finns två dokument, ett HTML- och ett CSS-dokument, HTML-dokumentet pekar sedan på CSS-dokumentet och säger att ”detta dokument ska användas för att presentera mitt innehåll”;
+<li>interna stilmallar, detta alternativ är samma som ovan fast istället för att ha en pekare till ett externt dokument är stilmallen istället inbakad i HTML-dokumentet;
+<li>och inline-regler, som skiljer sig markant från ovanstående och vi återkommer till detta alternativ senare (som för övrigt användas så sparsamt som möjligt).
+</ul>
+
+<p>Externa CSS-dokument är alltid att föredra för att det sparar <strong>bandbredd</strong> i och med att besökarens webbläsare lagrar stilmallen lokalt och slipper ladda ner den varje gång den besöker webbplatsen. Med bandbredd syftar man på hur mycket information/data servern måste skicka till sina besökare. Din webbläsare sparar alltså filer lokalt på din dator när du laddar ner de olika delarna av en webbplats, t.ex. bilder och andra externa dokument, för att den ska slippa ladda ner samma fil flera gånger. Detta gör den för att vara snäll mot servern genom att minska dess belastning, och sedan för att det ska gå snabbare för dig att bläddra mellan sidorna på webbplatsen, eftersom att man inte behöver ladda ner samma fil flera gånger.
+
+<p>Om vi istället skulle ha stilmallen internt skulle webbläsaren vara tvingad att ladda ner samma stilmall varje gång en webbsida från webbplatsen laddades ner, eftersom att båda ligger i samma fil.
+
+<h3>Exempel med extern stilmall</h3>
+<p>För att göra en extern stilmall börjar vi med att göra en fil vid namn <code>style.css</code> med följande innehåll:</p>
+
+<figure><pre><code>p {color: red;}</code></pre></figure>
+
+<p>För att koppla stilmallen till vårt kommande HTML-dokument måste vi använda oss av ett nytt element, nämligen <code>link</code>:</p>
+
+<figure><pre><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></pre></figure>
+
+<ul>
+  <li><code>link</code>-elementet ska ligga inom <code>head</code>-elementet eftersom att det är information om webbsidan snarare än en del av den.
+  
+  <li><code>rel="stylesheet"</code> är vilket förhållande (<code>rel</code> är en förkortning av <span lang="en">relationship</span>) det här dokumentet har till det vi länkar till, <code>stylesheet</code> ska användas som värde eftersom det är en stilmall vi länkar till.
+    
+  <li><code>href="style.css"</code> talar om var dokumentet (CSS-dokumentet i detta fall) finns. Om vi som här skriver <code>style.css</code> menar vi filen <code>style.css</code> i samma mapp, om vi istället skulle ha använt <code>css/style.css</code> menar vi <code>style.css</code> i mappen <code>css</code> till exempel. Vi kommer att gå djupare in på hur detta fungerar när vi går igenom hur man skapar länkar i HTML, men det är ett senare kapitel.
+</ul>
+
+<p>Skapa sedan ett HTML-dokument i samma mapp med följande innehåll:</p>
+
+<figure><pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Ett exempeldokument för att testa CSS med&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p&gt;Här är bara ett testtextstycke!&lt;p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+<p>Om allt gick rätt till ska nu texten i dokumentet vara färgad röd.
+
+<h3>Interna stilmallar</h3>
+<p>Interna stilmallar är som sagt ungefär samma sak som externa, fast stilmallen är istället inbakad i HTML-dokumentet. Som vi såg i introduktionskapitlet så används elementet <code>style</code> för att baka in en stilmall i ett HTML-dokument:</p>
+
+<figure><pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Ett exempeldokument för att testa CSS med&lt;/title&gt;
+  &lt;style&gt;p {color:red;}&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;p&gt;Här är bara ett testtextstycke!&lt;p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+<h3>Reflektion angående valet mellan interna och externa stilmallar, och varför CSS behövs överhuvudtaget</h3>
+<p>För att utöver bandbreddsbesparingar kunna motivera varför du ska använda externa stilmallar kommer vi gå igenom följande exempel på ett vanligt problem vars lösning kan generaliseras till en viktig princip inom mjukvaruutveckling. Vi utlovande även i introduktionen ett konkret exempel på varför det är en bra vana att separera lagren i så stor utsträckning som möjligt. Tursamt nog täcks även detta in här.
+
+<p>Vår utgångspunkt är att CSS är en dålig idé och vi skulle klara oss bra med enbart ett lager istället för de två fundamentala som finns nu. Vi ska nu se hur detta leder till en sämre värld att leva i. Så, skulle det inte fungera att använda attribut på elementen istället för CSS att tala om hur de bör se ut? T.ex. skulle vi kunna införa ett attribut som heter <code>color</code> som gick att applicera på alla element och som talade om vilken färg texten i det elementet fick:</p>
+
+<figure><pre><code class="html">&lt;p color="red"&gt;Lite text som då skulle bli röd, notera att detta är låtsas-HTML!&lt;/p&gt;</code></pre></figure>
+
+<p>Visst, det fungerar. Det inte bara fungerar, det var så det gick till, förr i tiden, innan CSS. För att inse att detta är en sämre lösning än dagens behövs dock fler element. Föreställ dig följande: Du vill ha alla rubriker i blå färg på hela din webbplats, som kan bestå av tusentals webbsidor. En av de webbsidorna skulle kunna se ut såhär:</p>
+
+<figure><pre><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Mall för hemliga dokument&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1 color="blue"&gt;Mall för hemliga dokument&lt;/h1&gt;
+  &lt;p&gt;Lägg till hemlig information här.&lt;/p&gt;
+
+  &lt;h2 color="blue"&gt;Hemlig information&lt;/h2&gt;
+  &lt;p&gt;Här behövs det mer hemlig information.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+<p>Låt säga att du bestämmer dig för att röd färg på alla rubriker skulle vara snyggare. I exempeldokumentet måste du bara ändra på två ställen, men tänk sedan på övriga webbsidor på din webbplats, då måste du ändra i alla, hela databasen på (låt säga) 700 hemliga dokument. Det är denna del som suger med att göra såhär. Föreställ dig istället att du använt CSS för att tala om hur olika delar av dokumentet skulle se ut, då gör du <em>ett</em> CSS-dokument som styr utseendet på de 700 hemliga dokumenten. Webbsidorna innehåller då ingen information om hur strukturen ska presenteras, men innehåller istället ett <code>link</code>-element som talar om vilket CSS-dokument som ska användas (samma CSS-dokument används alltså till alla hemliga dokument):</p>
+
+<figure><pre><code class="html">&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Mall för hemliga dokument&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Mall för hemliga dokument&lt;/h1&gt;
+  &lt;p&gt;Lägg till hemlig information här.&lt;/p&gt;
+
+  &lt;h2&gt;Hemlig information&lt;/h2&gt;
+  &lt;p&gt;Här behövs det mer hemlig information.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+<p>I vårt CSS-dokument talar vi om att <code>h1</code>- och <code>h2</code>-element ska ha röd färg.</p>
+
+<figure><pre><code class="css">h1 {color:red;}
+h2 {color:red;}</code></pre></figure>
+
+<p>När du nästa gång vill ändra färg på rubrikerna så behöver du bara ändra på dessa två rader istället för en gång per rubrik, vilka är utspridda i 700 filer.
+
+<p>Denna princip, att inte representera samma information på flera olika ställen är ett centralt och viktigt koncept inom mjukvaruutveckling och kallas där för <dfn>Don't Repeat Yourself (DRY)</dfn>. Du bör alltid tänka på detta, d.v.s att aldrig har samma information representerad på flera olika ställen. Det blir bl.a. som vi sett mycket jobbigare att utföra ändringar när vi vill göra sådana. (Wikipedia har en <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">kort artikel om DRY-principen</a> om du vill läsa mer.)
+
+<h4>DRY-principen dissar interna stilmallar och inline-regler</h4>
+<p>Så vad har detta med externa och interna stilmallar att göra? Och vad hände med de s.k. inline-reglerna? Om DRY-principen tas i åtanke ser vi att interna stilmallar är duplicering av information då samma stilmall finns sparad i flera olika filer. Om varje dokument skulle ha en kopia av stilmallen skulle det inte vara mycket bättre än att använda det påhittade <code>color</code>-attributet när du ska göra färgändringen på alla rubriker.
+
+<p>Vi har tidigare sagt att en selektor används för att välja ut vilka element på webbsidan (eller noder i trädet annorlunda uttryckt) som ska påverkas av efterföljande regelblock. Inline-relger ger oss möjlighet att istället direkt skriva stilregler för ett element i aktuellt elements <code>style</code>-attribut. T.ex. kommer följande göra textstycket i fråga grönt:</p>
+
+<figure><pre><code>&lt;p style="color:green;"&gt;Ännu ett textstycke med svårläst text p.g.a. dåligt färgval&lt;/p&gt;</code></pre></figure>
+
+<p>Likheterna med det påhittade <code>color</code>-attributet är inte svåra att se. Det blir ju precis samma sak! Det spelar ingen roll att det är CSS vi använder, lagren är inte separerade på ett bra sätt här. Lösningen lider p.g.a. dessa likheter av (precis) samma problem som i det tidigare exemplet med en värld utan CSS.
+
+<h3>Slutsats och sammanfattning</h3>
+<p>Det blev ganska mycket text för något så enkelt som att associera två dokument med varandra, men slutasen är följande: använd externa stilmallar då det är möjligt. Punkt.
+
+<h2>Nya selektorer, för klasser och id:n</h2>
+<p>Du har redan sett några exempel på selektorer i introduktionskapitlet, bl.a. matchning efter elementnamn. Ibland är det inte nog med elementets namn och placering i trädet för att välja ut önskade element med selektorerna vi lärt oss hittills. Vi vill även i vissa fall att olika textstycken ska ha olika utseende, t.ex. kanske sammanfattningen till en artikel ska ha ett annat typsnitt än övriga texten. Lösningen till detta problem består av <code>class</code>- och <code>id</code>-attribut. Med dem kan vi märka ut vissa element som vi sedan kan matcha med en ny typ av selektor som vi introducerar snart. Attributen fungerar som alla andra attribut:</p>
+
+<figure><pre><code class="html">&lt;p class="warning"&gt;Detta är någon typ av varning, som kommer att färgas röd senare med hjälp av CSS.&lt;/p&gt;
+
+&lt;p&gt;Detta är dock bara ett helt vanligt textstycke.&lt;/p&gt;</code></pre></figure>
+
+<p>Att vi menar ett klassnamn och inte ett elementnamn i selektorn markerar vi genom att lägga till en punkt (<code>.</code>) framför namnet:</p>
+
+<figure><pre><code class="css">.warning {color:red;}</code></pre></figure>
+
+<p>Vi nämnde både klasser och något som kallades id. Vad är då id? Det är ungefär samma sak om klasser:</p>
+
+<figure><pre><code class="html">&lt;p id="author"&gt;Stefan Kool&lt;/p&gt;</code></pre></figure>
+
+<p>När du ska välja ut id:n istället för klasser med en selektor så skriver du nummertecken (<code>#</code>) framför namnet istället för punkt (<code>.</code>). Den enda skillnaden mellan klasser och id:n är att endast ett id är unikt i hela dokumentet. D.v.s. i hela dokumentet kan ett id endast förakomma <em>högst</em> en gång. Vad har vi för nytta av det då? Är id bara en dålig och begränsad klass? Begränsad, ja, dålig, nej. Det är att <em>den är begränsad som gör den till ett lämpligare val vid vissa tillfällen</em>. Att använda id:n istället för klasser bakar mer semantik i HTML–CSS-kopplingen, när vi ser:</p>
+
+<figure><pre><code class="css">#meny {color:green;}</code></pre></figure>
+
+<p>i CSS:en så vet vi att det är meny<em>n</em>. Tumregeln för att välja mellan huruvida du ska använda en klass eller id till ditt element är: om du vet att elementet endast ska förekomma maximalt en gång per dokument, använd ett id. Detta är för att CSS:en blir tydligare att läsa. När du ser selektorn <code>#search</code> i CSS:en så <em>vet</em> du att det är ”sökboxen” som varje sida har, medan om du ser <code>.search</code> kan det vara sökboxen, men det kan även vara något annat sökrelaterat, så du kanske måste kolla i några av HTML-dokumenten som använder aktuell stilmall för att se vad klassen används till.
+
+<h3>Att tänka på vid val av namn</h3>
+<p>Låt oss även ta detta tillfälle i akt och påminna dig om att det är viktigt att separera de två lagren. Det är viktigt att det inte finns information om presentation i struktur och betydelse-lagret. Om klass- och id-namnen innehåller information om hur elementen som bär dessa kommer se ut så läcker ju den informationen ut i fel lager. Följande exempel visar hur även detta kan reduceras till vårt första exempel i detta kapitel, där vi blandade de två lagren helt utan hyfs.
+
+<p>Låt säga att du vill att några av dina rubriker ska vara röda. Följande CSS-dokument kan tyckas vara lämpligt:</p>
+
+<figure><pre><code class="css">.red {color:red;}</code></pre></figure>
+
+<p>Ett utdrag ur något lämpligt dokument som visar användningen kan då se ut såhär:</p>
+
+<figure><pre><code class="html">&lt;h1&gt;En fantasilös rubrik&lt;/h1&gt;
+&lt;p&gt;Fantasilöst innehåll, som passar till den fantasilösa rubriken.&lt;/p&gt;
+
+&lt;h1 class="red"&gt;En annan rubrik&lt;/h1&gt;
+&lt;p&gt;Ja, mer text.&lt;/p&gt;
+
+&lt;h1&gt;Ännu en rubrik&lt;/h1&gt;
+&lt;p&gt;Tror inte det finns mer att säga nu.&lt;/p&gt;</code></pre></figure>
+
+<p>Det kommer lida av samma problem som vi tog upp tidigare, när vi kommer på att grönt är snyggare än rött så måste vi ändra alla <code>class="red"</code> till <code>class="green"</code>, eftersom att om vi bara bytte ut CSS:en mot:</p>
+
+<figure><pre><code class="css">.red {color:green;}</code></pre></figure>
+
+<p>skulle vi skriva <code>class="red"</code> för att få <em>grön</em> text i ett element!
+
+<p>Vi får alltså inte nämna något om presentationen i HTML:en, inte ens i klass- och id-namn. Därför måste vi ha ett bättre sätt att namnge klasser och id:n. HTML handlar om semantik, så för att klass- och id-namn ska passa in där så måste även <em>klass- och id-namnen vara semantiska</em>. Vad betyder detta då? Jo, precis som HTML-element talar om vad innehållet är ska klass- och id-namn tala om vad elementen dessa appliceras på har för mening snarare än utseende.
+
+<p>Så vi måste ”ta ett steg bakåt” och se på varför vi ville göra texten röd från första början. Låt säga att det var för att du ville markera extra viktiga rubriker i din långa text (huruvida det är lämpligt att göra genom att ändra deras färg lämnas osagt …). Då borde <code>important</code> vara ett ganska <em>beskrivande</em> namn; det talar nu om vad elementet är tänkt att användas till/innehålla snarare än hur det är tänkt att se ut. <code>important</code>-klassen kan tilldelas vilka egenskaper som helst utan att vi behöver gå runt i alla HTML-filer och byta ut massor av text (en av de största fördelarna med CSS skulle ju försvinna annars).
+
+<p><small>Vid närmare eftertanke kan vi egentligen inte beskriva utseendet i textform i HTML-dokumentet heller (t.ex. ”ska bli röd med hjälp av CSS”) då detta skulle behöva uppdateras då vi byter ut färgen i stilmallen senare. Detta kommer vi dock ignorera i resten av denna bok (och har redan gjort några gånger) då det kan behövas i vissa fall när vi går igenom olika delar av CSS.</small>
+
+<p>En annan trevlig sidoeffekt utav detta är att du måste tänka över <em>varför</em> du vill påverkar utseendet på en viss del av webbplatsen. Om du bara vilt delar ut olika kryptiska namn på klasser och id:n så kommer tillslut varken du eller dina besökare förstå vad din webbplats som nu är färggladare än en regnbåge försöker säga med sitt omotiverade färgsprakade. ”Varför är denna rubrik rosafärgad när ingen annan är det? Är det något speciellt med den?” är frågor som kan förvirra både dig och dina besökare, speciellt när svaret är något i stil med att du bara någongång kände för att ha lite rosa färg på din webbplats.
+
+<h4>Giltiga namn</h4>
+<p>En naturlig fråga är som uppstår när vi letar efter lämpliga namn är vilka tecken ett klass- eller id-namn får innehålla? Det finns en rad komplexa regler för vad du får och inte får använda för teckenkombinationer, vi har valt att förenkla dem till:
+
+<ul>
+<li>använd alltid gemener (”små bokstäver”, d.v.s. ”a” men inte ”A”),
+<li>skriv alla namn på engelska (så slipper du sakna åäö, snarare ett tips än en regel),
+<li>ett namn börjar alltid med ett tecken mellan a till z,
+<li>och alla tecken förutom första tecknet får bestå av:
+<ul>
+<li>tecken mellan a och z,
+<li>siffror (0 till 9) och
+<li>skiljetecken (-).
+</ul>
+</ul>
+
+<p>Här följer några exempel på korrekta namn:</p>
+
+<figure><pre><code class="no-highlight">internets
+agent007
+use-hypens-instead-of-space-for-spaces</code></pre></figure>
+
+<p>och här följer några som <em>inte</em> (repeterar: <em>inte</em>) är korrekta:</p>
+
+<figure><pre><code class="no-highlight">INTERNETS
+007agent
+-a-kewl-name</code></pre></figure>
+
+<p>då den första innehåller versaler (”stora bokstäver”), den i mitten börjar med en siffra, och den sista börjar med ett skiljetecken.
+
+<p><small>(Dessa regler är något förenklade, HTML5 tillåter alla namn, HTML 4.01 har <a href="http://www.w3.org/TR/html401/struct/global.html#h-7.5.2">begränsningar på vad <code>id</code> får innehålla</a> (det är HTML5 vi använder i denna bok som du säkert minns), medan CSS2 <a href="http://www.w3.org/TR/CSS21/syndata.html#characters">begränsar båda med en rad egna regler</a>. Så det finns namn som egentligen är tillåtna även att våra regler säger inte är det, men det finns nästan aldrig någon anledning till att använda dem.)</small></p>
+
+<h2>Ännu fler nya selektorer</h2>
+<p>Det börjar bli dags att introducera ännu några fler typer av selektorer.
+
+<h3>Universalselektorn</h3>
+<p>Denna selektor är inte ofta så intressant, men kan vara bra att känna till. Den matchar alla element i trädet:</p>
+
+<figure><pre><code>* {color: green;}</code></pre></figure>
+
+<h3>Begränsa klasser och id:n till en viss typ av element</h3>
+<p>Om du endast vill att t.ex. klassen <code>test1</code> (id:n fungerar på samma sätt) ska matchas när den är knyten till ett <code>p</code>-element så finns följande tillgängligt:</p>
+
+<figure><pre><code class="css">p.test1 {color: green;}
+h1.test2 {color: blue;}</code></pre></figure>
+
+<p>Om det appliceras på följande kommer endast det övre elementet matchas av någon selektor från ovan:</p>
+
+<figure><pre><code class="html">&lt;p class="test1"&gt;Jag matchas av den första selektorn.&lt;/p&gt;
+&lt;p class="test2"&gt;Jag matchas av inte av någon dock.&lt;/p&gt;</code></pre></figure>
+
+<h3>Selektorer för nästlade element (igen typ)</h3>
+<p>Du kan få nästlade element inom ett element med en viss klass (eller id) att bete sig på ett speciellt sätt, på ett liknande sätt som vi sett i introduktionskapitlet (lite repetition kommer förhoppningsvis inte skada). För detta använder vi syntaxten från förra stycket kombinerat med tidigare kunskaper:</p>
+
+<figure><pre><code>p.example {color: green;}
+p.example strong {color: blue;}</code></pre>
+
+<pre><code>&lt;p class="example"&gt;Här kommer texten! &lt;strong&gt;Denna blåa text är viktig!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;En helt vanligt textstycke, &lt;strong&gt;inget att se här, jag är inte ens blå&lt;/strong&gt;.&lt;/p&gt;</code></pre></figure>
+
+<p>På den andra raden talar vi om att detta ska gälla för alla <code>strong</code>-element nästlade i <code>p</code>-element med klassen <code>example</code>. Nu kommer alltså alla <code>strong</code>-elementen inom <code>p.example</code> att få blå text, men inget <code>strong</code>-element utanför <code>p.example</code> kommer att påverkas. Som du ser så hjälper detta oss att få renare HTML-kod eftersom vi slipper onödiga <code>id</code>- och <code>class</code>-attribut. Ju färre <code>class</code> och <code>id</code> i koden desto bättre!
+
+<h3>Knyt flera selektorer till samma regelblock</h3>
+<p>Det går att tilldela flera selektorer till samma block, följande CSS-kod:</p>
+
+<figure><pre><code>h2 {color: blue;}
+p#whatever {color: blue;}
+p.footnote {color: blue;}</code></pre></figure>
+
+<p>skulle kunna förkortas till och fortfarande betyda samma sak:</p>
+
+<figure><pre><code>h2, p#whatever, p.footnote {color: blue;}</code></pre></figure>
+
+<h3>Pseudoelement och pseudoklasser</h3>
+<p>CSS tillåter oss välja ut delar med större noggrannhet än hela noder ur trädet, med pseudoelement kan vi välja ut delar av noder, så som det första tecknet eller första raden i ev. text som befinner sig i den noden. Pseudoklasser är främst av intresse när vi ska stila länkar, så de utelämnas tills vi tar upp sådana, de gör hursomhelst att vi kan bl.a. kan stila besökta och obesökta länkar på olika sätt.
+
+<p>Med pseudoelementen <code>:first-line</code> och <code>:first-letter</code> kan vi välja ut första raden resp. första tecknet. Detta är inte något som är överdrivet vanligt, men det är bra att känna till namnen pseudoelement och pseudoklasser. Syntaxen för både pseudoelement och pseudoklasser är följande (men bara pseudoelement används i exemplet):</p>
+
+<figure><pre><code>p:first-line {color:red;}
+p:first-letter {color:yellow;}</code></pre></figure>
+
+<h3>Övriga (obskyra) selektorer, och referenslänkar</h3>
+<p>Det finns en del selektorsyntax som väldigt sällan används, delvis för att webbläsarstödet saknas för vissa. Vi kommer inte nämna alla här, men en av dem är barnselektorn. Om vi skulle ha följande selektor:</p>
+
+<figure><pre><code>body p {}</code></pre></figure>
+
+<p>Så skulle den matcha alla <code>p</code>-element som har <code>body</code>-elementet som förfader, så även de <code>p</code>-element som är nästlade i andra element skulle matchas. Om vi bara vill välja ut de <code>p</code>-element som är direkta barn till <code>body</code>-elementet finns följande selektorsyntax tillgänglig:</p>
+
+<figure><pre><code>body > p {}</code></pre></figure>
+
+<p>En annan ovanlig selektorsyntax är attributselektorer, med dessa kan vi matcha element efter vilka attribut som är tilldelade till dem. Om vi bara vill matcha <code>p</code>-element med <code>class</code>-attribut (oberoende av värde för det attributet) kan vi använda:</p>
+
+<figure><pre><code>p[class] {}</code></pre></figure>
+
+<p>Om vi vill begränsa oss ännu mera, och även anse värdet för attributet viktigt fungerar följande:</p>
+
+<figure><pre><code>p[class="bar"] {}</code></pre></figure>
+
+<p>Det finns som sagt en del sällan använda selektorkonstruktioner, men de nämner vi inte här utan nöjer oss med länkar till <a href="http://www.w3.org/TR/CSS2/selector.html#pattern-matching">CSS2-specifikationen</a> och <a href="http://www.w3.org/TR/css3-selectors/#selectors">relevant CSS3-specifikation</a>.  Tabellerna på de båda sidorna fungerar mycket bra som referenser, men tänk på att <a href="http://www.quirksmode.org/css/contents.html">många av dessa saknar webbläsarstöd</a>. Ofta klarar du dig långt med de vanligaste selektorerna och slipper på så sätt problem med att vissa webbläsare saknar stöd. (När allt annat misslyckas brukar det lösa sig med några fler klasser och id:n på några element.)
+
+<h2>Kaskad, eller ”vem bestämmer här egentligen”</h2>
+<p>En fråga som troligen uppstår efter att ha gått igenom så många olika typer av selektorer är vad som händer när mer än en regelmängd matchar ett specifikt element och alla dessa regelmängder innehåller t.ex. egenskapen <code>color</code> med olika värden. Vilken regelmängd bestämmer då vad texten får för färg i slutet? Föreställ dig följande:</p>
+
+<figure><pre><code class="css">h1 {color:blue;}
+.important {color:red;}</code></pre></figure>
+
+<p>Applicerad på följande HTML-bit:</p>
+
+<figure><pre><code>&lt;h1 class="important"&gt;Japp, en rubrik till, efterfrågan är stor på sådana&lt;/h1&gt;</code></pre></figure>
+
+<p>Det borde ju vid närmare eftertanke innebära någon kollision eftersom att fler än en regelmängd matchar <code>h1</code>-elementet i kodstycket. Vad bestämmer då om elementet blir blått (som <code>h1</code>-regelmängden säger) eller rött (som <code>.important</code>-regelmängden säger)? Det är här kastad – ja kaskad (eng: cascade) från ”Cascading style sheets” – kommer in. 
+
+<p>Kaskad löser egentligen ett mer generellt är ovan nämnda. Som du mins så har webbläsaren en inbyggd stilmall som säger att bl.a. rubriker ska ha större teckengrad är textstycken och att allt text ska vara svartfärgad (<a href="http://www.w3.org/TR/CSS2/sample.html">CSS2-specifikationen har ett exempel</a> på hur den stilmallen kan tänkas se ut, men använder en del egenskaper vi inte gått igenom ännu). Utöver det kan användaren av webbläsaren även ha en egen stilmall som appliceras på alla webbplatser (alternativt på utvalda), detta är (precis som det låter) inte så vanligt. Det kan användas t.ex. för att förstora texten på alla webbsidor om användaren har nedsatt syn eller om användaren i fråga är ett stort fan av limegrön kan all text färgas i denna oemotståndliga färg. Kaskaden talar hursomhelst om hur alla dessa kombineras ihop till ett slutresultat.
+
+<p>Innan vi kan gå in på hur detta går till måste vi nämna ännu en halvobskyr del av CSS, vi kan märka upp önskade egenskaper med <code>!important</code> för att ändra hur de hanteras i kaskaden (som vi kommer till snart), t.ex.:</p>
+
+<figure><pre><code>h1 {color:red !important;}</code></pre></figure>
+
+<p>I vanliga fall behöver du aldrig använda denna funktionalitet, men med detta förklarat kan vi äntligen beskriva hur kaskaden går till. Beroende på var egenskapen kommer från anses de olika viktiga, ju högre nummer ju viktigare:
+
+<ol>
+<li>Webbläsarstilmallen
+<li>Användarstilmallen
+<li>Din stilmall
+<li>Din stilmall, fast egenskapen är försedd med <code>!important</code>
+<li>Användarstilmallen, fast med <code>!important</code>
+</ol>
+
+<p>Så om webbläsaren säger att alla rubriker ska vara blåa, men du sedan säger i din stilmall att alla rubriker ska vara röda, ja, då vinner du och får bestämma. Vad händer då när två egenskaper från samma viktighetsnivå krockar? Kaskaden tar hand om även detta. Varje selektor tilldelas ett värde som kallas för specificitet, som kan sägas vara ett mått på hur specifik selektorn är. Dessa värden jämförs när det uppstår en krock, och den med högst specificitet får sista ordet.
+
+<p>Det något besvärliga här är att specificiteten inte är ett heltal, utan en sekvens utav fyra sådana. Så att jämföra två olika specificitetvärden är lite besvärligare än väntat, men det bör inte uppstå några större problem.
+
+<p>Vi har valt notationen <code>(a, b, c, d)</code>, där <code>a</code>, <code>b</code>, <code>c</code> och <code>d</code> är heltal. Följande metod används för att beräkna specificiteten för en selektor:
+
+<ol>
+<li>Om ingen selektor finns, d.v.s. egenskapen som (möjligen) krockat kommer från ett <code>style</code>-attribut, blir <code>a</code> lika med 1, annars 0.
+<li><code>b</code> är antalet id-selektorer (t.ex. <code>#foo</code>)
+<li><code>c</code> är summan av antalet klassselektorer (t.ex. <code>.foo</code>), attributsselektorer (t.ex. <code>p[class="foo"]</code>) och pseudoklasser (vi har inte nämnt några ännu)
+<li><code>d</code> är summan av antalet elementselektorer (t.ex. <code>p</code>) och pseudoelement (t.ex. <code>p:first-letter</code>)
+</ol>
+
+<p>Här följer några exempel.
+
+<table>
+<caption>Några exempel på selektorer och deras specificitet</caption>
+
+<tr>
+<th>Selektor
+<th>Specificitet
+
+<tr>
+<td><code>p</code>
+<td><code>(0, 0, 0, 1)</code>
+
+<tr>
+<td><code>.baz</code>
+<td><code>(0, 0, 1, 0)</code>
+
+<tr>
+<td><code>body.something</code>
+<td><code>(0, 0, 1, 1)</code>
+
+<tr>
+<td><code>body#the-best-id-ever</code>
+<td><code>(0, 1, 0, 1)</code>
+
+<tr>
+<td><code>p:first-line</code>
+<td><code>(0, 0, 0, 2)</code>
+
+<tr>
+<td><code>html body#foo p.bar</code>
+<td><code>(0, 1, 1, 3)</code>
+</table>
+
+<p>Hur jämför vi två av dessa värden då? Jo, på samma sätt som vi skulle sortera ord i en alfabetiskt ordnad ordlista. Låt säga att vår ordlista är ganska fattig och bara innehåller orden ”giraff” och ”girig”, vilket av dem kommer först? Vi börjar så klart ifrån vänster och arbetar oss till höger tills vi ser något skillnad i tecken. Det första tecknet är samma, fortsätt till nästa. Även det andra är samma, fortsätt till nästa. Även det tredje är samma, fortsätt till nästa. Det fjärde tecknet skiljer sig dock åt i de två orden, då ”a” kommer före ”i” i alfabetet kommer ”giraff” före ”girig” i vår långa ordlista. Att jämföra två specificitetvärden fungerar på samma sätt, vi börjar från vänster och går till höger tills vi ser någon skillnad. När denna skillnad inträffar kontrollerar vi vilken av dessa två tal som har störst värde, och den mest störst värde får bestämma värdet för egenskapen som krockade. Följande är några värden ordnade efter stigande ordning: <code>(0, 0, 0, 0) &lt; (0, 0, 0, 1) &lt; (0, 0, 0, 2) &lt; (0, 0, 1, 0) &lt; (1, 2, 3, 4)</code>.
+
+<p>Då flera selektorer med <em>samma specifitet</em> matchar ett element så bestämmer blocket till selektorn som deklarerades senast, t.ex. kommer alla textstycken bli gröna om följande CSS används:</p>
+
+<figure><pre><code class="css">p {color:blue;}
+p {color:green;}</code></pre></figure>
+
+<p>Så, hur blir det med ursprungsproblemet? Kommer <code>h1</code>-elementet bli blått eller rött? Beräkna specificiteten för båda regelblocken (markera för svar: <span class="secret">röd</span>).
+
+<h3>Kollisioner hanteras på egenskap- snarare än blocknivå</h3>
+<p>I nästa kapitel kommer vi gå igenom sida efter sida med olika egenskaper du kan tilldela dina element för att förändra utseendet på texten i dem, men än så länge nöjer vi oss med att introducera följande nya egenskap: <code>font-size</code>. Till den kan du tilldela procentvärden för att säga hur mycket större texten ska bli än i elementets föräldraelement (det finns en del andra sätt att säga hur stor texten ska bli men de sparar vi till det ovan nämnda kapitlet). T.ex. skulle följande göra alla <code>h3</code>-element onödigt stora:</p>
+
+<figure><pre><code class="css">h3 {font-size:150%;}</code></pre></figure>
+
+<p>Vad händer då om vi skulle göra följande:</p>
+
+<figure><pre><code class="css">h3 {font-size:150%;}
+.foo {color:green;}</code></pre>
+
+<pre><code>&lt;h3 class="foo"&gt;Ännu en rubrik&lt;/h3&gt;</code></pre></figure>
+
+<p>Båda selektorerna matchar <code>h3</code>-elementet. Vi vet sedan tidigare att <code>.foo</code> har högre specifitet än <code>h3</code> (<code>(0, 0, 1, 0)</code> resp. <code>(0, 0, 0, 1)</code>). Kommer då <code>.foo</code>-blocket att vinna över <code>h3</code>-blocket och rubriken kommer bli grön men oförändrad teckengrad? Det är inte så det fungerar! När flera selektorer till block matchar ett element så kommer egenskaparna från alla de blocken läggas ihop. Om en egenskap fanns i flera block kommer det blocket med högst specifitet att bestämma det slutgiltiga värdet. Så <code>h3</code>-elementet i exemplet kommer alltså bli både grönt och få större teckengrad.
+
+<h2>Arv</h2>
+<p>Ett annat viktigt koncept när det kommer till CSS är arv. Kortfattat fungerar det så att barn till en nod ärver vissa av förälderns egenskaper, vilka dessa är går inte lika enkelt att sammanfatta. Vilka egenskaper som ärvs har valts ut så att det blir så naturligt för dig som utvecklare som möjligt. T.ex. så ärvs <code>color</code>-egenskapen, eftersom att om du säger att alla textstycken ska ha blå text vill du troligen även att alla t.ex. <code>strong</code>- och <code>em</code>-element i elementet även ska ha den färgen.
+
+<p>Oftast fungerar det bra att bara anta att det som är mest naturligt av huruvida arv kommer ske eller ej kommer att inträffa, men om det inte går som du tänkt dig så får du gå till CSS2-specifikationen som innehåller <a href="http://www.w3.org/TR/CSS2/propidx.html">ännu en hjälpsam tabell</a>. Kolumnen ”Inherited?” talar om ifall egenskapen ärvs eller ej.
+
+<h2>Praktiska problem och tillbaka till webbsidan från föregående kapitel</h2>
+<p>Innan vi kan börja skriva en stilmall till webbsidan från föregående kapitel måste vi ta hand ett problem som följer av att vi använder HTML5 och att olika webbläsare tenderar att fungera på olika sätt. Alla webbläsare är inte redo för HTML5 så vissa extrasteg, i form av hack, måste göras. Det är inget ovanligt att vissa mindre hack måste utföras för att få specifika webbläsare att göra som du som utvecklare vill. Det är främst (som vanligt) Internet Explorer som bråkar. Vi kommer att använda <a href="http://code.google.com/p/html5shiv">html5shiv</a> och <a href="http://code.google.com/p/html5resetcss/downloads/list"> html5resetcss</a>.
+
+<p>html5shiv är enkelt att lägga in, det är bara att kopiera in följande inom <code>head</code>-taggarna:</p>
+
+<figure><pre><code class="html">&lt;!--[if lt IE 9]&gt;
+&lt;script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+&lt;![endif]--&gt;</code></pre></figure>
+
+<p>Den första och sista raden är specialsyntax som gör att bara IE kommer att köra skriptet. Detta är ett element som associerar vårt dokument med saker från beteendelagret, så vi kommer inte gå in djupare på vad ovanstående gör.
+
+<p>html5resetcss fyller två uppgifter. Då olika webbläsare kan ha olika inbyggda stilmallar (det vi pratade om när vi behandlade kaskad, och för övrigt inte bara <em>kan</em>, de <em>har</em> det) kan olika webbläsare visa din webbplats på olika sätt. En stilmall som ger lämpliga standardvärden till alla element kallas för ”reset css”, eller återställningsstilmall. Det finns många färdigbyggda återställningsstilmallar, fast denna vi har valt åtgärdar även problem som uppstår när vi har med element från HTML5 som inte finns i HTML 4.01. Det vi ska göra är att koppla <em>två</em> stilmallar till varje webbsidan i fråga som vi ska stila, både din egen stilmall och återställningsstilmallen, webbläsare kommer sedan applicera båda dessa. Det krävs inga specialsteg för att ha fler än en stilmall på en webbsida, det är bara att lägga till ett nytt <code>link</code>-element. CSS-filen kan du ladda ner från <a href="http://code.google.com/p/html5resetcss/downloads/list">html5resetcss-webbplatsen</a> och spara den i samma mapp som dina andra filer.
+
+<p>Vi tar nu allt på en gång så att vi får ett skal att utgå från:</p>
+
+<figure><pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;title&gt;Grundmall för HTML5-webbsidor&lt;/title&gt;
+  &lt;!--[if lt IE 9]&gt;
+  &lt;script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+  &lt;![endif]--&gt;
+
+  &lt;link rel="stylesheet" href="html5reset.css"&gt;
+  &lt;link rel="stylesheet" href="din-stilmall.css"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;h1&gt;Rubrik&lt;/h1&gt;
+  &lt;p&gt;Text som vanligt.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+<h3>Felsökningsverktyg</h3>
+<p>På en verklig webbplats finns kan det finnas hundratals regelmängder, hur ska du kunna hålla koll på alla dessa? Svaret är att det finns verktyg som talar om vilka selektorer som matchar ett utvalt element och vilka egenskaper som har värden ändrade av dessa. Såvitt vi vet har dessa verktyg inget samlingsnamn, men vi har valt att kalla dem felsökningsverktyg. Vilka felsökningsverktyg som finns tillgängliga för dig beror på vilken webbläsare du använder, här följer en lista för några populära webbläsare:
+
+<ul>
+<li>Firefox har <a href="http://getfirebug.com">Firebug</a>
+<li>Opera har <a href="http://opera.com/dragonfly">Dragonfly</a>
+<li>Internet Explorer har <a href="http://en.wikipedia.org/wiki/Internet_Explorer_Developer_Toolbar">Internet Explorer Developer Toolbar</a>
+<li>Chrome har <a href="http://chromium.org/devtools">Google Chrome Developer Tools</a>
+<li>Safari har det inbyggda verktyget <a href="http://trac.webkit.org/wiki/WebInspector">Web Inspector</a>
+</ul>
+
+<p>Se respektive manual för hur de ska användas. Följande bild visar ett element från <a href="http://dn.se">dn.se</a>, där Firebug talar om var olika egenskaper för ett element kommer från:</p>
+
+<figure><img src="/img/firebug.png" alt="Firebug visar en lista över egenskaper som elementet tilldelats av olika regelmängder, och stryker över egenskaper som har skrivits över av andra regelmängder">
+<figcaption>Skärmdump från Firebug där ett element inspekteras</figcaption>
+</figure>
+
+<h3>Övning</h3>
+<p>Nu kan du tillräckligt med CSS för att göra en del presentationsändringar för webbsidan från föregående kapitel. Börja med att skapa ett externt CSS-dokument och associera webbsidan med det, men glöm inte ovan nämnda fixar också. Du kan sedan testa att skriva några regelmängder med intressanta selektorer och se att de verkligen matchar de element du tänkte dig. Vi har ännu inte gått igenom så många egenskaper att ändra, så i nuläget får du nästan nöja dig med <code>color</code>. I nästa kapitel kommer vi som tidigare nämnt gå igenom en lång lista över egenskaper som påverkar textens uteende i valt element. Glöm inte att testa omkring med felsökningsverktyget du just installerade (t.ex. Firebug om du använder Firefox) och se så att kaskaden och arven fungerar som du tror.
+
+<h2>Sammanfattning</h2>
+<ul>
+<li>Som vanligt, separera presentationslagret och struktur och betydelse-lagret
+<li>Föredra externa stilmallar över andra lösningar
+<li>Se till att ha bra och beskrivande klass- och id-namn
+<li>Det finns många selektorer, men håll dig till de vanligaste eftersom att de med säkerhet fungerar i alla webbläsare
+<li>Arv och kaskad är centrala koncept för att förstå hur slutresultatet kommer se ut
+</ul>

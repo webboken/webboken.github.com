@@ -1,0 +1,55 @@
+---
+layout: default
+title: Allt om ECMAScript/JavaScript
+subtitle: Something witty about butter?
+desc: Introduktion till beteendelagret.
+category: utblickar
+---
+<p>I detta kapitel ska vi inleda bekantskap med det tredje lagret, beteendelagret. Det associerade språket för detta lager är, till skillnad mot de andra två, ett fulltaligt programmeringsspråk vilket gör att du kort och gott betyder att du kan få det att göra typ vad som helst.
+
+<p>Att det är ett programmeringsspråk ställer dock mycket högre krav på dig som utvecklare om du vill kunna hantera det. Så om du inte kan något annat (liknande) programmeringsspråk kommer du troligen ha svårt att följa med i detta kapitel.
+
+<h2>Namnet</h2>
+<p>Först och främst, det kan tyckas att det skulle vara en trivial uppgift att tala om namnet för beteendelagrets språk. Egentligen borde alla kalla det <dfn>ECMAScript</dfn>, men på grund av att det låter som en hudsjukdom och av historiska skäl är det mest använda namnet för språket <dfn>JavaScript</dfn>. Då alla andra kallar det för JavaScript kommer även vi att göra det, och ibland förkorta det till <dfn>JS</dfn>.
+
+<h2>Möjligheterna, eller “vad vi kan göra”</h2>
+<p>Så vad kan vi göra med JS då? Tänk dig det tredje lagret som ett lager över de andra två. När en viss händelse inträffar i det första lagret så kan du med JS svara på dessa händelser och utföra förändringar i de två andra lagren.
+
+<p>Du lyssnar på nya händelser genom att installera s.k. händelselyssnare. Dessa händelselyssnare pekar på en kodbit som ska köras när lyssnare hör en händelse. Följande exempel visar hur en lyssnare instrueras att lyssna efter klick på ett textstycke med id:t <code>foo</code>, och när detta händer kommer att meddelande visas för användaren som säger ”Du klickade på textstycket foo!”:</p>
+
+<figure><pre><code>document.getElementById("foo").addEventListener("click", function() { alert("Du klickade textstycket foo!"); }, false)</code></pre></figure>
+
+<p>Istället för att visa ett medelande kan vi göra förändringar i DOM-trädet, t.ex. ändra attribut på element; ändra plats på element i trädet; eller bara ta bort gamla element, eller lägga till nya; även ändra klass på ett visst element så att det presentations förändras; eller ändra dess stil direkt utan att ändra klass på det. Exempel på andra händelser är: en viss tidpunkt inträffar, en tangent trycks ner eller släpps, innehållet i ett formulärsfält ändras eller att muspekaren förs över ett visst element. Ja, det mesta av värde går att lyssna efter, och reaktionen på det kan vara ungefär vad som helst eftersom att vi kan bygga om DOM-trädet helt fritt.
+
+<p>Följande är ett exempel med ett textstycke som skapar ett nytt textstycke varje gång det klickas på:</p>
+
+<figure><pre><code>&lt;!doctype html&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Ett JS-test&lt;/title&gt;
+&lt;script&gt;
+window.addEventListener("load", function() {
+   document.getElementById("foo").addEventListener("click", function() {
+      var e = document.createElement("p");
+      e.appendChild(document.createTextNode("Detta är lite ny text"));
+      document.body.appendChild(e);
+   }, false);
+}, false);
+&lt;/script&gt;
+
+&lt;p id="foo"&gt;Klicka på mig!</code></pre></figure>
+
+<p>Så varje gång <code>foo</code>-textstycket klickas på förändras DOM-trädet genom att ett nytt element läggs till.
+
+<h2>Bibliotek och webbläsarinkompatibilitet</h2>
+<p>Beteendelagret är det lager som lider mest av att olika webbläsare fungerar på olika sätt. Vissa funktioner fungerar inte som de ska, ibland så saknas de, ibland har de ett annat namn. Detta har börjat att lösa sig men det är fortfarande ett problem. De funktioner som finns inbyggda är inte så användarvänliga för dig som utvecklare heller, det kräver ganska mycket kod att göra relativt enkla justeringar i DOM-trädet. Detta problem har uppmärksammats åter och åter igen. Lösningen är s.k. JavaScript-bibliotek som erbjuder funktioner som är mycket trevligare för dig som utvecklare att använda, bland de mest använda hör <a href="http://jquery.com">jQuery</a>, <a href="http://dojotoolkit.org">Dojo</a> och <a href="http://prototypejs.org">Prototype</a>.
+
+<h2>Vidare läsning</h2>
+<p>Så hur bör du gå tillväga om du vill lära dig detta språk och förrika dina webbplatser med det? JavaScript är ett språk med hemsk historia och på Internets finns det fullt av guider och introduktioner som lär dig utdaterade och direkt dåliga lösningsmetoder. Många delar av språket tar idag utvecklare helt avstånd ifrån och använder inte p.g.a. att de har insett att vissa språkkonstruktioner helt enkelt är trasiga och inte användbara; men om du enbart använder de delar av språket som är okej så är det stundsvis till och med ett trevligt språk.
+
+<p>JavaScript skiljer sig en hel del från andra idag populära språk. För dig betrogen med vanliga programmeringsspråk: så är JavaScript ungefär som Scheme fast med C-syntax. På grund av detta finns det en den funktionell programmering-inspirerade delar i språket som kan kännas ovana att använda om du enbart är van vid imperativa/objektorienterade språk. (För dig som inte kan något programmeringsspråk tidigare säger dessa ord dig inte mycket.)
+
+<p>Det du måste lära dig är två saker: allmän programmeringskunskap och språket JavaScript. Den allmänna programmeringskunskapen är kunskap som går att applicera på alla språk, eller iallafall språk av varandra liknande typ. Det finns vitt skilda åsikter om hur du bör gå tillväga för att lära dig programmera. Vi rekommenderar boken <a href="http://mitpress.mit.edu/sicp/"><cite>Structure and Interpretation of Computer Programs</cite></a>, som finns gratis tillgänglig på webbplatsen som är länkad till. Språket som används i denna bok är lämpligt nog Scheme!
+
+<p>För dig som vill börja med JavaScript direkt rekommenderar vi <a href="http://oreilly.com/catalog/9780596101992"><cite>JavaScript: The Definitive Guide</cite></a> av David Flanagan, eller <a href="http://oreilly.com/catalog/9780596517748"><cite>JavaScript: The Good Parts</cite></a> av Douglas Crockford. Crockford har även <a href="http://yuiblog.com/crockford/">en mycket bra videoserie om JavaScript</a> som kan vara värd att se.
+
+<p>När du sedan kan JavaScript kan du hitta ett bibliotek du trivs med och börja använda din nya kunskap på webbplatserna du bygger. Om du inte har tidigare programmeringskunskaper ligger detta långt borta i tiden dock.

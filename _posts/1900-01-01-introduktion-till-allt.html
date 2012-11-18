@@ -1,0 +1,306 @@
+---
+layout: default
+title: Introduktion till allt
+subtitle: Eller, ”<i>Hur jag slutade ängslas och lärde mig älska HTML</i>”
+desc: Grundläggande definitioner. Olika typer av webbläsare. De tre lagren. Kort om hur <code>index.html</code> kan se ut. Fungerande exempel med en rubrik och lite text. Mycket kort introduktion till serversidan och serverskript.
+category: grunderna
+---
+<p id="summary">Sammanfattning: I detta kapitel beskriver vi de avgränsningar vi har valt att göra (boken skulle bli sjukligt lång utan dessa) och försöker ge dig en överblicksbild över vad webbutveckling egentligen handlar om.
+
+<p>Okej (bra och seriöst ord att börja en bok med), det är nu vi ska påbörja försöket med att ge dig en överblicksbild över vad webbuteveckling är? Vad är grunderna till allt som har med <em>webbutveckling</em> att göra? Vad måste du som <em>webbutvecklare</em> veta för att lyckas bygga en <em>webbplats</em>? Dessa, vill vi påstå, är svåra frågor, mycket svåra. Först är det kanske lämpligt att definiera några av dessa ord.
+
+<p><b>Webbplats, webbsida och hemsida.</b> Vi kommer i denna bok med <i>webbplats</i> mena hela ”platsen” (hela samlingen av dokument) medan <i>webbsida</i> används för ett specifikt dokument; d.v.s. en webbplats kan bestå av en eller flera (sammanlänkade) webbsidor. Ibland kommer vi även att använda ordet <i>dokument</i> istället för webbsida. <a href="http://ne.se">Nationalencyklopedin</a> är ett exempel på en webbplats, och <a href="http://ne.se/sk%C3%B6ldpaddor">artikeln om sköldpaddor</a> är en webbsida från den webbplatsen. Ordet <i>hemsida</i> tycker vi inte om och avstår därför från att använda det, då det är otydligt vad det egentligen refererar till som <a href="http://www.nada.kth.se/dataterm/rek.html#a90">Svenska datatermgruppen</a> anmärker på.
+
+<p><b>Webbutveckling och webbdesign.</b> Dessa två ord används för det som har med byggnationen av en webbplats att göra helt enkelt. De kan tas som synonymer, men vi anser att det finns en viss nyasskillnad mellan dem. Denna bok fokuserar nästan enbart på den tekniska delen av byggnationen av webbplatser. Vi använder därför oftast ordet webb<em>utveckling</em>, då webb<em>design</em> innehåller ordet design kan det tyckas att det implicerar någon form av layoutande, formtänk, färgval, hur bra dessa färger passar ihop och så vidare. Hur de olika delarna (t.ex. bilder, text eller rubriker) av din webbplats ska placeras för att inte orsaka fysiska och psykiska men hos dina besökare är inget som vi lär ut här, detta har mer med allmänt formgivningstänk och tidigare nämnda företeelser att göra. Då vi – författarna av denna bok – anser oss ganska vilsna och borttappade inom detta område har vi inga direkta referenser till lämplig litteratur om design och layoutande för vidare läsning tyvärr. Det vi <em>kan</em> lära ut och hoppas att du lär dig här är <em>hur</em> du placerar de olika delarna av din webbplats på det ställe du vill ha det, eller <em>hur</em> du ändrar färg på en rubrik – inte <em>varför</em> du gör detta (där <em>varför</em> skulle t.ex. kunna vara frågor som besvarades med ”eftersom att det blir snyggast så”, eller ”det passar bra ihop med det andra”).
+
+<p>Tänk dock på att dessa inte är allmänt accepterade normer utan bara <em>vår tolkning</em> av orden. Webbutveckling ser vi som allt som har med byggnationen av en webbplats att göra och webbdesign som delen av webbutveckling som specifikt handlar om design och formgivning; medan andra anser att orden är synonymer som sagt.
+
+<p><b>Webbutvecklare och webbdesigner.</b> Dessa två ord refererar bara till någon som håller på med webbutveckling respektive webbdesign, inte helt oväntat kanske. Ord som ”web master” och relaterade är allt för vaga och kan refera till antingen någon som skriver innehållet för en webbplats eller en webbutvecklare, så vi kommer avstå från användningen av dessa.
+
+<h2>Webbläsaren</h2>
+<p>Programmet som presenterar webbplatser för dig kallas för <dfn>webbläsare</dfn>. Det är troligen en sådan du använder nu. Men vad vet vi? Du kan ju t.ex. ha skrivit ut denna sida och läser den från ett papper. Detta belyser samtidigt en mycket viktig del av webbutveckling: Du kan inte göra många antagande om hur din webbplats kommer att presenteras för besökaren. Inte enbart p.g.a. att vissa besökare skriver ut webbsidan på papper – den största anledningen är att det finns så måna olika typer av webbläsare.
+
+<p>Oftast betyder att ”presentera” en webbplats att webbläsaren visa den på en skärm kopplad till en dator. När ordet webbläsare används är det oftast den vanligaste typen av webbläsare det refererar till, de så kallade <strong>grafiska webbläsarna</strong>. Dessa är de webbläsare som är gjorda för en dator utrustad med skärm, tangentbord och mus. D.v.s. de flesta datorer som finns i nästan varje hem. Du känner troligen till många av dem, men till de populäraste hör <a href="http://www.microsoft.com/windows/internet-explorer">Internet Explorer</a>, <a href="http://getfirefox.com">Firefox</a> och <a href="http://apple.com/safari">Safari</a>.
+
+<p>I och med att grafiska webbläsare är de överlägset vanligaste är det troligen en sådan du använder nu. Ett exempel är <a href="http://www.google.com/chrome">Chrome</a>, som här visar webbplatsen <a href="http://kernel.org"><code>kernel.org</code></a>:</p>
+
+<figure id="fig-kernel-org-chrome">
+	<img src="/img/chrome-kernel-org.png" alt="En skärmdump på Chrome som i ett fönster presenterar kernel.org, från webbplatsen visas bilder, tabeller med text (allt i färg).">
+	<figcaption>Så här ser <code>kernel.org</code> ut i webbläsaren Chrome</figcaption>
+</figure>
+
+<p>En annan kategori webbläsare (som har vissa likheter med de grafiska) är de <strong>textbaserade</strong>, till skillnad mot de grafiska visar de inte bilder och stora delar av webbplatsens layout tas inte med (vilket kanske inte är så tydligt här då webbplatsen inte har någon vidare avancerad layout):</p>
+
+<figure id="fig-kernel-org-links">
+	<img src="/img/links-kernel-org.png" alt="Samma webbplats som förut nu visad i Links, denna gång inga bilder eller färger (tabellerna med text är dock kvar och har liknande utseende).">
+	<figcaption>Så här ser <code>kernel.org</code> ut i den textbaserade webbläsaren Links</figcaption>
+</figure>
+
+<p>Skillnaden här är framförallt att ingen mus används för att navigera på webbplatsen, all navigering sker med tangentbordet. Så det är viktigt att webbplatser fungerar för de som enbart använder tangentbord navigation.
+
+<p>Tänk dig nu en person med tillräckligt nedsatt syn för att inte ha nytta av någon skärm. Hur ska denna gå till väga för att kunna ta del av en webbplats innehåll? Oftast är det någon form av skärmläsare som läser upp texten som visas på skärmen. Exempelvis skulle en skärmläsare kanske säga följande om användaren besökte <code>kernel.org</code> (samma webbplats som innan alltså), för detta exempel har <a href="http://www.firevox.clcworld.net/">Fire Vox</a> används:</p>
+
+<figure id="fig-kernel-org-fangs">
+	<audio controls preload>
+		<source src="/media/firevox-audio.mp3" type="audio/mpeg">
+		<source src="/media/firevox-audio.ogg" type="audio/ogg">
+		<p>Din webbläsare stödjer inte <code>audio</code>-elementet som infördes i HTML5. Du kan ladda ner <a href="/media/firevox-audio.mp3">ljudfilen</a> istället.</p>
+	</audio>
+	<figcaption>Så här läses <code>kernel.org</code> upp i skärmläsaren Fire Vox (klippt efter ca 7 minuter)</figcaption>
+</figure>
+
+<p>Så när vi bygger webbplatser kan vi inte förutsätta att besökaren har en skärm inkopplad i sin dator! Inte heller denna typ av besökare har mycket nytta av en mus, utan måste istället helt förlita sig på att navigera med tangentbordet.
+
+<p>Även om det finns med någon typ av skärm (vilket oftast är fallet) finns det många olika storlekar och former på dessa. Ett extremt fall är mobila enheter, som t.ex. mobiltelefoner. Mobiltelefoners skärm skiljer sig en del från modell till modell, men framförallt så skiljer de sig från en ”datorskärm”, speciellt i storleksavseende som nästa bild demonstrerar.
+
+<figure id="fig-kernel-org-mobile">
+	<img src="/img/mobile-kernel-org.png" alt="Kernel.org i en mobiltelefon, inte mycket av webbplatsen kan visas på den lilla skäryta som finns tillgänlig (i övrigt ser webbplatsen ut som för grafiska webbläsare, fast med ihoptryckt)">
+	<figcaption>Så här kan <code>kernel.org</code> se ut i en mobil</figcaption>
+</figure>
+
+<p>Så även om det finns med en skärm inblandad kan vi inte förlita oss på att den har en speciell storlek eller utformning! Även den vanligaste typen av webbläsare, de grafiska, har ibland mycket begränsat skärmutrymme eftersom att de inte nödvändigtvis alltid använder hela skärmen (fler program kan ju vara igång och ta upp skärmplats).
+
+<p>Ett annat exempel visar denna <a href="http://www.dingoaccess.com/accessibility/refreshable-braille-and-the-web/">video på när en blind person använder en ”refreshable Braille device”</a>.
+
+<p>Som sista exempel har vi sökrobotar, de program som besöker webbplatser och lägger till dem i sin enorma samling så att de sedan går att hitta genom att t.ex. söka på Google. Dessa program skulle kunna ses som ännu en typ av webbläsare, då de ser webbplatser på ungefär samma sätt som de tidigare nämnda textbaserade webbläsarna. När du söker efter något på t.ex. Google söker du ju inte efter webbplatser med avseende på vilket utseende de har, utan det är endast webbplatsens innehåll som spelar roll då. För att få komma med i Google sökresultat, och framförallt att komma högt upp i dem, är det viktigt att även dessa botar kan tolka din webbplats.
+
+<p>Så, var vill vi komma med allt detta? Det vi vill säga är att detta är en av de största svårigheterna med webbutveckling, d.v.s. att få sin webbplats att fungera i så många olika typer av webbläsare. Det finns så mycket som skiljer sig åt: hur mycket skärmutrymme det finns, om bilder kommer visas, om användaren har tillgång till mus och så vidare. För att få så många besökare som möjligt till din webbplats måste den fungera för alla dessa fall.
+
+<h3>Kort angående din egen webbläsare</h3>
+<p>Då en webbplats kan se ut på så många olika sätt i olika webbläsare är det svårt att skriva en bok som ska lära ut hur du kan kontrollera detta utseende på en webbplats utan att göra vissa antagande om vilken typ av webbläsare du som läser denna bok använder. När vi talar om en webbplats utseende eller resultat av exempel är det i alla fall, om inget annat nämns, hur dessa ser ut i en grafisk webbläsare som körs på en dator med normalstor skärm. Det kan kännas lustigt nu, men om man utvecklar webbplatsen för grafiska webbläsare och har i åtanke en del regler och riktlinjer som bör följas för att webbplatsen ska fungera på så många typer av webbläsare som möjligt beskriver detta ganska bra vår egen utvecklingsteknik då vi bygger webbplatser. Sedan så testas webbplatsen lite då och då i andra, mindre vanliga, typer av webbläsare för att se så att de fungerar som tänkt även där.
+
+<h2>Webbservern, eller ”var kommer webbplatsen ifrån då?”</h2>
+<p>Fram tills nu har vi enbart fokuserat på webbläsare och hur ut- och indatametoder skiljer sig mellan olika typer av sådana. En förutsättning för att en webbläsare ska överhuvudtaget kunna visa aktuell webbsida så måste den ju hämta den från någonstans? ”Från Internet” säger du. Ja, men vad menar du med det mer precist?
+
+<p>För att besvara detta krävs en ny definition, denna gång av ordet <dfn>webbserver</dfn>. Håll i tankarna att detta är en <em>mycket</em> förenklad bild, men: varje webbserver har en adress, t.ex. har Googles webbserver adressen <code>google.com</code> (egentligen har det väldig många servrar men utifrån webbläsarens synvinkel ser det bara ut som en). När du besöker <code>google.com</code> genom att slå in det i adressfältet i din webbläsare (eller klickar på en länk) så skickar din webbläsare en <em>förfrågan</em> till webbservern som bor på adressen <code>google.com</code> om att få hämta förstasidan på den webbplatsen som befinner sig på den servern. Webbsidan som utgör förstasidan på webbplatsen är inget lustigare än en textfil, ofta heter förstasidan något i stil med <code>index.html</code>. (Varför filändelsen <code>.html</code> är naturlig kommer du inse senare.)
+
+<p>Om vi nu lugnar ner oss lite. Vi har tidigare sagt att en webbplats består utav en eller flera webbsidor. Nu vet vi alltså även att en webbsida består utav en textfil. Det är denna textfil som beskriver vad webbsidan innehåller. Ibland är det flera filer om vi räknar med bilder och annan media, men det är alltid bara <em>en</em> textfil som används för att beskriva webbsidan innehåll. Så vad menar vi med ordet <i>fil</i>? Du har troligen en ganska bra bild utav detta redan, men t.ex. ett Word-dokument är en fil, en bild är en fil, en textfil är en fil och så vidare. Så det är bara ett samlingsnamn för alla dessa. Alla webbsidor består som sagt utav en textfil (ibland säger vi även textdokument, eller bara dokument) som beskriver innehållet på sidan. Detta är en ganska vag beskrivning och vi kommer gå djupare in på hur denna textfil ser ut invändigt i nästa kapitel.
+
+<p>Med tanke på hur många olika typer av webbläsare och webbserverar (ja, det finns väldigt många olika typer av de också) det finns så måste det finnas någon slags överenskommelse för hur dessa två parter ska prata. På samma sätt som två människor kan kommunicera genom svenska med varandra pratar webbläsare och webbservern <dfn>Hypertext Transfer Protocol (HTTP)</dfn> med varandra (fast då kallas det <i>protokoll</i> istället för språk). Det HTTP låter oss göra är att kopiera filer från en dator till en annan, vilket är bra här eftersom att om vi kan kopiera över textfilen från servern till dig så kan din webbläsare sedan presentera webbsidan den representerar för dig. Allt detta vilket illusteras i följande bild (som inte är allt för hjälpsam, men undertecknad kände för att rita lite):
+
+<figure id="fig-http-vs-swedish">
+	<img src="/img/http-vs-swedish.png" alt="">
+	<figcaption>Kommunikationslänkar och dess protokoll, det undre länken representerar Internet</figcaption>
+</figure>
+
+<p>Okej, låt oss sammanfatta det hela. Webbläsaren hämtar <code>index.html</code> från webbservern <code>google.com</code> över HTTP och visar den för dig, svårare än så är det inte (typ). (När du själv bygger webbplatser kommer din egen dator fungera som webbserver <em>och</em> dator att köra webbläsaren på.)
+
+<p>En sista sak innan vi lämnar webbserverdelen ett tag nu. I adressen kan vi även skicka med en förfrågan på en specifik fil vi vill ha, t.ex. om vi vet att filen <code>bild.jpg</code> eller <code>en-annan-webbsida.html</code> finns på webbservern (t.ex. om det finns länkar dit från förstasidan) kan vi skicka en förfrågan efter dem genom att lägga till deras namn i adressen. T.ex. för att göra en förfrågan efter <code>bild.jpg</code> blir adressen nu <code>google.com/bild.jpg</code>, eller om <code>bild.jpg</code> finns i en mapp vid namn <code>bilder</code> blir adressen <code>google.com/bilder/bild.jpg</code>. (Exakt hur översättningen från adress till fil på webbserverns lagringsutrymme behöver inte vara så rättfram som den verkar här, men det märker inte vi som bara begär filer genom adressen.)
+
+<h2>De tre lagren</h2>
+<p>Ett av de absolut viktigaste koncepten inom webbutveckling är de <strong>tre lagren</strong> alla webbsidor är uppdelade i. (Kanske till och med <em>det</em> viktigaste.) De tre lagren består utav:
+
+<ul>
+<li><dfn>Struktur och betydelse</dfn> (ibland även kallat <i>innehåll</i>), som talar om <em>vad webbsidan består av</em>, t.ex. vilken text som finns på den och vilken textbit som är en rubrik, vilken textbit som är betonad och så vidare. Alltså vad de olika delarna av webbplatsen <em>är och betyder</em>, eller med snitsigare ord: detta lager beskrivet innehållets <em>semantik</em> (dess mening alltså).
+<li><dfn>Presentation</dfn>, som talar om hur struktur och betydelse-lagret ska presenteras för användaren. T.ex. kan vi här tala om alla rubriker ska ha grön färg och ha stor teckengrad.
+<li><dfn>Beteende</dfn>, som talar om hur webbsidan ska svara på vissa saker besökaren gör, t.ex. vad som ska hända när ett visst textstycke klickas på. Ett exempel på vad som skulle kunna hända när textstycket klickas på är att texten byter färg eller tas bort från sidan. Det går att göra fler saker, så som att en viss händelse inträffar efter en viss tid efter webbsidan först visades för besökaren eller att en bild byts ut mot en annan med tio sekunders mellanrum.
+</ul>
+
+<p>De två första lagren, ”struktur och betydelse” och ”presentation”, är enligt oss mer fundamentala än det tredje, ”beteende”. Vi kommer därför ibland referera till dessa två lager som ”de fundamentala lagren”. Struktur och betydelse-lagret behövs alltid, utan det finns det ju inget innehåll att presentera. För de två övriga lagren finns det en rad standardval som webbläsaren gör. Så låt säga att vi enbart bygger en webbplats med struktur och betydelse-lager, hur kommer då rubrikerna se ut om vi har med sådana? De flesta grafiska webbläsarna visar rubriker med större teckengrad än övrig text och oftast i fetstil. Detta är inget du behöver säga åt webbläsaren att den ska göra, utan det finns redan inbyggt där. Beroende på vilken webbläsare som används kan det vara olika standardval som gjorts (men för de vanligaste grafiska webbläsarna är de ganska lika). Du har sedan chans att byta ut dessa standardval i och med presentationslagret. Så det besökaren verkligen ser är en kombination av presentationslagret och webbläsarens standardinställningar. Beteendelagret fungerar på samma sätt. Det finns redan vissa standardsvar på vissa händelser som kan inträffa. T.ex. händelsen att besökaren klickar på en länk brukar betyda att besökaren nu istället vill besöka denna webbsidan istället. Om du inte ändrar något i beteendelagret kommer detta hända, men du kan även här ”skriva över” standardbeteende och att besökaren klickar på en länk kan resultera i precis vad du vill.
+
+<p>Då struktur och betydelse-lagret alltid finns med kallar vi det ibland även ”det första lagret”, då presentationslagret är ett av de fundamentala lagren blir det ”det andra lagret”, och beteendelagret blir ”det tredje lagret”. Det kan tyckas onödigt med alla dessa synonymer. Men det är p.g.a. att olika ord används av olika webbutvecklare. Så även om vi begränsade oss till ett ord för varje koncept i vår bok skulle det bara resultera i förvirring för dig då du läser någon annans text och dessa ord används istället.
+
+<h3>Separation av de tre lagren</h3>
+<p>Ett annat av de viktigaste koncepten när det kommer till webbutveckling är en princip eller riktlinje som handlar om just de tre lagren. Den säger att dessa lager ska hanteras så självständigt som möjligt, d.v.s. så lite inblandning som möjligt mellan dem. Det ska alltså finnas tre separata delar av webbplatsen som man kan peka på och säga ”detta är struktur och betydelse-lagret” och ”här ser vi presentationslagret” och så vidare, så att allt inte blandas ihop till en enda röra. Separera ”struktur och betydelse från presentation” är ett mycket vanligt uttryck när man enbart fokuserar på de två fundamentala lagren. Denna princip är viktig och bra för både dig som utvecklare och dina eventuella besökare. Att tala mer konkret om hur detta går till går inte ännu då vi inte gått igenom hur dessa lager ser ut, så du får för tillfället nöja dig med att komma ihåg denna <em>mycket viktiga</em> (vi har svårt att understryka hur viktigt detta är) princip och tänka på den under tiden då du informeras om hur de olika lagren är uppbyggda och fungerar. Det är samtidigt kanske inte så motiverande för dig att bara behöva godta detta som en centralt och grundläggande koncept utan argument om varför det skulle vara så, men utan mer kunskap om lagrens strutkur kan vi inte gör det ännu; men det kommer, vi lovar.
+
+<p>Så sammanfattat blir det alltså: separera de tre lagren i så stor utsträckning som bara möjligt.
+
+<h3>Lagrens uppbyggnad</h3>
+<p>Varje lager har ett språk associerat till sig. Dessa språk är byggda så att en dator kan tolka dem, och följer därför mycket striktare regler än ett vanligt naturlig språk (som t.ex. svenska). De fundamentala lagrens associerade språk är mycket enkla och i viss mening ganska lika, medan beteendelagrets språk skiljer sig helt från dessa två. Beteendelagrets språk är ett fulltaligt <i>programmeringsspråk</i> (ibland kallat <i>programspråk</i>), och kräver kunskap runt sådana för att kunna hanteras. Vi kommer därför i denna bok nästan uteslutande att fokusera på de fundamentala lagren och nöja oss med det standardbeteende som finns inbyggt i webbläsaren (som i de flesta fall duger alldeles utmärkt). Att även ta med detta lager skulle betyda att vi även måste skriva en introduktionsdel till programmering i allmänhet. Detta vill vi inte då det är en nästan omöjligt svår uppgift. Det finns de som lyckats ganska bra och dessa kommer vi referera till när vi tar en närmare koll på beteendelagret i slutet av grunddelen av denna bok. Så tills dess kommer vi mer eller mindre glömma att detta lager finns och enbart fokusera på de två andra.
+
+<p>Så varför vill vi inte kalla de fundamentala lagrens språk för programmeringsspråk? Först och främst, vad är ett programmeringspråk mer precist? <a href="http://en.wikipedia.org/wiki/Programming_language">Wikipedias definition av ett programmeringsspråk</a> anser vi vara helt okej:
+
+<blockquote><p>Ett programmeringsspråk är ett artificiellt språk designat för att uttrycka beräkningar som kan utföras på en maskin, i synnerhet en dator. Programmeringsspråk kan användas för att skapa program som kontrollerar maskinens beteende eller för att uttrycka algoritmer [...]. [egen översättning av <a href="http://en.wikipedia.org/w/index.php?title=Programming_language&amp;oldid=368555021">revision 368555021</a>]</blockquote>
+
+<p>Detta beskriver inte vad de fundamentala lagrens språk gör alls. Vi skriver inte kod för att utföra beräkningar (tänk på att vi inte bara menar addition och subtraktion av tal här), vi bara talar om vad olika delar av en webbsida består utav och ska presenteras (vilket inte kräver något sätt att uttrycka beräkningar i språken). Därför brukar dessa två språk inte vanligen kallas för programmeringsspråk.
+
+<p>För att förstå presentationslagret måste du först förstå strutkur och betydelse-lagret, eftersom att det förstnämnda talar om hur det sistnämnda ska presenteras för användaren. Så att börja med det sistnämnda verkar lämpligast.
+
+<h3>Struktur och betydelse-lagret</h3>
+<p>Struktur och betydelse-lagrets språk heter ”Hypertext Markup Language” och förkortas HTML. Detta språk är ett <dfn>märkspråk</dfn>, då det används för att <em>märka upp</em> olika delar av en webbsida och tala om vad de olika delarna betyder. Vi har tidigare nämnt att en webbsida inte är något annat än en samling filer. För att bygga ett strutkur och betydelse-lager räcker det med en vanlig textfil, och såhär kan en simpel webbplats se ut:</p>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;A very simple document&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;The worst web page ever&lt;/h1&gt;
+&lt;p&gt;This is just a very simple document with a header and a small text paragraph that states exactly that.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</figure>
+
+<p>Vi skriver på engelska till en början eftersom att vissa extrasteg behövs för att å, ä och ö ska fungera (och andra ”specialtecken”).
+
+<p>Ett ord omslutet med <code>&lt;</code> och <code>&gt;</code> kallas för <dfn>tagg</dfn>, t.ex. <code>&lt;title&gt;</code>. Det finns två typer av taggar: <dfn>start-</dfn> och <dfn>sluttag</dfn>. En start- och en sluttag bildar tillsammans med innehållet som står mellan dem ett <dfn>element</dfn>. Starttaggen talar om var elementet börjar och sluttagen talar om var elementet slutar; ibland säger vi att sluttagen <em>stänger elementet</em>. I vissa fall är sluttaggen frivillig, men detta struntar vi i just nu. Även om det skulle fungera att utelämna vissa sluttaggar i några av våra tidigare exempel så tar vi med dem för att du i detta skede slippa lära dig reglerna för när detta är okej eller ej. (Det finns vissa element där sluttagen är förbjuden, dessa kallas för tomma element, vi kommer in på dessa senare.) <code>&lt;title&gt;</code> är som sagt en tagg, mer exakt är det en starttag. En sluttag ser ut på samma sätt fast innan namnet finns det ett <code>/</code>, t.ex. <code>&lt;/title&gt;</code>. Alltså är följande ett helt element, då den består av en starttag, innehåll och en sluttag:</p>
+
+<figure><pre><code>&lt;title&gt;A very simple document&lt;/title&gt;</code></pre></figure>
+
+<p>Det är viktigt att du lär dig att skilja på termerna element och tagg, det är inte helt ovanligt att dessa blandas ihop.
+
+<p>Vi sade förut att HTML är ett märkspråk eftersom att det används för att märka upp olika delar av en webbsida och genom detta talar om vad de olika delarna betyder. Det är detta taggar används till. <code>title</code>-elementet från exemplet talar om för webbläsaren att webbsidans titel är ”A very simple document”. Denna visas vanligen i fönsterkanten i toppen av fönstret i grafiska webbläsare.
+
+<p>Det finns en del andra element med i webbsidan. Vad betyder de då? <code>h1</code>-elementet talar om att dess innehåll är en rubrik (i nivå 1) och <code>p</code> betyder ett textstycke. Även elementen <code>html</code>, <code>head</code> och <code>body</code> syns till. Dessa tre element utgör grundstrukturen för alla webbsidor och är alltid där. Vi ser även att dessa element inte bara har text som innehåll (alltså det mellan start- och sluttagen). Det finns andra element <em>i</em> elementet, dessa element kallas <dfn>nästlade element</dfn>. Bl.a. är <code>head</code>- och <code>body</code>-elementet nästlade i <code>html</code> elementet, och <code>h1</code>- och <code>p</code>-elementet är nästlade i <code>body</code>-elementet. Elementen har följande betydelse (tänk på att följande är något förenklat, men stämmer ganska bra, det är svårt att ge en kort och heltäckande definition):
+
+<ul>
+<li><code>html</code> är ett element som talar om att ”detta är en webbsida” och omsluter alltså alla andra element.
+<li><code>head</code> är ett element som innehåller alla element som innehåller data <em>om</em> webbsidan, <em>metadata</em> (”data om data”) alltså, snarare än innehåll som besökaren ser direkt. T.ex. finns webbsidans titel här, men inte webbsidans rubriker, alltså det besökaren ser direkt.
+<li><code>body</code> är elementet som innehåller webbsidans egentliga innehåll, så som rubriker och textstycken.
+</ul>
+
+<p>Relationen mellan element i en webbsida är det ganska hjälpsamt att representera som ett s.k. träd:
+
+<figure id="fig-simple-web-page-tree">
+	<img src="/img/simple-web-page-tree.png" alt="En cirkel med texten html i, med två pilar på två cirklar med head resp. body i, body-cirkeln har två pilar i sin tur till två cirklar med h1 resp p i.">
+	<figcaption>Trädet som byggdes utgående från HTML-dokumentet ovan</figcaption>
+</figure>
+
+<p>Varje cirkel representerar ett element, ibland så kallar vi elementen för noder när vi tänker oss denna trädform (ibland även utanför trädsammanhang). Pilarna mellan noderna representerar att ett element är nästlat i ett annat, t.ex. så är <code>head</code>-elmentet nästlat i <code>html</code>-element som vi nämnde tidigare. Det visar sig att denna representation av en webbsida är mycket användbar för presentationslagret senare. Det ger även en hjälpsam överblicksbild över webbsidans struktur. Så när du läser HTML-kod är det ofta ett bra tillvägagångssätt att tänka dig ett sådant här träd för att förstå vad koden betyder.
+
+<p>Ordet <i>träd</i> och <i>nod</i> kommer från grafteorin, och där ifrån ska vi låna en rad andra ord. Många känns troligen igen från s.k. släktträd. Pilarna mellan noderna kallas för <dfn>(riktade) bågar</dfn>, som är ett ord vi inte har så mycket nytta av utöver att definiera andra ord med. Här följer en lista med viktiga ord vi kommer behöva senare.
+
+<ul>
+<li>Om en nod A har en båge som pekar på en annan nod B är nod A en <dfn>förälder</dfn> till nod B, och nod B är ett <dfn>barn</dfn> till nod A. T.ex. är <code>p</code> ett barn till <code>body</code>.
+<li>En nod A är en <dfn>ättling</dfn> till nod B om det finns en väg av bågar från nod B till nod A, nod B kallas då <dfn>förfader</dfn> till nod A. T.ex. är <code>p</code> en ättling till <code>html</code>, men ej ett barn. <code>body</code> är både ett barn och en ättling till <code>html</code>. <code>html</code> är även förfader till bl.a. <code>head</code> och <code>h1</code> (<code>html</code> är förfader till alla element faktiskt).
+</ul>
+
+<p>Dessa är främst användbara när vi kommer till presentationslagret senare.
+
+<p>Trädet som representerar HTML-dokumentet är dock inget träd i grafteoretisk mening, då ordningen på noderna spelar roll. I koden så kommer <code>head</code>- före <code>body</code>-elementet om dokumentet läses uppifrån och ner. I grafen ligger <code>head</code>-noden till vänster om <code>body</code>-noden. Detta stämmer alltid, om elementet kommer före ett annat element och de har samma förälder så kommer den första elementets nod ligga till vänster om den andra elementets nod. Detta blir viktigt i presentationslagret senare.
+
+<p>Nu är det bara en del av webbsidan som återstår, nämligen första raden: <code>&lt;!doctype html&gt;</code>. Detta är bara en historisk kravleva som alla webbsidor måste börja med, vi får acceptera att det bara är så för tillfället och återkomma till det senare. Det är föressten inte ens en tagg, men nu glömmer vi den.
+
+<p>Det som är så bra nu är att du nästan kan alla HTML du någonsin kommer att använda. Svårare är så är det inte. Det finns vissa element som inte består utav en start- och sluttag, och ett koncept som kallas för attribut som används för att tilldela element extra egenskaper; men utöver det är ovanstående ganska heltäckande. Det du kan nu och det vi just sade är allt du behöver kunna om HTML, förutom vilka element som finns såklart. Vilka element som finns och vad dessa betyder kommer vi in på i senare kapitel, det blir mer eller mindre bara en lång lista med vad de betyder och på vilket sätt det är lämpligt att använda dem.
+
+<h3>Din första webbsida</h3>
+<p>Vi vet att en webbsida består av en textfil och vi vet nu även vad denna textfil ska innehålla. Då borde det inte finnas något som stoppar oss från att bygga en fult fungerande webbplats (bestående av en enda webbsida, men ändå)? Det är precis det vi ska göra nu.
+
+<p>Hur du ändrar i textfiler på din dator beror på vilket operativsystem du använder, det kan vara t.ex. Microsoft Windows, GNU/Linux eller Mac OS.
+
+<p>Då en webbsida består av en textfil är det inte helt oväntat att du behöver du ett program du kan redigera text i, en s.k. <dfn>textredigerare</dfn>. Troligen har du redan tillgång och kunskap om en sådan, om du inte har det så finns <a href="http://notepad-plus-plus.org">Notepad++</a> som alternativ för Windows-användare, och om du använder något annat operativsystem så följer troligen en tillräckligt bra textredigerare med din skrivbordsmiljö (t.ex. finns gedit för GNOME-baserade GNU/Linux-installationer, som bl.a. Ubuntu). Det finns allt för många olika operativsystem för att vi ska kunna lista upp alla här, så om du inte är intäckt av de valen som erbjudits så får du tyvärr lösa detta problem på egen hand, men det borde inte utgöra något större problem.
+
+<p>En kort notis som kan göras här är angående grafiska verktyg för att utveckla webbplatser, så kallade What You See Is What You Get-program (WYSIWYG-program). Alla dessa producerar värdelös kod och inget en seriös webbutvecklare använder, så dessa kommer inte nämnas mer. Det är bl.a. väldigt svårt att separera de två fundamentala lagren på ett bra sätt när det du ser är hur det första lagret ser ut efter presentationslagret är applicerat på det snarare än varje lager för sig i textform, och textformen är omöjligt svår att läsa eftersom att det är en dator som producerat den.
+
+<p>Börja med att skapa en mapp på skrivbordet och kalla den webbutveckling eller något sådant. Sedan skapar du en fil (i vissa operativsystem genom att högerklicka och välj något i stil med ”ny textfil”) med namnet <code>index.html</code>, det är filändelse som är det viktiga här övriga namn kan du egentligen välja hur du vill.
+
+<div class="box-info"><p>Windows-användare (och möjligen andra), i standardutförande så gömmer Windows filändelser på filer. Du vill troligen stänga av detta om du inte redan gjort det för att slippa förvirring huruvida en fil är en <code>.txt</code>- eller <code>.html</code>-fil. I till exempel Windows XP gör man detta genom att gå till ”Kontrollpanelen” (se till att den visas i ”klassiskt läge”) → ”Mappalternativ” → ”Visning” och avmarkera ”Dölj filnamnstillägg för kända filtyper”.</div>
+
+<p>Öppna den nya filen i din valda textredigerare och skriv av för hand webbsidan från exemplet ovan. (Det är bra att skriva koden själv istället för att bara kopiera den för att det blir oftast enklare att komma ihåg det senare då.) Spara filen och öppna den i din webbläsare. (I vissa operativsystem genom att dubbelklicka på <code>index.html</code>-filen.) Testa att ändra lite i filen, t.ex. lägga till ett till textstycke eller rubrik. Spara och glöm sedan inte att uppdatera webbsidan i din webbläsare, oftast finns det någon knapp i webbläsaren som laddar om sidan; alternativt brukar F5-tangenten ha samma funktion i många webbläsare.
+
+<p>Webbsidan borde se ut ungefär såhär i din webbläsare:
+
+<figure id="fig-simple-web-page">
+	<img src="/img/simple-web-page.png" alt="En skärmdump på webbplatsen, med innehållet i h1-elementet med högre teckengrad än innehållet i p-elementet">
+	<figcaption>Skärmdump av den simpla webbplatsen</figcaption>
+</figure>
+
+<h3>Presentationslagret</h3>
+<p>Som skärmdumpen visade, och troligen även din egen webbläsare, så har rubriken större teckengrad än textstycket och mellan rubriken och textstycket så finns det ett mellanrum. Dessa har alla med presentationen av webbsidan att göra, och de som nämndes här kommer från det webbläsarens standardinställningar för presentationslagret. Vi ska nu gå igenom hur dessa utseendeegenskaper kan ändras.
+
+<p>Som sagt så har varje lager ett språk associerat till sig, detta gäller även såklart för detta lager. Språket heter ”Cascading Style Sheets” och förkortas ”CSS”. Följande rad är en bit CSS-kod och kommer göra så att rubriken får röd textfärg:</p>
+
+<figure><pre><code>h1 {color:red;}</code></pre></figure>
+
+<p>Syntaxen för CSS är precis som HTML mycket enkel, och all kod följer detta mönster:</p>
+
+<figure><pre><code>selektor {egenskap1:värde1; egenskap2:värde2;}</code></pre></figure>
+
+<p><dfn>Selektor</dfn> talar om vilka element (noder i det tidigare nämnda trädet) som kommer påverkas av det följande <dfn>blocket</dfn>. Selektorn och blocket kallas tillsammans för <dfn>regelmängd</dfn>. Blocket består sedan av en mängd <dfn>egenskaper</dfn> och <dfn>värden</dfn> till dessa, egenskaperna och dess värden talar om hur presentationen av de (av selektorn) matchade elementen kommer att påverkas. Vi ser även att egenskaper i blocket åtskiljes med ett semikolon, ”;” alltså.
+
+<div class="info-box"><p>Det sista semikolonet kan utelämnas, d.v.s. det efter den sista egenskapen. Men det kan skapa problem när du glömmer att lägga till det när du senare när du kommer på att regelmängden skulle behöva fler egenskaper, och syntaxfel uppstår.</div>
+
+<p>Hur du formaterar din kod spelar ingen roll, du kan lägga in några radslut om du känner för det. Hur många radslut som är lämpliga är en smaksak och skiljer sig från webbutvecklare till webbutvecklare. T.ex. kommer denna regelmängd betyda samma sak som den tidigare, även att den innehåller fler radslut:</p>
+
+<figure><pre><code>selektor {
+   egenskap1:värde1;
+   egenskap2:värde2;
+}</code></pre></figure>
+
+<p>Nästan all CSS-kod som finns ser ut såhär, det som återstår nu är att lära sig vilka olika selektorer det finns och vilka egenskaper som går att ändra på, men även hur alla dessa smådelar ska kunna kombineras ihop till att skapa en färdig webbplats. Nu nöjer vi oss nu med att titta på en av de simplaste selektorerna och att tilldela de matchade elementen en annan textfärg.
+
+<p>När vi ska förstå hur selektorer fungerar är trädet av element från webbsidan mycket hjälpsam. Tänk dig selektorn som ett sätt för dig att välja ut ur trädet vilka element du vill påverka med efterföljande block. Här är trädet för vår första webbsida igen:</p>
+
+<figure id="fig-simple-web-page-tree-2">
+	<img src="/img/simple-web-page-tree.png" alt="Samma träd igen som ovan.">
+	<figcaption>Trädet, igen</figcaption>
+</figure>
+
+<p>För att ta några exempel så kan vi som vi tidigare sett matcha alla element av en viss typ, selektorn för det är väldig enkel: det är bara elementets namn. Vi kan även ta hänsyn till trädets struktur i selektor, så som ”matcha alla <code>p</code>-element som är har <code>body</code> som förfader”, även detta är enkelt: <code>body p</code> bara. Exempel på mer avancerade selektorer kommer vi in på senare i kapitlet om CSS.
+
+<p>Så hur kopplar vi CSS:en till vårt HTML-dokument? Det finns en rad sätt, men det simplaste är att skriva CSS:en i ett eget element <em>i</em> HTML-koden, elementet heter <code>style</code>:</p>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;A very simple document&lt;/title&gt;
+&lt;style&gt;
+h1 {color:red;}
+p {color:green;}
+&lt;/style&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;h1&gt;The worst web page ever&lt;/h1&gt;
+&lt;p&gt;This is just a very simple document with a header and a small text paragraph that states exactly that.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</figure>
+
+<p>Resultatet är inte överdrivet imponerande:</p>
+
+<figure id="fig-simple-web-page-with-css">
+	<img src="/img/simple-web-page-with-css.png" alt="Samma webbplats som förut, men nu är rubriken röd och texten grön.">
+	<figcaption>Skärmdump av den simpla webbplatsen, fast mer färgglad denna gång</figcaption>
+</figure>
+
+<p>Inte helt oväntat ska <code>style</code>-elementet vara inuti <code>head</code>-elementet, eftersom att det är information om webbsidan snarare än innehåll och struktur. Rubriken bör hur som helst vara röd nu och textstycket grönt.
+
+<p>Det vanligaste sättet att koppla CSS till en webbsida är att ha CSS:en i ett eget dokument (textfil), och sedan från webbsidan peka på det dokumentet och säga ”använd detta CSS-dokument för presentation av mitt innehåll”. Detta är speciellt bra när du har en webbplats bestående av fler webbsidor, eftersom att du bara behöver ändra i ett CSS-dokument (fler webbsidor kan peka på samma CSS-dokument) istället för en gång per webbsida om du t.ex. vill ändra färgen på alla rubriker.
+
+<h3>Angående separation av de fundamentala lagren</h3>
+<p>Vi sade tidigare att ett av de viktigaste koncepten är separation av de tre lagren. Vad menar vi med detta då? Det ser ju inte så svårt ut, det är ju helt olika språk!
+
+<p>För att kunna svara på detta behövs en kortare historielektion. Från början fanns det bara ett lager, som skötte allt. Detta lager liknar det vi idag kallar struktur och betydelse-lagret, i den mening att lagret enbart bestod av HTML. HTML hade alltså hand om allt då, både sin nuvarande roll men även presentation och beteende. Många av dessa delar finns kvar i HTML idag. Så det gäller att undvika dessa, för att inte råka blanda ihop lagren.
+
+<p>Vi löser detta problem genom att inte nämna delarna av HTML som används för att styra presentation och beteende. Om du någongång sertill sådana delar av HTML är det bara att ignorera dem helt enkelt.
+
+<p>Vi har undvikit frågan länge nog nu, varför vill vi göra denna separation av lagren? Det har två sidor, en för sig om utvecklare och en för besökarna. Vi börjar med fördelarna för dig.
+
+<p>Genom att ha allt samlat på ett ställe vet du precis var du ska leta för att hitta det du ska ändra på när du vill göra det. Detta kanske inte låter som någon stor sak just nu, men tänk dig att du byggt en webbplats bestående av tusentals webbsidor; då är lite ordning och redan inte helt fel. När allt blandas ihop till en enda röra är det tillslut ingen som kan förstå vad koden gör, inte ens du som skrivit den efter ett tag. CSS-kapitlet börjar med ett mer konkret exempel på vad vi menar med detta, det har att göra med det vi tidigare nämnde med att flera webbsidor kan dela på ett CSS-dokument.
+
+<p>Så besökarna, varför bryr de sig om hur <em>koden ser ut</em>? De ser ju aldrig den? Det är sant, de bryr sig inte om den. Men då lagren är separerade på korrekt sätt kan deras webbläsare hantera webbsidan bättre än om allt var blandat i en stor röra. Exemplet med skärmläsaren i början av kapitlet är bra här. När webbsidan läses upp så är hur saker ser ut av föga intresse för personen som lyssnar, denna vill enbart höra på webbsidan struktur och betydelse. Så skärmläsaren måste kunna välja ut dessa delar och strunta i resten, om ansvarig webbutvecklare har blandad ihop lagren är det enkelt gjort att slarva och istället för att märka upp att en rubrik är en rubrik med ett <code>h1</code>-element istället bara förstora teckengraden och göra texten fet. Då finns det inget kvar som låter skärmläsaren förstå att det är en rubrik!
+
+<p>Vi har redan berört hur HTML kan råka användas för presentation, men gäller även motsatsen? Kan CSS råka användas för struktur och betydelse? Ja, det går även det. Exemplet blir liknande det föregående. Vi skulle kunna byta ut vårt <code>h1</code>-element mot ett <code>p</code>-element i den simpla webbsidan som vi använde för att testa lite CSS på tidigare. Med hjälp av CSS kan vi sedan ändra det första <code>p</code>-elementet på webbsidan så att <em>det ser ut som en rubrik</em>. Problemet med detta är att det inte <em>blir en rubrik</em>, det <em>ser bara ut som en</em> (det enda sättet att göra en rubrik är att använda ett rubrikelement, så som <code>h1</code>). När en skärmläsare ser detta förstår den inte att detta är en rubrik och hanterar den istället som ett textstycke. Det är svårt att få en överblick av webbsidan med en skärmläsare, men om alla rubriker är uppmärkta på sådant sätt att skärmläsaren kan hitta dem går det iallafall att t.ex. generera en innehållsförteckning på så sätt. Även funktioner som t.ex. ”hoppa till nästa rubrik” och så kan byggas in i skärmläsaren.
+
+<p>Som vi sade i början så fungerar Googles sökrobotar inte helt olikt dessa skärmläsare, så om din webbplats inte fungerar bra med skärmläsare blir troligen även Googles sökrobotar förvirrande när de besöker din webbplats och din placering i sökresultatlistan försämras kraftigt.
+
+<p>Det finns mer invecklade och svårupptäckta fall än dessa såklart, som vi kommer se igenom hela boken. Denna princip ska alltid hållas i tankarna, i form av ”hör denna del verkligen till det lagret jag kommer lägga till den i nu”.
+
+<h2>Webbutveckling idag och den s.k. serversidan</h2>
+<p>Vi har sagt att HTML och CSS inte är några programmeringsspråk, och därför inte kan utföra några slags beräkningar. Ändå så kan Google söka på Internet efter ord på webbplatser, detta måste ju betyda någon form av beräkningar. Är det detta mystiska tredje lager som utför dessa beräkningar? Nej, det är det inte. Dessa beräkningar Google utför måste göras på deras webbserver (som du förhoppningsvis minns vad det betyder från tidigare del av detta kapitel). Detta leder till nästa stora uppdelning av webbutveckling. Webbutveckling brukar delas upp i de två kategorierna <dfn>klientwebbutveckling</dfn> och <dfn>serverwebbutveckling</dfn> (det finns många synonyma termer för dessa två), även <dfn>klientsidan</dfn> och <dfn>serversidan</dfn> är vanliga att prata om. Vi tar som vanligt en i taget.
+
+<p>Det vi gått igenom i detta kapitel är <em>klient</em>sidan, det vill säga de tre lagren. Så när vi sagt ”webbutveckling” har vi underförstått egentligen menat ”klientwebbutveckling”. Det är saker som har att göra med webbläsaren: hur den tolkar struktur och betydelse-lagret, hur presentationslagret gör att webbsidan ser ut i slutändan och så vidare. Även beteendelagret är med här, det lagret har som sagt ett fulltaligt programmeringsspråk att tillgå. Med det går det att utföra beräkningar på <em>klient</em>sidan. Det viktiga här är att beteendelagrets språk körs <em>efter</em> webbsidan har hämtats från webbservern, och den kan inte hämta information där ifrån. Så den måste klara sig med det som finns på din lokala dator, det är alltså bara <em>din</em> dator beteendelagret kan påverka. (Egentligen kommer denna parentes troligen förvirra dig mer än den hjälper men: det finns sätt att ladda ner ny information i bakgrunden (dolt för användaren) från webbservern <em>efter</em> att webbsidan har hämtats och sedan t.ex. visa denna nyhämtade information på webbsidan; denna teknik kallas Ajax och vi kommer gå in på den när vi pratar om det tredje lagret. Detta strider inte mot det vi säger, det är bara ett sätt att dölja för användaren att ny information hämtas från webbservern. Som sagt, om du inte lyckas avkoda detta nu så bara ignorera det.)
+
+<p>På <em>server</em>sidan finns inte de tre lagren. Någon generell överblick över hur serversidan ser ut går nästan inte att göra, då det finns väldigt många olika modeller för hur det kan se ut. Något speciellt associerat språk finns inte heller, det finns stor valfrihet i det avseendet på serversidan (för att ta några exempel: Ruby, Python, Java och PHP). Det vi kan göra är att ta ett exempel och med det försöka visa hur serversidan fungerar och skiljer sig från klientsidan.
+
+<p>I detta exempel ska vi studera hur en besökarantalräknare kan fungera. Först och främst måste vi ha någonstans att spara antalet besökare, detta görs vanligen i en databas. En databas är bara ett ställe där vi kan spara data. En naturlig fråga är då, är denna databas placerad på klient- eller serversidan? Det finns faktiskt inget val här, den måste placeras på serversidan. Klienterna (webbläsarna) kommunicerar aldrig direkt med varandra, all kommunikation sker genom webbservern. Så om vi vill ha information som en klient kan påverka (antalet besökare höjs ju varje gång en webbläsare gör en förfrågan och påverkar därmed databasen) och andra kan se (”se” i den mening att den kommer vara en del av en webbsida) <em>måste</em> den sparas på serversidan. 
+
+<p>Så åter till hur räknaren fungerar. När webbservern får en förfråga från en webbläsare om att få ladda ner webbsidan börjar den med att hämta filen som är webbsidan. Detta är dock ingen HTML-fil, det är en serverskriptfil (ibland kallas filer som körs av en dator för program, ibland för skript, skillnaden är inte viktigt här (vad skillnaden är beror även på vem du frågar)). Denna serverskriptfil körs sedan, som ett vanligt program; men resultatet av körningen är inte som i programmen du kanske är van vid att köra på din egen dator. Istället för att visa t.ex. ett fönster eller spela upp ljud så producerar filen som körs istället en HTML-fil! Det är denna fil som webbservern sedan skickar till webbläsaren som frågade efter filen. Detta kan låta lite komplicerat, att vi inte själva skriver HTML-koden utan istället skriver ett program som skrivet HTML-koden åt oss. Detta är dock nödvändigt för att inte behöva svara med samma webbsida varje gång en webbläsare besöker samma adress. Det är såhär nästan alla webbplatser fungerar idag. Ingen skriver <dfn>statiska</dfn> webbplatser längre nästan, nästan alla är <dfn>dynamiska</dfn>. För att kunna skriva program som producerar webbsidor måste du såklart ha koll på de klientwebbutvecklingen först, så klient- kan ses som ett förkunskapskrav till serverwebbutveckling (det finns dock delar på serversidan som du skulle kunna göra som inte har någon direkt inblandning med klientsidan, t.ex. vara databasexpert och ha total koll på hur databaser ska utformas för optimal prestanda).
+
+<p>Andra exempel på dynamiska webbplatser är när någon form av formulärhantering är inblandad. I HTML går det att skapa formulär, bl.a. fält för att mata in text eller kryssrutor. I HTML går det dock inte göra så att formuläret gör något (det går ju inte uttrycka beräkningar i HTML). Detta sköter serversidan. HTTP (det språket, eller protokoll) som används för kommunikation mellan webbläsare och webbserver kan göra fler saker än att bara begära webbsidor och svara på sådana förfrågningar. I en begäran av en webbsida kan webbläsaren skicka med det användaren har skrivit in i ett formulär. Ett serverskript kan sedan köras på serversidan som tar hand om denna formulärdata, och kontrollerar så att alla fält är korrekt ifyllda. Om fälten är korrekt ifyllda kan serverskriptet spara formulärdatan i en databas för senare användning och generera en webbsida som säger till användaren att allt gick bra. Om något inte stämmer i formuläret kan serverskriptet istället generera en webbsida som talar om vad som är fel och vad användaren måste göra om.
+
+<p>Med hjälp av endast detta går det bygga en enkel blogg. Vi kan ha ett serverskript som tar emot data och kontrollerar den, och om den är okej sparar den i en databas. Sedan kan vi ha ett annat serverskript, troligen startsidan, som hämtar informationen från databasen och skriver ut den så att användaren kan se den.
+
+<p>Denna bok fokuserar på klientsidan då som sagt det kan ses som ett förkunskapskrav för att kunna bygga saker på serversidan, så det känns som den naturliga sidan att börja med. I slutet av boken kommer dock en utblick med lästips om hur du kan gå vidare för att lära dig hur webbutveckling på serversidan går till.
+
+<h2>Sammanfattning</h2>
+<p>I detta kapitel har vi gått igenom nästan alla områden vi kommer beröra i boken (och även en del som vi inte kommer behandla mer!). Så det är omöjligt att du förstått allt på en gång. Det viktigaste från detta kapitel är dock:
+
+<ul>
+<li>De tre lagren – kom ihåg att separera dem, se till att rätt sak kommer i rätt lager
+<li>HTML är för att märka upp <em>vad olika delar av dokumentet är</em> medan CSS är till för att tala om <em>hur olika delar av dokumentet bör se ut</em>
+</ul>

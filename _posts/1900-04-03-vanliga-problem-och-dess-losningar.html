@@ -1,0 +1,97 @@
+---
+layout: default
+title: "Appendix: Lösningar till vanliga problem"
+subtitle: Ett kapitel om att inte återuppfinna hjulet
+desc: Typ centrering, 100 % höjd, etc. [placering av denna är ännu osäker]
+category: extra
+---
+<p>Nu har du kanske fått en bra känsla för hur man använder HTML och CSS för att skapa fantastiska designer. Det är dags för dig att komma ut i världen och skapa! När du är där ute kommer du garanterat stöta på vissa problem, och många av dessa har redan lösts otaliga gånger. Vi har därför inkluderat detta kapitel som en referens över välkända CSS-problem och dess respektive lösningar, för att du ska slippa uppfinna hjulet (igen).</p>
+
+<h2 id="centrering_av_hela_sidan">Centrering av hela sidan</h2>
+
+<p>Att centrera hela sin sida kan ofta vara vettigt, speciellt i de fall då man har en fast eller halvfast layout. Många använder <code>text-align</code> för att centrera, men detta är givetvis helt fel (<code>text-</code> antyder ju att det handlar om text och inte element) &#8212; så här gör man det på rätt sätt; för enkelhetens skull väljer vi här att centrera <code>body</code>, som vi har satt en fast bredd på. Den här metoden fungerar dock på alla blockelement vars bredd inte är <code>auto</code>.</p>
+
+<pre><code class="css">body{
+    width: 40em;
+    margin: 0 auto;
+}
+</code></pre>
+
+<p>Genom att sätta marginalen till höger och vänster till <code>auto</code> säger vi åt webbläsaren att den ska försöka göra marginalerna till höger och vänster så stora som möjligt. Ni som kan lite matematik och förstår en del om optimering inser givetvis att den bästa lösningen är trivial; båda marginalerna blir lika stora och vårt element kommer att centreras. Vi skulle givetvis kunna byta ut <code>0</code> mot en mer lämplig marginal om vi vill ha mer plats under och över vårt element.</p>
+
+<h2 id="100_hjd_med_eller_utan_sidfot">100% höjd, med eller utan sidfot</h2>
+
+<p>Ofta vill man ha en sida som täcker hela höjden på fönstret, men som expanderar när man har tillräckligt mycket innehåll. Om du någonsin försökt åstadkomma detta vet du förmodligen att det här inte är helt trivialt.</p>
+
+<p>Det första man kommer att tänka på är <code>height</code>. Detta är rätt tänkt, men eftersom vi vill att elementet ska expandera när innehållet blir för stort bör vi istället använda egenskapen <code>min-height</code>, och lämpligtvis sätta denna till 100% (en fast bredd kan också vara bra att ha):</p>
+
+<pre><code class="css">#container{
+    min-height: 100%;
+    width: 40em;
+}
+</code></pre>
+
+<p>Nu borde väl allt fungera, tänker du kanske? Nja, inte riktigt. Förvisso kommer <code>#container</code> att fylla upp 100% av <code>body</code>; problemet är att <code>body</code> inte täcker hela fönstret. Detta rättar vi enkelt till genom att sätta höjden på <code>body</code> (och <code>html</code>) till 100%. Dessutom måste vin införa ett hack, <code>_height</code>, för att vissa versioner av IE inte hanterar <code>min-height</code> på rätt sätt.</p>
+
+<pre><code class="css">html, body{
+    height: 100%;
+}
+#container{
+    min-height: 100%;
+	_height: 100%;
+    width: 40em;
+}
+</code></pre>
+
+<h3 id="men_hur_gr_jag_med_sidfoten_d">Men hur gör jag med sidfoten då?</h3>
+
+<p>Om du vill ha en sidfot som håller sig till bottnen av sidan får du jobba lite till; och vi måste gå in och använda lite positionering. Vi kommer att utnyttja det faktum att <em>absolut</em> positionering alltid räknas från det närmsta föräldrarelementet med relativ positionering (eller fönstret, om inget sådant element finns). Därför sätter vi relativ positionering på vår <code>#container</code> och absolut positionering, med <code>bottom: 0</code>, på vår sidfot:</p>
+
+<pre><code class="css">html, body{
+    height: 100%;
+}
+#container{
+    min-height: 100%;
+    width: 40em;
+    position: relative;
+}
+#footer{
+    position: absolute;
+    bottom: 0;
+}
+</code></pre>
+
+<p>Notera att vi inte flyttar <code>#container</code> någonstans, även om den nu har relativ positionering. Vi kommer dock att stöta på ett problem nu; sidfoten kommer att överlappa viss text om den är tillräckligt lång. Detta löser vi genom att sätta en fast höjd på sidfoten, och en <code>padding</code> på <code>#container</code>, som ska vara lika stor som sidfoten är hög, plus den marginal man vill ha mellan innehållet och sidfoten. Vi väljer en höjd på <code>3em</code> och en marginal på <code>1em</code>:</p>
+
+<pre><code class="css">html, body{
+    height: 100%;
+}
+#container{
+    min-height: 100%;
+    width: 40em;
+    position: relative;
+    padding-bottom: 4em;
+}
+#footer{
+    position: absolute;
+    bottom: 0;
+    height: 3em;
+}
+</code></pre>
+
+<p>Vår HTML bör då likna det här:</p>
+
+<pre><code class="html">&lt;body&gt;
+    &lt;div id="container"&gt;
+        &lt;!-- Innehåll här --&gt;
+
+        &lt;div id="footer"&gt;
+            &lt;!-- Sidfot här --&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+
+<p>Man skulle även kunna sätta <code>margin</code> och <code>padding</code> på <code>html</code> och <code>body</code> till <code>0</code>, för att få sidan att verkligen gå hela vägen ut till kanten. Givetvis är det även vettigt att sätta lite stil på det hela, kanske med en bakgrundsbild eller en minimalistisk variant med endast en enfärgad bakgrund och en kantram? Det är upp till dig.</p>
+
+<h2 style="text-decoration: blink; border: 3em double;">Fler vanliga problem?</h2>

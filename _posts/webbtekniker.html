@@ -1,0 +1,67 @@
+<h1>Introduktion till andra webbtekniker</h1>
+<p>Detta kapitel ska inte tjäna som en definitiv guide till övriga webbtekniker vi inte tagit upp i boken, utan ska mest fungera som en &#8220;inledning&#8221;.
+  De tekniker vi valt att introducera är Flash, <span class="caps">PHP</span> och Javascript. Vi har valt just dessa tekniker för att dom är mest spridda och använda, därför är de viktiga att känna till.</p>
+
+<section>
+  <h1 id="flash">Flash</h1>
+
+  <p><a href="http://adobe.com/flash">Flash</a> är ett interaktivt format som baseras på vektorgrafik, och kan användas till mycket, bland annat webbspel och animerade filmer. Adobe Flash är ingen öppen standard utan ett stängt, kommersiellt format. För att kunna ta del av Flash behöver du ladda ner och installera deras spelare, kallad &#8220;Adobe Flash Player&#8221;. Vill man själv utveckla Flash-applikationer måste man köpa en dyr licens av Adobe. Innan hette det Macromedia Flash, men sedan Adobe köpt upp företaget Macromedia så har det bytt namn till Adobe Flash.</p>
+
+
+  <h2 id="flash/anvandningsomraden">Användningsområden</h2>
+
+  <p>För webbspel och animationer är Flash ett bra verktyg, om det används på rätt sätt, det vill säga om det är separerat från övriga sidans innehåll. Det kan även vara användbart på sidor som <a href="http://youtube.com">YouTube</a>, där själva mediaspelaren är gjord i Flash. (Om huruvida man ska använda Flash till detta råder det delade meningar om, även inom gruppen.)</p>
+
+
+  <h2 id="flash/problem">Problem</h2>
+  <p><em>Tillgänglighet</em> —
+    Enligt oss har Flash många fler nackdelar än fördelar, och ska därför nästan aldrig användas. Det värsta man kan göra rent tillgänglighetsmässigt är att göra en sida helt i Flash, eftersom många av webbläsarens funktioner byts ut eller försvinner helt. Om man dessutom har något funktionshinder och kommer till en webbplats helt i Flash, så kan man inte ta del av det på något sätt, om inte webbmastern har gjort en vanlig <span class="caps">HTML</span>-sida också. Sökmotorer som till exempel Google och Yahoo kommer inte heller kunna läsa sidan, om du ändå vill hamna i deras resultat tvingas du skapa en <span class="caps">HTML</span>-sida utöver din Flash-sida.</p>
+
+
+  <p><em>Resurskrävande</em> —
+    Flash-spel eller animationer tenderar att dra väldigt mycket av ens <span class="caps">CPU</span>-kraft, mycket mer än vad som borde vara nödvändigt. Många av dagens kommersiella webbplatser har dessutom valt att integrera Flash-reklam i mängder, vilket resulterar i att datorn får jobba ovanligt hårt.</p>
+
+
+  <p><em>Plattformsberoende</em> —
+    Flash finns bara till ett begränsat antal operativsystem, nämligen Microsoft Windows, Apple Mac <span class="caps">OS X</span>, och <span class="caps">GNU</span>/Linux, vilket gör att enbart användare med dessa operativsystem kan ta del av innehållet. Alla platformar stöder inte heller alltid den senaste versionen, vilket kan vara ett problem.</p>
+
+
+  <p><em>Binärt</em> —
+    I till exempel <span class="caps">HTML</span> och <span class="caps">CSS</span> kan man alltid kolla i eller ladda ner koden till sidan, detta är en omöjlighet i Flash då det blir helt oläsligt om man inte har tillgång till ett Flash-plugin. Om man dessutom skiljt på presentation och struktur på ett bra sätt med hjälp av <span class="caps">HTML</span> och <span class="caps">CSS</span> så kan användaren alltid stänga av <span class="caps">CSS</span> och se sidan på ett bra sätt med enbart text.</p>
+
+
+  <p><em>Säkerhet</em> —
+    En till nackdel med Flash är att Flash-spelaren kan bugga, och därmed öppna upp din dator för omvärlden. Liknande säkerhetsbuggar existerar inte i <span class="caps">HTML</span>, men däremot i webbläsare, men använder du Flash så utsätts du för &#8220;både webbläsarens och Flash:s buggar&#8221;.</p>
+</section>
+<section>
+  <h1 id="javascript">JavaScript</h1>
+
+  <p>Javascript är ett skriptspråk anpassat för webben, och är utvecklat efter ECMAScript-standarden, likt en drös andra språk som till exempel VBScript (Microsoft) och ActionScript (Adobe Flash). Det utvecklades på Netscape och hette först Mocha, sedan var det tänkt att det skulle heta LiveScript, men i och med Netscapes samtidiga släpp av Java till Netscape Navigator fick det heta JavaScript. Namnet ska dock inte förväxlas med Suns objektorienterade programmeringsspråk <a href="http://java.com">Java</a>, det heter så för att det delar ungefär samma syntax som Java.</p>
+
+
+  <h2 id="javascript/anvandningsomraden">Användningsområden</h2>
+  <p>JavaScript används bland annat till popups, och att validera data som ska skickas till en server, till exempel se till så att fält i ett formulär är ifyllda.</p>
+
+
+  <h1 id="javascript/ajax"><span class="caps">AJAX</span></h1>
+
+  <p>Ett stort användningsområde som kommit på senare tid (även om själva tekniken är ny) är <span class="caps">AJAX</span>, en teknik som gör det möjligt att hämta och visa serverdata utan att ladda om hela sidan. Detta kan vara mycket användbart på sidor som till exempel <a href="http://maps.google.com">Maps</a> Google och <a href="http://gmail.com">GMail</a>. Nackdelen med <span class="caps">AJAX</span> är att det är väldigt lätt att förstöra tillgängligheten på en sida, så man inte ens kan ta del utav innehållet om man inte har tillgång till JavaScript.</p>
+
+
+  <h2 id="javascript/problem">Problem</h2>
+
+  <p>JavaScript kan tyvärr förstöra ganska mycket för tillgängligheten på en sida, till exempel genom att länka med hjälp av JavaScript eller ha dynamiska menyer styrda av det, som inte skalar på ett bra sätt. Se alltid till att din sida fungerar helt utan JavaScript-stöd, eftersom alla inte har det aktiverat i sin webbläsare, eller inte ens har tillgång till det.</p>
+</section>
+<section>
+  <h1 id="php"><span class="caps">PHP</span></h1>
+  <p><a href="http://php.net"><span class="caps">PHP</span></a> är ett &#8220;server&#8221;skriptspråk, det vill säga att all <span class="caps">PHP</span>-kod körs på en webbserver. <span class="caps">PHP</span> kan användas för att skapa dynamiska sidor, alltså när innehållet på sidan skiljer sig från användare till användare. Ett simpelt exempel skulle kunna vara att man skriver ut &#8220;god morgon&#8221; om det är morgon, och &#8220;god kväll&#8221; om det är kväll. Detta skulle lätt kunna göras med JavaScript också, men fördelen med <span class="caps">PHP</span> är att allt skrivs ut som <span class="caps">HTML</span>, så användaren behöver inte ha något mer än en klient som klarar att läsa vanlig <span class="caps">HTML</span>-kod.</p>
+
+
+  <h2 id="php/anvandningsomraden">Användningsområden</h2>
+  <p><span class="caps">PHP</span> kan till exempel användas till att logga besökare eller hålla ordning på användare på en webbplats. Tillsammans med en databas kan <span class="caps">PHP</span> bli ett mycket kraftfullt verktyg. Även inloggningsskript och forum kan skrivas i <span class="caps">PHP</span>, många populära forummjukvaror såsom <a href="http://punbb.org">PunBB</a> och <a href="http://phpbb.org">phpBB</a> är skrivna i <span class="caps">PHP</span>.</p>
+
+
+  <h2 id="php/problem">Problem</h2>
+  <p>Säkerhet är ett ganska stort problem i <span class="caps">PHP</span>, eftersom man kan ta in data från användaren så måste man vara väldigt noga med att kolla att datan är korrekt. Till exempel när användare ska skriva kommentarer i en blogg eller liknande, då måste man vara säker på att man inte kan skicka <span class="caps">HTML</span>, PHP eller JavaScript-kod som kan förstöra hela sidan eller i värsta fall hela server-installationen. Även om man vet säkert att ens skript är fritt från säkerhetshål så kan ändå <span class="caps">PHP</span> ha nån bugg som elaka hackare kan utnyttja sig av. Men dessa problem är som du hör inte något som skulle skada användaren utan hackaren attackerar istället själva webbservern, om nu inte hackaren &#8220;förstört&#8221; sidan så att den på något sätt lurar dig att ge honom information till honom istället när du egentligen tror att du skickar den till den som &#8220;är den egentliga ägaren&#8221; av servern.</p>
+
+</section>

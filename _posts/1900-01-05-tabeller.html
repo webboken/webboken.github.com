@@ -1,0 +1,190 @@
+---
+layout: default
+title: Tabeller
+subtitle: Eller, ”<i>Hata mig inte för vad jag gjort i mitt tidigare liv</i>”
+desc: Går igenom grundläggnade tabeller. En del länkar till vidare läsning.
+category: grunderna
+---
+<p>Tabellers syfte är det samma som dess namn, d.v.s. att upprätthålla (i brist på ett bättre ord) tabeller. Dessa tabeller ska <em>inte</em> innehålla annat än vad vanliga tabeller bör innehålla, d.v.s. data om olika saker, något som ibland kallas för ”tabulär data”. Varför är vi så noga och övertydliga med detta då? Jo, i en inte allt för avlägsen dåtid så var det populärt att använda tabeller för att bestämma layout på ens webbplats, t.ex. var ens meny skulle placeras. Detta är dock ett <strong>felaktigt</strong> sätt att använda tabeller på. Det leder till en rad problem för både dig som utvecklare och dina besökare; mer om dessa äventyr i kapitlet om layout, senare.
+
+<p>Ett enklare test huruvida en tabell är ett lämpligt sätt att märka upp är: har innehållet i en cell någon relation till något innehåll i både dess rad och kolumn?
+
+<h2>Grundläggande tabeller: data- och rubrikceller</h2>
+<p>Låt oss inleda med ett exempel på hur en tabell (som att du inte sett en tidigare!) ser ut i din webbläsare (vi har dock stilat tabellerna något med egen CSS, så det är inte en ”naken” eller ”ren” tabell i någon mening):
+
+<table>
+  <caption>Planetfakta</caption>
+  
+  <tr>
+    <th>Planet</th>
+    <th>Diameter [km]</th>
+    <th>Avstånd till solen [miljoner km]</th>
+  </tr>
+
+  <tr>
+    <td>Tellus</td>
+    <td>12 756,3</td>
+    <td>~150</td>
+  </tr>
+  
+  <tr>
+    <td>Mars</td>
+    <td>6 794,4</td>
+    <td>~230</td>
+  </tr>
+
+  <tr>
+    <td>Jupiter</td>
+    <td>142 984</td>
+    <td>~780</td>
+  </tr>
+</table>
+
+<p>Och för att producera detta exempel användes:</p>
+
+<figure><pre><code class="html">&lt;table&gt;
+  &lt;caption&gt;Planetfakta&lt;/caption&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Planet&lt;/th&gt;
+    &lt;th&gt;Diameter [km]&lt;/th&gt;
+    &lt;th&gt;Avstånd till solen [miljoner km]&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Tellus&lt;/td&gt;
+    &lt;td&gt;12 756,3&lt;/td&gt;
+    &lt;td&gt;~150&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Mars&lt;/td&gt;
+    &lt;td&gt;6 794,4&lt;/td&gt;
+    &lt;td&gt;~230&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Jupiter&lt;/td&gt;
+    &lt;td&gt;142 984&lt;/td&gt;
+    &lt;td&gt;~780&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre></figure>
+
+<p>Av det går det att utläsa:
+
+<ul>
+<li><code>table</code> verkar användas till att märka upp tabeller,
+<li><code>caption</code> märker upp tabellrubrik (notera att detta måste vara det första elementet i tabellen),
+<li><code>th</code> är rubrikceller,
+<li><code>td</code> är dataceller,
+<li>och <code>tr</code> märker upp tabellrader.
+</ul>
+
+<p>Dessa fem enkla element är en tabells grund, och användingen av dem borde vara ganska självklara. För att bygga upp en bra och genomtänkt tabell kan det ibland behövs det flera element och attribut, dessa tänkte vi gå igenom senare.
+
+<p><code>caption</code>-elementet är frivilligt, så det kan utelämnas om det är lämpligt att göra så. Att ändra presentationen på tabeller delar många likheter med design av en hel webbplats, t.ex. bakgrundfärg på vissa celler eller rader, och ev. kantramar runt dessa eller hela tabellen. Även detta kommer skjutas upp till designdelen alltså. Det vi talar om nu angående presentation av tabeller är att egenskapen <code>caption-side</code> talar om huruvida tabellrubriken ska visas under eller över tabellen, med värdet <code>bottom</code> resp. <code>top</code>, t.ex.:</p>
+
+<figure><pre><code>caption {caption-side:bottom;}</code></pre></figure>
+
+<h3>Attributet ingen brydde sig om: <code>summary</code></h3>
+<p>Attributet <code>summary</code> är nu förlegat, i och med HTML5, och används inte längre. Det skulle användas då tabellen var rätt så omfattande och innehöll mycket data. Attributet renderas inte i visuella webbläsare, däremot har de som måste använda sig utav skärmläsare stor nytta av det. Då de inte på samma sätt har någon möjlighet att få en överblick över tabellen på samma sätt som de med visuella webbläsare. De hör då vad tabellen handlar om innan de riktar sin uppmärksamhet mot själva tabellen, detta gör att de kan välja om de vill höra vad tabellen innehåller eller ej.
+
+<p>Det låter ju inte som någon dum ide? Varför ta bort det då? Jo, ingen använde det och det fungerar lika bra att använda ett t.ex. <code>p</code>-element innan tabellen för att ge en sammanfattning. Så om du får syn på det någon gång vet du vad det är (inte så troligt då ingen använda det). Tänk på att om du nu vill ha med en sammanfattning att den ska vara kort och koncist då en person ska orka med att lyssna igenom texten.
+
+<h2>Något mer avancerade tabeller: <code>rowspan</code> och <code>colspan</code></h2>
+<p>För något mer avancerade tabeller kan mer märkkod behövas för att semantiken ska vara klar och tydlig; eller ens för att kunna bygga tabellen som du tänkt. Ta t.ex. följande tabell som exempel:
+
+<table>
+  <caption>Planetfakta</caption>
+
+  <tr>
+    <th rowspan="2">Planet</th>
+    <th colspan="2">Diameter [km]</th>
+    <th rowspan="2">Avstånd till solen [miljoner km]</th>
+  </tr>
+
+  <tr>
+    <th>Ekvatorn</th>
+    <th>Pol till Pol</th>
+  </tr>
+
+  <tr>
+    <td>Tellus</td>
+    <td>12 756,3</td>
+    <td>12 713,5</td>
+    <td>~150</td>
+  </tr>
+
+  <tr>
+    <td>Mars</td>
+    <td>6 794,4</td>
+    <td>6 754,8</td>
+    <td>~230</td>
+  </tr>
+
+  <tr>
+    <td>Jupiter</td>
+    <td>142 984</td>
+    <td>133 709</td>
+    <td>~780</td>
+  </tr>
+</table>
+
+<p>Koden till ovanstående tabell:</p>
+
+<figure><pre><code class="html">&lt;table&gt;
+  &lt;caption&gt;Planetfakta&lt;/caption&gt;
+
+  &lt;tr&gt;
+    &lt;th rowspan="2"&gt;Planet&lt;/th&gt;
+    &lt;th colspan="2"&gt;Diameter [km]&lt;/th&gt;
+    &lt;th rowspan="2"&gt;Avstånd till solen [miljoner km]&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;th&gt;Ekvatorn&lt;/th&gt;
+    &lt;th&gt;Pol till Pol&lt;/th&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Tellus&lt;/td&gt;
+    &lt;td&gt;12 756,3&lt;/td&gt;
+    &lt;td&gt;12 713,5&lt;/td&gt;
+    &lt;td&gt;~150&lt;/td&gt;
+  &lt;/tr&gt;
+  
+  &lt;tr&gt;
+    &lt;td&gt;Mars&lt;/td&gt;
+    &lt;td&gt;6 794,4&lt;/td&gt;
+    &lt;td&gt;6 754,8&lt;/td&gt;
+    &lt;td&gt;~230&lt;/td&gt;
+  &lt;/tr&gt;
+
+  &lt;tr&gt;
+    &lt;td&gt;Jupiter&lt;/td&gt;
+    &lt;td&gt;142 984&lt;/td&gt;
+    &lt;td&gt;133 709&lt;/td&gt;
+    &lt;td&gt;~780&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre></figure>
+
+<p><code>rowspan</code>-attributet används då du vill att en cell i tabellen ska sträcka sig över en eller flera horisontella rader. Detta ser du exempel på i tabellen och koden ovan. <code>colspan</code>-attributet används på samma sätt som <code>rowspan</code> med skillnaden att det handlar om vertikala rader istället för horisontella sådana.
+
+<h2>Ännu mer avancerade tabeller: vidare läsning</h2>
+<p>Vi har gått igenom en del grundläggande saker att tänka på när du bygger tabeller, följande går in mer djupgående på problemet:
+
+<ul>
+<li><a href="http://www.usability.com.au/resources/tables.cfm">Accessible Data Tables</a>
+<li><a href="http://www.webaim.org/techniques/tables/">Creating Accessible Tables</a>, går även igenom tabeller för layout, detta kan du hoppa över om du vill och gå direkt till sida 2
+<li><a href="http://www.eutveckling.se/riktlinjer/webb/3/4/">Tabeller</a> från Riktlinjer för webbutveckling, utdaterad på vissa punkter dock
+</ul>
+
+<p>Techniques for WCAG 2.0 innehåller en del relevanta punkter för mer specifika ämnen angående tabeller:
+
+<ul>
+<li><a href="http://www.w3.org/TR/WCAG-TECHS/H39.html">H39: Using caption elements to associate data table captions with data tables</a>
+<li><a href="http://www.w3.org/TR/WCAG-TECHS/H43.html">H43: Using id and headers attributes to associate data cells with header cells in data tables</a>
+<li><a href="http://www.w3.org/TR/WCAG-TECHS/H51.html">H51: Using table markup to present tabular information</a>
+<li><a href="http://www.w3.org/TR/WCAG-TECHS/H63.html">H63: Using the scope attribute to associate header cells and data cells in data tables</a>
+<li><a href="http://www.w3.org/TR/WCAG-TECHS/H73.html">H73: Using the summary attribute of the table element to give an overview of data tables</a>
+</ul>

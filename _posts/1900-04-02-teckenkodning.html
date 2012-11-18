@@ -1,0 +1,237 @@
+---
+layout: default
+title: Teckenkodning
+subtitle: Unicode skulle skapa världsfred; istället fick vi kaos
+desc: Hur datorer sparar textfiler och vad Unicode är.
+category: extra
+---
+<p>I kapitel 2 gick vi snabbt igenom hur vilken teckenkodning som används på aktuell webbsida deklareras när dokument lagras lokalt. Vi ska i detta kapitel ta en mer grundlig koll på vad en teckenkodning egentligen innebär och varför vi nästan alltid vill välja en av Unicode-typ, men även en snabb blick på vad som måste du måste ha i åtanke när webbläsaren hämtar en webbsida från en webbserver istället för lokalt på din egen dator.
+
+<h2>Kort historik</h2>
+<p>I början av datorns historia används endast ett par tecken, till en början bara siffror. När man sedan kom på att flera tecken behövdes så lades alla tecken från a till z, skiljetecken, mellanrum och andra tecken man kände ett behov av till i samlingen. När datorn sedan blev mer och mer populär började program översättas till ”nya” språk och nya nationella tecken infördes, som till exempel svenskans ”å”, ”ä” och ”ö”. Allt eftersom informationsutbyte mellan datorer ökade i popularitet, inte minst genom Internets, behövdes nya standarder över hur dessa tecken skulle sparas för att alla datorer skulle kunna visa samma fil på samma sätt. Om det inte skulle skapats regler för hur tecken sparades skulle två filer med exakt samma innehåll kunna bete sig på olika sätt på olika datorer. Därför skapades standarder så som <span lang="en">American Standard Code for Information Interchange</span> (ASCII). Nu kunde man byta information med varandra, och den behöll sitt ursprungliga utseende. På grund av lagringstekniken som användes, som vi kommer till senare, fick inte alla tecken från världens alla olika språk ”plats” i ASCII. Därför behövdes flera olika standarder för att täcka alla olika språk som finns. Detta ledde såklart till en horribel röra av teckenkodningar. Därför infördes <dfn>Unicode</dfn> som är tänkt att i princip ersätta <em>alla</em> tidigare standarder, så vi bara behöver använda oss av <em>en standard</em> för <em>alla språk</em>.</p>
+
+<h2>Behovet av stora teckenuppsättningar</h2>
+<p>När vi använder Unicode behöver vi nästan aldrig använda teckenreferenser (förutom de som är definierade i XML av naturliga anledningar). Detta leder naturligtvis till renare och genom det mer lättläst kod. Så teckenreferenser ska endast användas när du verkligen inte har något annat val.
+
+<p>Men vart kommer då citattecken in i bilden? Jo, förr i tiden när man använde skrivmaskiner så hade vi bara " och ' att välja på när vi skulle skriva citat. (Och `, men det går vi inte in mera på nu.) Detta ledde så klart till att man använde dessa. Men nu vet ju alla att ”riktiga citationstecken” inte ser ut så. Dessa är de ”riktiga citationstecken”: ’ och ”. Nej, det är varken primtecknet (′) eller dubbelprimtecknet (″) (som har <a href="http://sv.wikipedia.org/wiki/Derivata#Lagranges_notation">helt andra användningsområden</a>), det är våra svenska citattecken! Du har troligen läst någon engelsk text och sett att de använder “- och ”-tecknen för att påbörja respektive avslutat citat, men här i Sverige använder vi ”-tecknet för att påbörja <em>och</em> avsluta ett citat.
+
+<p>Nu är det så att <code>ISO-8859-1</code> och andra gamla teckenkodningar inte innehåller de ”riktiga citationstecken”; men det gör Unicode förstås. Så om vi använder oss av Unicode är det bara att skriva in dessa tecken som vilket annat tecken som helst. Men om vi istället använder någon annan (gammal) standard får du träna dina teckenreferenskunskaper varje gång du ska göra ett citat. (Då kan du ju räkna ut hur lättläst den koden blir sedan.)
+
+<p>För dig som undrar hur vi kom in på detta kan vi svara dig med att det bara är en litet stycke som visar att alla har nytta av Unicode, även om de inte ska blanda in kinesiska och tyska tecken på sin webbplats. Och för att fler personer ska använda korrekta citattecken, förstås!
+
+<h2>Mer om Unicode</h2>
+<p>Som du säkerligen tidigare hört sparar en dator all sin information i ettor och nollor, det så kallade binära talsystemet med basen två alltså. Det finns en rad olika tekniker att lagra och tolka tecken. Av alla dessa tekniker är en Unicode-variant att rekommendera idag av tidigare nämnda anledningar. Vi kommer i detta kapitel ta upp dess betydelse och hur du kommer att kunna använda det på din webbplats.
+
+<p>Fördelen med Unicode är som sagt att det har plats för massor av tecken, närmare bestämt alla nu levande språk (och några utdöda). Du kan därför använda alla dessa på samma webbisda. Detta leder till att du till exempel kan skriva kinesiska tecken på en svenskspråkig sida om du vid något udda tillfälle skulle känna behov av det. (Vi kommer ta mer troliga exempel senare.) Du behöver heller aldrig tänka på vilken teckenuppsättning du bör använda dig av, vilket är kanske den största fördelen.
+
+<p class="todo">Rensa här under.
+
+<p>Gemensamt för alla teckenkodningar är att <em>varje tecken representeras av ett tal</em>. Låt oss säga att vi skapar vår eget mycket simpla teckenkodning som endast ska ha plats för ”A”, ”B”, ”C”. Vi låter ”A” representeras av 1, ”B” av 2 och ”C” av 3. För att datorn ska kunna spara dessa måste de konverteras till det binära talsystemet, det vill säga ettor och nollor. Utan att gå in djupare på <a href="http://sv.wikipedia.org/wiki/Bin%C3%A4rt_talsystem">hur man konverterar dessa tal</a> från vårt decimala talsystem (med basen 10) till det binära talsystemet (med basen 2) kan vi bara finna oss i att 1 = <code>01</code>, 2 = <code>10</code> och att 3 = <code>11</code>. Vi ser att våra tecken får plats på två ettor och nollor, eller som man brukar kalla de, bitar (eng. bits). Men vad händer om vi sedan vill utöka vårt nuvarande talsystem som är begränsat till två bitar med till exempel ”D”, ”E” och ”F”? De får helt enkelt inte plats! Om vi fortsätter vår redan påbörjade räkning så blir ”D” = 4, ”E” = 5 och ”F” = 6. I det binära talsystemet skulle det decimala talet 4:a bli <code>101</code>. Vi inser att vi inte kan lagra dessa tre bitar i två bitar. Vi behöver helt enkelt använda tre bitar till varje tecken. Nu blir ”A” = <code>001</code>, ”B” = <code>010</code>, ”C” = <code>011</code>, ”D” = <code>100</code>, ”E” = <code>101</code>, ”F” = <code>110</code>. Om vi skulle använt vår första teckenkodning som var begränsad till två bitar per tecken skulle strängen ”ABC” endast ta 6 bitar (<code>01</code> + <code>10</code> + <code>11</code> = 6 bitar), men med vår utökade teckenkodning tar det istället 9 bitar (<code>001</code> + <code>010</code> + <code>011</code> = 9 bitar). Eftersom de första tecknen som egentligen fick plats på två bitar nu lagras på tre bitar kommer det finnas en bit som aldrig används i tecknen som representeras av låga värden, ”dött utrymme” alltså.
+
+<p>Om nu det så kallade <code>UTF-8</code> skulle rymma hela världens alla tecken, skulle det inte betyda att vi får massor av ”dött utrymme” då? Alla tecken skulle ju behöva massor av bitar för att man skulle få plats med tecknen som representeras av mycket höga tal, eller? Som tur är använder <code>UTF-8</code> något man kallar <em>variabel teckenlängd</em>, vilket betyder att alla tecken allokerar inte ett lika stort antal bitar. När man pratar om till exempel <code>ISO-8859-1</code> (även kallat <dfn>Latin 1</dfn>), som inte är en Unicode-variant, så svarar <em>en byt</em> mot <em>ett tecken</em>. (En byte är åtta bitar, det vill säga åtta ettor och nollor.) Detta betyder alltså att <em>alla tecken är lika stora</em>, precis som i vårt talsystem från stycket ovan. I <code>ISO-8859-1</code> har ”a” det binära värdet <code>01100001</code> (97 decimalt), och tecknet ”ä” representeras av <code>10000100</code> (132 decimalt). Om vi räknar dessa bitar får vi fram att båda tecknen representeras av åtta stycken ettor och nollor, precis som vi tidigare sade (vi har alltså rätt ibland). Detta slutar precis som med vårt eget talsystem, vi får plats med ett begränsat antal tecken. Etta eftersom varje tecken måste ha ett eget unikt värde, hur skulle datorn annars veta om du menade ”m” eller ”n”, om båda hade samma binära värde? Det enda sättet att ”få plats med fler tecken” är som vi redan sett att tilldela varje tecken ett större antal bitar. Det är här <code>UTF-8</code> kommer in i bilden: genom att olika tecken representeras av olika många bitar räddar den oss från alla dessa problem. Den tidigare nämnda ”variabla teckenlängden” är nyckeln här. Då tar vi inte upp massor onödigt utrymme och vi får tillgång till nästan hela världens tecken! De vanligaste tecken, a till z till exempel, använder sig av lika många bitar som de äldre standarderna, så där ”förlorar” vi inget utrymme.
+
+<p>Det finns andra viktiga Unicode-teckenkodningar, bland annat <code>UTF-16</code> och <code>UTF-32</code>. De använder sig dock inte av variabel teckenlängd i samma utsträckning, och lämpar sig därför inte för webben eftersom de tar mer (onödig) plats. Så sammanfattat, <code>UTF-8</code> bör användas i så stor utsträckning som möjligt.
+
+<h2>Att använda Unicode på webbplatser</h2>
+<p>Nu när vi gått igenom den tekniska delen av teckenkodning är det bara det lätta kvar: hur man talar om för besökarens webbläsare vilken teckenkodning som används. Om vi inte skulle göra det skulle standardteckenkodningen användas, vilket varierar beroende på vilken webbläsare hon eller han använder och språkinställningar i denna. Inget du vill förlita dig på alltså. Detta leder väldigt ofta till att fel teckenkodning används om webbutvecklaren (ja, det är du!) inte gjort så att webbläsaren kan ta reda på viken teckenkodning som används.
+
+<p>Det bästa sättet att tala om för besökaren vilken teckenuppsättning man har använt är att sätta ett så kallad HTTP-huvud vid namn <code>Content-Type</code>. För att förstå vad detta egentligen betyder behöver man förstå hur datorer i ett nätverk, så som Internet, kommunicerar med varandra och hur HTTP-protokollet är uppbyggt. Detta är något någon annan får skriva en bok om, vi kommer bara gå igenom det vi behöver veta för att få det fungera.</p>
+
+
+<h2 id="http-protokollet-for-kommunikation-mellan-dig-och-webbservern">HTTP, protokollet för kommunikation mellan dig och webbservern</h2>
+
+  <p>När du besöker en webbplats så hämtar webbläsaren information från en webbserver. För att de ska förstå varandra har W3C och IETF utvecklat ett protokoll vid namn HTTP. Ett protokoll är en sammansättning regler och bestämmelser som både webbläsaren och webbservern måste följa för att de ska ha en chans att förstå varandra, man kan säga att de ”prata med varandra”. Det går i stora drag till på följande vis:</p>
+
+  <ol>
+    <li>Webbläsaren skickar en <code>GET</code>-begäran till webbservern innehållande filnamnet på filen besökaren vill se.</li>
+    <li>Webbservern kollar om filen finns på sin disk och kan sedan svara med en rad olika felkoder om något gick fel. Du har säkert hört talas om <code>404</code>, den felkod som skickas när webbservern inte kan hitta filen som efterfrågas.</li>
+    <li>Om allt gick rätt så kommer webbservern att svara med koden <code>200</code> och sedan skicka webbsidan till besökaren.</li>
+
+  </ol>
+
+  <p>HTTP-svarskoden ser besökaren inte så länge inget gick fel och HTTP-huvudet är information till webbläsaren och inte besökaren. Ett HTTP-svar kan se ut såhär:</p>
+
+  <figure id="kod-http-request"><pre><code class="no-highlight">HTTP/1.1 200 OK
+
+Date: Mon, 24 May 2006 22:37:32 GMT
+Server: Apache/1.3.27 (Unix)
+Last-Modified: Wed, 09 Jan 2004 13:15:05 GMT
+Content-Length: 438
+Connection: close
+<mark>Content-Type: text/html; charset=UTF-8</mark>
+
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+&quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kolla, jag anv&auml;nder UTF-8!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;Denna rad &auml;r d&aring; f&ouml;rhoppningsvis kodad som UTF-8. T.ex. fungerar &ouml;&auml;&aring; perfekt.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+  <p>Här är det bara det sista, <code>Content-Type</code> (den markerade raden), som du behöver bry dig om just nu av alla dessa HTTP-huvuden. Vi ser i exemplet att den har värdet <code>text/html; charset=UTF-8</code>. Det första är <code>MIME</code>-typen (<code>text/html</code> i exemplet) som vi pratade om i förra kapitlet. Efter det har vi delen som är aktuell i nuvarande kapitel, nämligen <code>charset=UTF-8</code>. Det betyder att denna sida är kodad i <code>UTF-8</code>. Vi kommer ta upp två sätt att ändra värdet av <code>Content-Type</code> (vi bakar alltså in delen om hur man sätter den så kallade MIME-typen).</p>
+
+  <h3 id="http-protokollet-for-kommunikation-mellan-dig-och-webbservern/andra-content-type-direkt-i-webbservern">Ändra <code>Content-Type</code> direkt i webbservern</h3>
+  <p>Även om du inte har eller använder en webbserver just nu så kan det vara bra att läsa igenom detta för att förbereda sig på vad som måste göras senare när du ska publicera din sida. En förklaring om du hanterar filer utan en webbserver kommer senare.</p>
+
+  <p>Det är inte ofta man har tillgång till att ändra inställningarna direkt på webbservern, om man inte känner eller själv är ägaren av servern. Hur man går till väga för att ändra inställningar på webbservern beror tyvärr på vilken webbserver man använder. Den mest använda webbservern idag heter <a href="http://apache.org">Apache</a>, och finns till nästan alla operativsystem. Den är dessutom gratis för alla ändamål. Eftersom tillvägagångssättet skiljer sig från server till server får du helt enkelt börja med att söka igenom din webbservers manual, som ofta finns tillgänglig på respektive utvecklares webbplats, och hoppas på att det finns information på hur du bör göra där.</p>
+
+  <p>Om du hyr ett webbhotell och inte vet vilken typ av webbserver de använder använder får du kontakta supporten. Alternativt om du vet om något smidigt sätt att kontrollera vilka HTTP-huvud som webbservern skickar till din webbläsare då programnamnet ofta står där. Det brukar inte heller vara så att webbhotellen försöker dölja vilken webbserver de använder, de brukar snarare skylta med det, typ ”eftersom vi är bäst och Apache är den bästa webbservern tyckte vi det var en bra kombination och använder därför den”. Se i vilket fall till att de berättar hur man går till väga för att ändra inställningar, så kan du göra det själv nästa gång. Om ditt webbhotell inte tillåter dig ändra inställningarna på något sätt, det är sällan man får det på gratis webbhotell, får du använda dig av samma teknik som filer lagrade lokalt.</p>
+
+  <p>Vi tänkte visa hur man gör ovanstående med en Apache-server då chansen är stor att du använder en sådan. (Apache har som många andra sin <a href="http://httpd.apache.org/docs">dokumentation tillgänglig online</a>.) Om du inte har tillgång till att ändra direkt i servern så är chansen stor att du får ändra dessa inställningar individuellt per mapp. Detta gör du genom att skapa en fil med namnet <code>.htaccess</code> i mappen. Notera att även mappens undermappar kommer påverkas av dessa inställningar.</p>
+
+  <ul>
+    <li>Om du använder HTML är det enda du behöver skriva i filen <code>AddDefaultCharset utf-8</code>, sedan sökter webbservern resten.</li>
+
+    <li>Tyvärr gäller <code>AddDefaultCharset</code> endast för <code>text/html</code> och <code>text/plain</code> (ren text), så när vi använder XHTML berör inte den inställningen vår <code>charset</code>-parameter. Varför? Jo, XHTML använder inte <code>text/html</code>-MIME-typen, som du kanske minns; den använder <code>application/xhtml+xml</code>! Eftersom vi inte kan ändra på vilken MIME-typ <code>.html</code>-filer (om nu inte <em>varenda en</em> av dina <code>.html</code>-filer verkligen är XHTML) kan vi istället använda ändelsen .xhtml för XHTML-dokument. Detta gör vi genom att skriva <code>AddType application/xhtml+xml;charset=utf-8 .xhtml</code> i <code>.htaccess</code>-filen.</li>
+
+  </ul>
+
+  <p>Man kan självklart kombinera dessa, så att man kan använda både HTML och XHTML på sin server:</p>
+  <figure id="kod-apache-config"><pre><code class="nohighlight">AddDefaultCharset utf-8
+AddType application/xhtml+xml;charset=utf-8 .xhtml</code></pre></figure>
+  
+  <p>Lägg märke till att du inte kan ha något mellanrum mellan <code>;</code> och <code>charset</code>-parametern. Skulle du skriva <code>AddType application/xhtml+xml; charset=utf-8 .xhtml</code> skulle Apache endast skicka <code>application/xhtml+xml;</code>, det vill säga <code>charset</code>-parametern faller bort. </p>
+
+  <p>Som du säkerligen märkte gick vi lite snabbt och lustigt igenom hur man ändrar MIME-typ på XHTML-filer också. <code>application/xhtml+xml</code> är oftast den förinställa MIME-typen på .xhtml-filer, men för att vara på den säkra sidan är det lika bra att ta med det. Vissa personer påstår prompt att <code>charset</code> ska utelämnas ur <code>Content-Type</code> när man skickar XML (XHTML är XML som du säkert kommer ihåg), eftersom det är ett ”självbeskrivande format”. Man ska enligt dessa personer endast ange <code>encoding</code>-värdet i XML-deklarationen, som vi tar till efter denna del. Men det är värt att redan nu känna till så att det inte blir allt för rörigt.</p>
+
+  <p>Filnamnet <code>.htaccess</code> brukar skapa problem på vissa operativsystem, speciellt Windows. Windows påstå att ”Du måste ange ett filnamn” när du försöker skapa filen. Men om du istället man skapar filen genom att helt enkelt spara den på vanligt sätt (och genom det skapa den) med din textredigerare så brukar detta inte vara ett problem. Sedan fungerar den som vilken fil som helst. Windows är lustigt ibland.</p>
+
+  <h3 id="http-protokollet-for-kommunikation-mellan-dig-och-webbservern/andra-content-type-med-ett-sa-kallat-serverskript">Ändra <code>Content-Type</code> med ett så kallat serverskript</h3>
+  <p>Vi vill börja med att utdela en liten varning först: denna lösning är mycket krångligare än ovanstående och är endast en nödlösning om allt annat misslyckats.</p>
+
+  <p>Ett serverskript är ett skript som körs <em>innan</em> webbsidan skickas till webbläsaren och något som du måste kontrollera att din webbserver har stöd för innan du kan använda det. Det finns flera olika sådana språk, och <a href="http://php.net">PHP</a> är ett av de mest populära idag. Som tur är det dessutom relativt lätt att göra det vi vill i PHP. För att säga till webbservern att det är PHP-kod vi skriver just nu så skriver man <code>&lt;?php</code> som starttag avslutar kodbiten med sluttaggen <code>?&gt;</code>. Dessutom använder man ändelsen <code>.php</code> på filen i fråga. Det är viktigt att skriptet vi kommer använda oss av står <em>först</em> i HTML-koden, annars hinner inte webbservern ändra HTTP-headern innan webbsidan skickas. (Som du ser i exemplet några stycken upp så kan man inte skicka nya HTTP-huvuden efter koden har börjat överföras.) PHP-koden kommer <em>aldrig</em> att vara synlig för besökaren.</p>
+
+  <p>Din HTML-sida bör nu se ut såhär:</p>
+
+  <figure id="kod-html-med-php"><pre><code class="html">&lt;?php header(&#x27;Content-Type: text/html; charset=utf-8&#x27;); ?&gt;
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+&quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+
+&lt;head&gt;
+&lt;title&gt;Kolla, jag anv&auml;nder UTF-8!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;H&auml;r skulle d&aring; sidan med lite konstiga tecken s&aring; som &aring;&auml;&ouml; vara.&lt;/p&gt;
+
+&lt;p&gt;Ser du detta?! &Ouml;&Auml;&Aring;?!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+  
+  <p>Man skriver alltså först MIME-typen för webbsidan, följt av ett semikolon (<code>;</code>), som sedan följs av den teckenkodning man använder (<code>charset=UTF-8</code> i exemplet). Det är viktigt att det alltid är i denna ordning med <code>;</code> som avskiljare, annars kommer webbläsaren inte kunna tolka headern ordentligt.</p>
+
+  <p>Eftersom att XHTML <em>bör</em> ha en annan MIME-typ så byter man naturligtvis ut första raden mot detta om man använder XHTML:</p>
+
+  <figure id="kod-xhtml-med-php"><pre><code class="php">&lt;?php header(&#x27;Content-Type: application/xhtml+xml; charset=UTF-8&#x27;); ?&gt;</code></pre></figure>
+
+  <p>Vi kommer inte gå in djupare på vad PHP uträttar med denna kod eller hur HTTP fungerar. Vi får helt enkelt acceptera att det ser ut och fungerar såhär för tillfället, eftersom det skulle ta för lång tid att gå igenom det mer utförligt.</p>
+
+  <h3 id="http-protokollet-for-kommunikation-mellan-dig-och-webbservern/losningen-for-filer-som-lagras-lokalt-och-for-dig-som-inte-kan-andra-i-servern">Lösningen för filer som lagras lokalt och för dig som inte <em>kan</em> ändra i severn</h3>
+  <p>När du påbörjar din första webbsida är det inte troligt att du redan har en webbserver att konfigurera som vi gick igenom ovan. Eftersom man inte behöver transportera webbsidan när den lagras lokalt (”på din dator”) så är inte HTTP inblandat. Man får berätta för webbläsaren vilken teckenkodning man använder genom att skriva det i HTML-koden. Hur man går till väga skiljer sig beroende på om du använder HTML eller XHTML.</p>
+
+  <p>För HTML ska man använda sig av ett <code>meta</code>-element. Problemet här är att webbläsaren måste börja tolka koden utan att veta vilken teckenkodning det är innan den hittat <code>meta</code>-elementet. Man använder endast denna för sidor som lagras lokalt, till exempel när en besökare sparar ner din sida på sin disk. Det är även en <i lang="en">fallback</i> i specialfall när du varken har tillgång till att ändra serverinställningar eller serverskript.</p>
+
+  <p>Tänk även på att HTTP-huvudet <code>Content-Type</code> har <em>högre prioritet</em> än <code>meta</code>-elementet, så om dessa värden skiljer sig från varandra kommer webbläsaren använda sig av värdet den hittade i HTTP-huvudet. Webbläsaren kontrollerar alltid <code>Content-Type</code> först, och om <code>charset</code>-parametern saknas där använder den <code>meta</code>-elementet. Hur som helst ser det färdiga <code>meta</code>-elementet ut såhär och ska placeras så högt upp i <code>head</code>-elementet som möjligt, absolut före <code>title</code>:</p>
+
+  <figure id="kod-html-meta-charset"><pre><code class="html">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+&quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+&lt;head&gt;
+<mark>&lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html; charset=utf-8&quot;&gt;</mark>
+
+&lt;title&gt;Kolla, jag anv&auml;nder UTF-8!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;H&auml;r skulle d&aring; sidan med lite konstiga tecken s&aring; som &aring;&auml;&ouml; vara.&lt;/p&gt;
+
+&lt;p&gt;Ser du detta?! &Ouml;&Auml;&Aring;?!&lt;/p&gt;;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+	<p>Känner man sig lite modern och vill använda HTML 5 kan man istället för den långa raden ovan använda <code>&lt;meta charset="utf-8"&gt;</code>. För XHTML används en så kallad <dfn>XML-deklaration</dfn>. Denna kommer ignoreras om inte XHTML-sidan skickas med korrekt MIME-typ, eftersom sidan som tidigare känt då kommer hanteras som HTML och nedanstående kodrad inte har någon betydelse i HTML.</p>
+
+	<figure id="kod-xml-deklaration"><pre><code class="html"><mark>&lt;?xml version="1.0" encoding="UTF-8"?&gt;</mark>
+&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"DTD/xhtml1-strict.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+&lt;title&gt;Kolla, jag använder UTF-8!&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;p&gt;En XHTML-sida med öäå, inte allt för ovanligt!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></figure>
+
+  <p>Även XML-deklarationen har lägre prioritet än <code>Content-Type</code>, men som vi tidigare nämnt bör du inte inkludera <code>charset</code>-parametern i XHTML-dokuments <code>Content-Type</code>, utan du bör helt förlita dig på XML-deklarationen.</p>
+
+<h2>Åtgärder att vidta då Unicode inte är ett alternativ</h2>
+<p>Låt oss säga att du av någon anledning skulle vara inkapabel att använda en <code>UTF-8</code> eller en teckenkodning med lika brett teckenutbud. Låt oss sedan fortsätta denna hemska tanke med att vi vill använda tecken ”utanför” vår teckenkodning. Hur ska vi då göra för att använda dessa tecken? Jo, vi har två alternativ: numeriska referenser och teckenentiteter.
+
+<h3>Numeriska teckenreferenser</h3>
+<p>Till att börja med har vi två typer av numeriska teckenreferenser, decimala och hexadecimala. Syntaxen för den decimala versionen är <code>&amp;#nnnn;</code> och det hexadecimala eländet <code>&amp;#xnnnn;</code>. Själva talet refererar alltid, oberoende av vilken teckenkodning du använder på sidan, till kodpositionen i Unicode-teckenrepertoaren.</p>
+
+<h3>Teckenentiteter</h3>
+<p>Här används symboliska namn istället för tal, till exempel kan man använda <code>&amp;copy;</code> för att infoga ett ©-tecken. Tursamt nog finns det generösa personer som sammanställt <a href="http://en.wikipedia.org/wiki/List_of_XML_and_HTML_character_entity_references">listor över de cirka 250 olika referenserna</a> som du kan tänkas använda.
+
+<h2>Övriga vanliga problem rörande teckenkodning</h2>
+<p>Man löser självklart inte alla problem genom att endast ändra värdena på alla dessa attribut på olika ställen, man måste förstås spara <em>alla</em> delar av webbsidan i den teckenkodingen man angivit. Detta görs oftast genom en inställning i din textredigerare. Hur man gör detta beror på vilken textredigerare man använder dig av; i vissa ”textredigerare” går det inte ens ställa in vilket du ska använda. I notepad++ (som vi rekommenderade i början av boken) gör man detta under Format → ”<code>UTF-8</code> without BOM”. Vi går igenom lite längre ner varför du bör välja alternativet utan BOM.
+
+<p>Efter en snabb koll på teckenkodning kan du förhoppningsvis grunderna och förstår dig på en del av problemen som kan uppstå. Det finns personer som påstår att man inte behöver lära sig detta för att ”det inte har något med webbdesign att göra”, men sedan sitter de och tuggar fradga i frustration över att åäö inte fungerar på deras webbsida. Du får själv avgöra om du vill komma ihåg detta eller inte.
+
+<h3>Vissa tecken visas inte som jag vill, till exempel renderas ”ä” som ”Ã¤”</h3>
+<p>Det är inte säkert att ”ä” renderas på exakt samma sätt som i rubriken, det är bara ett exempel. Antagligen har du sparat ditt dokument med en annan teckenkodning än du berättar för webbläsaren. Du måste alltid spara filen i det formatet du talar om för webbläsaren att den är sparad i, annars blir det som du själv ser fel… Dubbelkontrollera så att du verkligen gjort rätt:
+
+  <ol>
+    <li>Sparat filen med önskad teckenkodning, förslagsvis <code>UTF-8</code>.</li>
+    <li>Kontrollera att <code>Content-Type</code> är satt till teckenkodningen du sparade filen i.</li>
+    <li>Kontrollera att webbläsaren verkligen förstår vad du säger till den. I t.ex. webbläsaren Firefox ser du vilken teckenkodning den använder genom att gå till Visa ⇒ Kodning.</li>
+    <li>Testa i olika webbläsare, är det kanske till och med din webbläsare som är trög och inte förstår vad du talar om för den? Fungerar det i vissa men inte andra? Fungerar det inte i någon alls är det antagligen ditt fel, annars kan det bero på en webbläsarbugg. Självklart ska det fungera i så många webbläsare som möljigt, men tänk på att väldigt gamla webbläsare kan sakna stöd för <code>UTF-8</code>. Du bör fundera på att uppdatera din webbläsare om det är så det ligger till.</li>
+  </ol>
+
+<h3>XHTML och PHP-kollision</h3>
+<p>Om ägaren av servern inte tänkt efter riktigt när han eller hon ställde in hur webbservern och PHP ska fungera finns det en risk att något som kallas för <code>short_open_tag</code> är aktiverat. Denna inställning gör att XML-deklarationstarten, det vill säga <code>&lt;?</code>, tolkas som en startpunkt för PHP istället. Men som tur är berör detta endast filer med ett filslut som förväntas innehålla PHP-kod, alltså främst filer med filslutet <code>.php</code>.</p>
+
+<p>Om det inte är din server så är det inte mycket du kan göra åt detta, förutom att använda dig av PHP för att skriva ut din XML-deklaration. Detta görs genom följande kod (och det är inget vi kommer gå igenom noggrannare eftersom det kräver grundläggande kunskap inom PHP):</p>
+
+<figure id="kod-php-short-tag"><pre><code class="php">&lt;?php echo &#x27;&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#x27;; ?&gt;</code></pre></figure>
+
+<h3>Webbläsaren visar konstiga tecken i början av mitt dokument (BOM-problem)</h3>
+<p>Om din webbbläsare visar oönskade tecken, till exempel <code>ï»¿</code>, eller en blank rad <em>i början av ditt dokument</em> så är det troligen någon som kallas för BOM (Byte Order Mark) som bråkar. Det beror troligen på att du inte specificerat rätt teckenkodning på de ställen vi gått igenom eller att du använder en <em>mycket</em> gammal webbläsare (dags att uppgradera!). Om det istället är tecken mitt i dokumentet beter sig oväntat beror det troligen på något annat; läs sammanfattningen nedan.</p>
+
+<p>BOM talar om ifall texten är kodad i ”<i lang="en">big endian</i>”- eller ”<i lang="en">little endian</i>”-format. Det har att göra med hur byteordningen är upplagd. I <i lang="en">big endian</i>, eller rak byteordning som det också kallas, kommer den högsta byten först. I <i lang="en">little endian</i>, också kallad omvänd byteordning, kommer istället den lägsta byten först. Ett annat sätt att se på det är att kolla om MSB, <i lang="en">most significant byte</i>, kommer först eller sist. BOM är ett måste för <code>UTF-16</code> och <code>UTF-32</code>, men är frivillig för <code>UTF-8</code> eftersom <code>UTF-8</code> inte har någon alternativ ordning av byten i sina tecken, vilket är vad BOM-signaturen talar om för webbläsaren.</p>
+
+<p>BOM ställer till det speciellt med i skrivande stunds PHP-version och användandet av funktionen <code>header</code>, eftersom att den måste befinna sig först i filen för fungera. Med en BOM-signatur i början påstår PHP att det redan skickas information och den kan inte längre ändra i HTTP-huvudet. Lösningen är helt enkelt att spara filen som <code>UTF-8</code> <em>utan BOM</em>. Förhoppningsvis finns en sådan inställning i din textredigerare, annars är den ända utvägen att byta mot en nyare med flera funktioner.</p>
+
+<h3>Min textredigerare vill inte koda om texten</h3>
+<p>Låt oss säga att du har en fil som redan är kodad i <code>ISO-8859-1</code> och sedan vill <em>omkoda</em> den till <code>UTF-8</code>. Detta är naturligtvis ingen omöjlig uppgift, men kan strula ibland. Om vi tar ett exempel med notepad++ igen:</p>
+
+<ol>
+  <li>Du öppnar filen som är kodad i <code>ISO-8859-1</code>.</li>
+  <li>Du vill koda om filen till <code>UTF-8</code> och väljer därför ”Format” ⇒ ”Encode in UTF-8 (without BOM)”.</li>
+</ol>
+
+<p>Det låter kanske som ett smart drag, men nu visas istället dina före detta ”å” som ”䀵”. Varför? Jo, notepad++ byter bara teckenkodning, den <em>omkodar</em> inte tecknen. I <code>ISO-8859-1</code> är ”å” <code>11100101</code> (decimalt: 229) skrivet binärt. Eftersom notepad++ inte omkodar filen så låter den <code>11100101</code> stå kvar. Sedan när programmet ska visa tecken i ett format som användaren kan förstå (läsbara tecken alltså) så kommer den nu istället tolka filen som <code>UTF-8</code>. Nu är inte <code>11100101</code> ”å” i <code>UTF-8</code>, utan någon annat spännande tecken visas. (”å” i <code>UTF-8</code> är <code>1100001110100101</code>.)
+
+<p>Så, hur ska man göra? Svaret varierar från textredigerare till textredigerar, men det finns vissa program som kan konvertera om filen från en teckenkodning till en annan. Om du använder Windows och notepad++ så kan du använda detta lite smålustiga trick:
+
+  <ol>
+    <li>Ställ notepad++ i ett läge där alla tecknen syns på det sättet du önskar.</li>
+    <li>Markera och klipp ut all text (<em>Ctrl + A</em>, <em>Ctrl + X</em>).</li>
+    <li>Byt teckenkodning till den du egentligen vill ha, troligen <code>UTF-8</code>.</li>
+    <li>Klipp in texten igen (<em>Ctrl + V</em>).</li>
+  </ol>
+
+<h2>Sammanfattning</h2>
+<p>En kort att göra-lista för att se till att rätt teckenkodning används:</p>
+
+<ol>
+  <li>Kom ihåg att <em>verkligen</em> spara din fil i <strong><code>UTF-8</code>-format</strong>.</li>
+  <li>Sätt <code>Content-Type</code> till <code><var>MIME-typ</var>; charset=<var>teckenkodning</var></code> på valfritt sätt.</li>
+  <li>Lägg till ett <code>meta</code>-element med nödvändig information (eller en XML-deklaration om du använder XHTML) för att slippa onödiga problem. Detta är dock frivilligt; <code>Content-Type</code> är mycket viktigare.</li>
+</ol>

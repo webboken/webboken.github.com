@@ -1,0 +1,23 @@
+---
+layout: default
+title: Talsystem
+subtitle: Ibland räcker det inte med bara ettor och nollor
+desc: Förkunskap till de båda andra extrakapitlen. Om hur olika talsystem fungerar.
+category: extra
+---
+<p>Detta kapitel behövs eftersom kunskapen om att kunna hoppa mellan olika s.k. talsystem är ett förkunskapskrav till de två andra extrakapitlen som behandlar färger resp. teckenkodning. Vi kommer inte beröra någon webbutveckling här utan bara förklara vad som menas med ett talsystem och olika s.k. talbaser.
+
+<p class="todo">Efter här behövs det fortfarande städas
+
+<h2>Världens kortaste introduktion till det hexadecimala talsystemet</h2>
+<p>När vi specificerar färger med RGB-modellen till webbplatser skrivs mängden av de tre grundfärgerna som ska tas med basen 16, d.v.s. i det hexadecimala talsystemet. Så istället för ett tal mellan 0 och 255 blir det ett tal mellan <code>0</code> och <code>FF</code>. För att förstå vad som händer här och vad ordet ”bas” har med detta att göra behövs en kort introduktion till talsystem innan vi kan fortsätta med att dekorera webben med färger.
+
+<p>För att få full förståelse för färg på webbsidor måste du även förstå det hexadecimala talsystemet. Det vi dagligen räknar med kallas för det decimala talsystemet. Som du säkert känner till så finns följande tecken, även kallade "siffror", i vårt talsystem: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9. Men något du kanske inte tänkt på är att de ha olika värde beroende på position i talet. Så t.ex. har inte 9:an samma värde i 19 som 91. I exempel ett har den just värdet 9 men i exempel 2 har 9 värdet 90, detta kallas för <strong>positionssystem</strong>. Så när tecknen tar slut så kombinerar man istället två tecken, istället för att varje värde har ett eget tecken. Så genom allt detta kan vi dra slutsatsen att vårt decimala talsystem har basen 10. Låt oss testa, är 1337 lika mycket som 1*10<sup>3</sup> + 3*10<sup>2</sup> + 3*10<sup>1</sup> + 7*10<sup>0</sup>?</p>
+
+<figure id="ex-hex-test"><p><samp>1*10<sup>3</sup> + 3*10<sup>2</sup> + 3*10<sup>1</sup> + 7*10<sup>0</sup> = 1000 + 300 + 30 + 7 = 1337</samp></p></figure>
+
+<p>Svar ja alltså, nu när vi förhoppningsvis har en större förståelse för vårt eget talsystem ska vi gå på nästa hinder, det hexadecimala. Precis som det decimala är det ett positionssystem, fast med basen 16. Det betyder att det finns 16 tecken i det hexadecimala till skillnad mot det decimala 10. Dessa är 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F. Så t.ex. har det hexadecimala tecknet A värdet 10 i det decimala talsystemet och B har värdet 11 osv.
+
+<p>Det finns massor smidiga sätt att konvertera dessa talsystem till och från varanda, men detta är något vi inte har något nytta av just nu eftersom att datorn kan jobba åt oss istället. Det finns många gratis <a href="http://google.com/search?q=hex+to+dec">onlinetjänster som konverterar mellan dessa talsystem</a>.
+
+<p>Men det är inte ofta man själv sitter och funderar ut färgkoder själv till sidan, det är ofta smidigt med något program som hjälper till och ser till att färgerna passar ihop med varandra och massor andra trevliga tidssparande funktioner. Och det är oftast inte nödvändigt att veta exakt vilket decimalt värde ett RGB-värde har, utan bara att kunna se ungefär vilken färg den kommer få, vilket man lätt kan se genom att kolla hur högt eller lågt värdet är helt enkelt.

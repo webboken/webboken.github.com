@@ -1,0 +1,145 @@
+---
+layout: default
+title: Den obskyra delmängden
+subtitle: Eller, ”<i>Dom som försvann</i>”
+desc: Lite random som inte fick plats någonstans.
+category: grunderna
+---
+<p>HTML skapades från början med syftet att publicera vetenskapliga och tekniska dokument; man inkluderade därför en mängd element som underlättade detta. Ganska många av dessa element har hängt med, och vi känner att du som läsare bör veta att åtminstone några av dessa existerar.
+
+<h2>Språk</h2>
+<p>Ett attribut som är bra att känna till är <code>lang</code>. Det används för att tala om för webbläsaren vilket innehållet i elementet är skrivet på. När vi säger ”språk” menar vi inte HTML eller XHTML denna gång, utan ”riktiga” språk. Svenska och engelska du vet?</p>
+<p>Detta är extra viktigt för till exempel sökmotorer då de oftast vill sortera in sina indxerade sidor efter språk, så att sökmotorns användare sedan kan filtrera resultaten efter språk. Hur många sökmotorer som egentligen använder <code>lang</code>-attributet har vi tyvärr ingen säker information om. (Men det är ett bra exempel på att det man gör är till nytta för någon, och så låter det som att vi vet vad vi pratar om också!)</p>
+<p>I HTML används <em>endast</em> attributet <code>lang</code>, men i XHTML använder man dess XML-motsvarighet, <code>xml:lang</code>. Oftast använder man <code>xml:lang</code> <em>och</em> lägger till <code>lang</code> för bakåtkompatibilitet med HTML. Men tänk på att man i XHTML 1.1 inte får använda <code>lang</code>, då den helt enkelt inte finns med i det språket. (XHTML 1.1 är inte bakåtkompatibelt med HTML.)</p>
+
+<p>För att webbläsaren, sökmotorn eller vem det nu är som besöker sidan ska ha någon nytta av värdet på <code>lang</code> måste det finnas ett standardiserat sätt att ange språk på. Som tur är finns det ett sådant. Eller, så enkelt är det kanske inte. Först kontrollerar vi vad <a href="http://www.w3.org/TR/html4/struct/dirlang.html">HTML-specifikationen har att säga om saken</a>. Vi ser att den menar att vi ska följa RFC1766 när vi specificerar språk. RFC1766 i sin tur säger sammanfattat att man ska använda en ISO639-förkortning, och en frivillig landskod från ISO3166. Du har säkert hört snacket på stan, det nya standarden för hur man specificerar språk har just kommit sägs det. De pratar naturligtvis om <a href="http://iana.org/assignments/language-subtag-registry">IANA Language Subtag Registry</a>. Innan IANALSR (Ja, det var en egen förkortning) så var det trassel med olika vilka ISO-koder man skulle använda och annat spännande. Nu är dessa problem borta i och med IANALSR; man väljer helt enkelt en lämplig språkkod från IANALSR. Om du till exempel skriver din webbplats på svenska blir det <code>lang="sv"</code>, om du skriver den på engelska blir det <code>lang="en"</code>, och så vidare. Det var väl inte så svårt?</p>
+
+<p>Man kan om man vill, och har en bra anledning till det, specificera andra språkrelaterade koder i <code>lang</code>. Men man ska som sagt ha en väldigt bra anledning. Attributet går för övrigt att använda på alla element, men man <em>bör definitivt</em> använda det på åtminstone <code>html</code>-elementet, för att definiera det övergripande språket. Man kan sedan specificera språket på specifika element om dessa avviker från resten av dokumentet.</p>
+
+<h2>Förkortningar</h2>
+
+<p>Ibland dyker det upp tillfällen då man vill använda olika förkortningar, och dessa bör man förklara dem när de dyker upp första gången. Detta gör man med elementet <code>abbr</code>. Exempel:</p>
+
+<pre><code class="html">&lt;p&gt;Med hjälp av &lt;abbr title=&quot;WINE is Not An Emulator&quot;&gt;WINE&lt;/abbr&gt; kan man köra Windows-program i en Linux-miljö.&lt;/p&gt;</code></pre>
+
+<p>Som du ser används attributet <code>title</code> för att infoga en förklaring till förkortningen. Man kan även, om man har förkortningar av ett annat språk, använda attributet <code>lang</code> för att specifiera detta.</p>
+
+<p>Som förkortningar gäller både oläsbara förkortningar som t.ex. <abbr title="Oh My God, What The Fuck, Barbeque" lang="en">OMGWTFBBQ</abbr> och förkortningar man läser ut, t.ex. <abbr title="Barnens Rätt I Samhället">BRIS</abbr>. Förkortningar som är en del av språket, som t.ex. svenskans <em>osv.</em> eller <em>etc.</em> behöver inte märkas med <code>abbr</code> då både mänskliga och mekaniska läsare <em>bör</em> känna till dem.</p>
+
+<p>Värt att veta är att i HTML 4.01 (och äldre versioner, samt XHTML) finns även elementet <code>acronym</code>, som var tänkt att användas för förkortningar som kunde läsas ut, t.ex. <abbr title="Barnens Rätt I Samhället">BRIS</abbr> och <abbr title="Super Nintendo Entertainment System" lang="en">SNES</abbr>. Detta element togs bort i HTML 5 eftersom det ansågs vara överflödigt.</p>
+
+<h2>Programkod</h2>
+
+<p>Det finns tre viktiga element när man vill presentera kod; <code>code</code>, <code>samp</code>, <code>kbd</code> och <code>var</code>. Det första – <code>code</code> – används för att märka upp kod. Oftast används <code>code</code> inuti textstycken, men vill man ha stora block med kod bör man fortfarande använda <code>code</code> (mer om detta senare i kapitlet). Betrakta följande exempel:</p>
+
+<pre><code class="html">&lt;p&gt;För att sätta textstorleken till tolv punkter skulle man kunna använda &lt;code&gt;font-size: 12pt;&lt;/code&gt;.&lt;/p&gt;</code></pre>
+
+<p>Elementet <code>samp</code> ska användas för att märka upp (exempel)utdata från ett program:
+
+<pre><code class="html">&lt;p&gt;När du kör programmet &lt;kbd&gt;date&lt;/kbd&gt; i din terminal kommer det att skriva ut dagens datum: &lt;samp&gt;Lör  1 Aug 2009 20:43:25 CEST&lt;/samp&gt;&lt;/p&gt;</code></pre>
+
+<p>Ovan ser du även ett exempel på hur man använder <code>kbd</code> – med det elementet märker man sådant som användaren ska skriva, i t.ex. en terminal.</p>
+
+<p>Det sista, <code>var</code>, används för att märka upp text som användaren ska ersätta. Detta används oftast tillsammans med <code>kbd</code> eller <code>code</code>, men kan givetvis passa i andra sammanhang också. Exempel:</p>
+
+<pre><code class="html">&lt;p&gt;För att ta bort en tabell helt från din &lt;abbr title=&quot;Structured Query Language&quot;&gt;SQL&lt;/abbr&gt;-server använder du frågan &lt;kbd&gt;DROP TABLE &lt;var&gt;tabellnamn&lt;/var&gt;;&lt;/kbd&gt;, där du ersätter &lt;var&gt;tabellnamn&lt;/var&gt; med namnet på den tabell du vill ta bort.&lt;/p&gt;</code></pre>
+
+<h2>Citering</h2>
+
+<p>Ofta vill man kanske referera till något dokument man själv inte har skrivit. Ett bra sätt att göra detta är genom att citera, vilket man i HTML gör med elementen <code>q</code> och <code>blockquote</code>. Den enda skillnaden mellan dessa element är att <code>q</code> ska användas i textstycken medans <code>blockquote</code> används när man vill citera ett helt stycke:</p>
+
+<pre><code class="html">&lt;p&gt;Stalin hade en mycket speciell människosyn. Han ansåg sig till exempel ha en lösning på alla problem: döden. &lt;q lang=&quot;en&quot;&gt;Death solves all problems - no man, no problem&lt;/q&gt; lär han ha sagt.&lt;/p&gt;</code></pre>
+
+<pre><code class="html">&lt;p&gt;Nedan följer ett citat av John F. Kennedy:&lt;/p&gt;
+&lt;blockquote&gt;&lt;p&gt;The Chinese use two brush strokes to write the word &#x27;crisis.&#x27; One brush stroke stands for danger; the other for opportunity. In a crisis, be aware of the danger - but recognize the opportunity.&lt;/p&gt;&lt;/blockquote&gt;</code></pre>
+
+<h3>Källor med <code>cite</code></h3>
+
+<p>Elementet (och attributet) <code>cite</code> används för att ange källan till de citat man använder, eller rent allmänt för källhänvisningar. Till exempel skulle man kunna använda <code>cite</code>-attributet på sitt <code>blockquote</code>-element (värdet <em>måste</em> vara en URL):</p>
+
+<pre><code class="html">&lt;blockquote cite=&quot;http://www.whatwg.org/specs/web-apps/current-work/#attr-blockquote-cite&quot;&gt;&lt;p&gt;If the cite attribute is present, it must be a valid URL. To obtain the corresponding citation link, the value of the attribute must be resolved relative to the element. User agents should allow users to follow such citation links.&lt;/p&gt;&lt;/blockquote&gt;</code></pre>
+
+<p>Använder man å andra sidan <em>elementet</em> <code>cite</code> behöver man ingen URL. Det ska dock framgå tydligt vad man refererar till, oavsett om det är ett namn eller en källa man redovisar senare i dokumentet:</p>
+
+<pre><code class="html">&lt;p&gt;Mauritius använder modern teknik, vilket till stor del görs möjligt av att landet har en stor ekonomisk frihet, större än Sverige (&lt;cite&gt;The Heritage Foundation, 2008&lt;/cite&gt;). Ekonomisk frihet är ett mått på hur fri en individ är när det gäller att arbeta, investera och så vidare.&lt;/p&gt;</code></pre>
+
+<h2>Korrigering</h2>
+
+<p>Ibland händer det att man måste ändra på ett dokument efter att det publicerats; och för detta finns elementen <code>ins</code> och <code>del</code>. Dessa används för att markera information som kommit fram eller som visat sig vara inkorrekt, respektive:</p>
+
+<pre><code class="html">&lt;p&gt;En seriekrock inträffade idag klockan tretton på E6:an, och fyra personer uppges ha skadats. &lt;ins&gt;Ingen fick livshotande skador.&lt;/ins&gt; &lt;del&gt;Det råder begränsad framkomlighet i norrgående riktning.&lt;/del&gt;&lt;/p&gt;</code></pre>
+
+<div class="box-example">
+	<p>En seriekrock inträffade idag klockan tretton på E6:an, och fyra personer uppges ha skadats. <ins>Ingen fick livshotande skador.</ins> <del>Det råder begränsad framkomlighet i norrgående riktning.</del></p>
+</div>
+
+<p>Till dessa element kan man använda attributen <code>cite</code> och <code>datetime</code>. Precis som för citering anger <code>cite</code> källan till den nya informationen. Vill man specificera en tidpunkt då informationen förändrades använder man <code>datetime</code>, som ska innehålla ett datum av det formatet som <a href="http://tools.ietf.org/html/rfc3339">RFC3339</a> anger, dvs <samp>yyyy-mm-ddThh:mm:ss±hh:mm</samp>.</p>
+
+<h2>Metadata – ”data om data”</h2>
+
+<p>Du stötte på elementet <code>meta</code> tidigare i kapitlet om teckenkodning. Detta element är gjort för att innehålla information om ditt dokument, till exempel teckenkodning, men även nyckelord, författare och liknande:</p>
+
+<pre><code class="html">&lt;head&gt;
+	&lt;meta name=&quot;keywords&quot; content=&quot;badbollar, megafon, sol&quot;&gt;
+	&lt;meta name=&quot;author&quot; content=&quot;E. N. Författare&quot;&gt;
+	&lt;meta name=&quot;description&quot; content=&quot;En historia om min vallfärd till stranden där jag såg en underlig megafon&quot;&gt;
+	&lt;meta name=&quot;copyright&quot; content=&quot;Copyright &copy; 2007 E. N. Författare&quot;&gt;
+&lt;/head&gt;</code></pre>
+
+<p>Tyvärr ignorerar många sökmotorer denna information eftersom den är så lätt att missleda med. <code>meta</code> måste placeras i <code>head</code>-elementet.</p>
+
+<h2>Förformaterad text</h2>
+
+<p>Ibland vill man kanske visa en ASCII-figur eller inkludera ett stort block med kod. Då använder man elementet <code>pre</code> (och <code>code</code> nästlat om man presenterar kod). Detta element gör att texten visas exakt så som den står i källkoden – med alla radbrytningar, tabbar och mellanslag. Man skulle till exempel kunna ha följande figur:</p>
+
+<pre><code class="no-highlight">+--------+     +--------+
+| Ruta A | ==> | Ruta B |
++--------+     +--------+</code></pre>
+
+<p>Har man denna figur i ett <code>pre</code>-element kommer den att visas som ovan, och man ser tydligt vad du vill visa. Använder man istället ett vanligt <code>p</code>-element blir det inte lika bra:</p>
+
+<div class="box-example">
+	<p>+--------+     +--------+
+| Ruta A | ==> | Ruta B |
++--------+     +--------+</p>
+</div>
+
+<h2>Andra trevliga element</h2>
+
+<p>För att märka upp kontaktinformation används elementet <code>address</code>:</p>
+
+<pre><code clas="html">&lt;address&gt;E. N. Författare&lt;br&gt;
+Generella gatan 73&lt;br&gt;
+100 10 NÅGONSTANS&lt;br&gt;
+&lt;br&gt;
+e.n.forfattare@institution.se&lt;/address&gt;</code></pre>
+
+<div class="box-example">
+	<address>E. N. Författare<br>
+	Generella gatan 73<br>
+	100 10 NÅGONSTANS<br>
+	<br>
+	e.n.forfattare@institution.se</address>
+</div>
+
+<p>Vill man definiera ord kan man använda elementet <code>dfn</code>:</p>
+
+<pre><code class="html">&lt;p&gt;&lt;dfn&gt;global maximipunkt&lt;/dfn&gt; är den punkt där en funktion antar sitt absolut största värde&lt;/p&gt;</code></pre>
+
+<p>Det finns även två lite mer sällan använda element, <code>sup</code> och <code>sub</code>, som upphöjer eller nedsänker text. Av dessa är <code>sup</code> den mest vettiga, eftersom man med den kan skapa fotnoter:</p>
+
+<pre><code class="html">&lt;p&gt;Det finns m&aring;nga olika webbl&auml;sare&lt;sup&gt;[&lt;a href=&quot;#fn-1&quot;&gt;1&lt;/a&gt;]&lt;/sup&gt;, men jag tycker att Opera &auml;r b&auml;st.&lt;/p&gt;
+...
+&lt;ol id="footnotes"&gt;
+    &lt;li id=&quot;fn-1&quot;&gt;Till exempel Internet Explorer, Firefox och Safari&lt;/p&gt;
+&lt;/ol&gt;</code></pre>
+
+<div class="box-example">
+	<p>Det finns många olika webbläsare<sup>[<a href="#fn-1">1</a>]</sup>, men jag tycker att Opera är bäst.</p>
+	...
+	<ol id="footnotes">
+	    <li id="fn-1">Till exempel Internet Explorer, Firefox och Safari</p>
+	</ol>
+</div>
+
+<h2>Utroduktion</h2>

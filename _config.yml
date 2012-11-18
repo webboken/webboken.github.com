@@ -1,0 +1,10 @@
+safe: true
+name: 'Webboken'
+url: http://webboken.github.com/
+
+future: true
+permalink: /:title
+
+markdown: rdiscount
+pygments: true
+rdiscount extensions: [smart,filter_styles]

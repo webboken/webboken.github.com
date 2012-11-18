@@ -1,0 +1,50 @@
+pre{
+  	white-space: pre-wrap;
+}
+
+pre code{
+  	display: block;
+  	background: #f5f5f5;
+	color: #080808;
+	padding: .5em;
+	border-top: 2px solid #e9ebec;
+	width: 44em;
+}
+
+/*
+pre code[class]:before{
+	content: attr(class);
+	display: block;
+	float: right;
+	text-transform: uppercase;
+	color: #d8dadb;
+}
+*/
+
+.html .attribute, .css .class, .css .id, .css .attr_selector{
+	color: #d5451d;
+}
+.css .hexcolor{
+	color: #930f22;
+	font-weight: bold;
+}
+.css .keyword, .html .keyword{
+	color: #d5451d;
+}
+.css .rules .keyword{
+	color: #79059a;
+}
+.number{
+	color: #930f22;
+	font-weight: bold;
+}
+.string, .html .value{
+	color: #006522;
+}
+.css .value{
+	color: #d5451d;
+}
+.comment{
+	color: #5c515f;
+	font-style: italic;
+}

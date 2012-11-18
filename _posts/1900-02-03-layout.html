@@ -1,0 +1,155 @@
+---
+layout: default
+title: Layout
+subtitle: "%TODO%"
+desc: Olika typer av layouter. Skapandet av en webbsida med någon flerkolumnslayout.
+category: design
+---
+<h2>Det finns tre typer av layouter, och vi vill använda den fjärde</h2>
+<p>När vi väl ska göra en layout finns det en rad olika vägar att gå. Vi har försökt att sammanställa dem här under.</p>
+
+<h2>Fast</h2>
+<p>Innebär att man oftast har specificerat bredden på sidan (<code>width</code>) i pixlar (<code>px</code>). Detta innebär att vi måste knappa in ett fast värde som inte anpassar sig efter fönsterstorleken eller teckenstorleken. Det som är negativt här är att man “måste” anpassa sig efter en viss bredd, vilket i vissa fall kan göra så man får en inte allt för eftertraktad sidscroll, eller tvärtom, får väldigt mycket tomma ytor. Problemet här är också vilken upplösning vi ska anpassa oss efter, 800×600? 1024×768? Större? Mindre? Detta är problem vi inte vågar spekulera vidare i.</p>
+
+<p>Så när vill man använda en sådan här layout? Så sällan som möjligt är ett ganska bra svar. Det kan också vara svårt att skapa en dynamisk layout om man använder sig av många bilder på sidan, speciellt bakgrundbilder, eftersom att dom kanske inte kan anpassa sig efter layouten på ett bra sätt.</p>
+
+<h2>Flytande</h2>
+<p>Flytande innebär oftast att man specificerat bredden i procent, vilket gör att webbsidan anpassar sig efter fönstrets storlek (men inte textens). Självklart får vi här brottas med problemen som vi talade om i den övre delen om fasta layouter.</p>
+
+<h2>Elastisk</h2>
+  <p>Alternativ tre innebär att man specificerar bredden i <code>em</code> och webbsidan kommer då anpassa sig efter teckenstorleken men inte fönsterstorleken. Problemet här är att sidan kan bli bredare än fönstretsstorlek, men kan lösas genom att vi använder CSS-egenskapen <code>max-width</code> istället för <code>width</code>. Då kommer aldrig problemet med att en webbsidan blir bredare än fönstret att uppstå. <code>max-width</code> säger åt webbläsaren att detta är gränsen för hur bred sidan får vara, gör dig (webbläsaren) så bred du bara vill. Problemet här är att IE6 och tidigare saknar stöd för <code>max-width</code>.</p>
+
+<h2>Alla på en gång</h2>
+<p>När man gör en layout vill man oftast att den ska anpassa sig efter både teckenstorleken och fönsterstorleken. Hur gör vi då detta? Låt oss skapa en <code>div</code> med lite innehåll:</p>
+
+<figure><pre><code>&lt;div id=&quot;main&quot;&gt;Lite innehåll för att, innehåll som sagt, innehåll! Mera text, jag gillar innehåll!&lt;/div&gt;</code></pre></figure>
+
+<p>Så hur ska vi då göra för att en layout ska anpassa sig efter <em>både</em> teckenstorlek och fönsterbredd? Som sagt är <code>max-width</code> smidigt (som fortfarande inte fungerar i IE6), om vi sedan sätter <code>width</code> med enheten procent kommer den att fungera som en övre gräns för hur bred sidan får bli. Så om vi anger <code>max-width: width; width: 90%;</code> så kommer den anpassa sig efter teckenstorleken <em>och</em> kommer aldrig bli bredare än <code>90%</code> av fönsterstorleken, även om inte webbläsaren har stöd för <code>max-width</code>!</p>
+
+<h2>En dynamisk och elastisk sida, på samma gång</h2>
+<p>När vi nu kan hantera dessa tekniker mer eller mindre ska vi försöka göra en webbsida av det. Vi börjar med att göra en <code>div#container</code> och placerar en <code>div#main</code> i den för att ha text i och en <code>div#menu</code> för att lägga menyn i:</p>
+
+<figure><pre><code>&lt;div id=&quot;main&quot;&gt;
+
+    &lt;div id=&quot;content&quot;&gt;
+    &lt;h1&gt;Lorem Ipsum!?&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque felis pede, aliquam in, ullamcorper sed, dignissim sit amet, urna.
+    Aliquam commodo, eros et blandit mollis, enim justo rhoncus metus, sit amet tincidunt elit metus ac sapien. Nullam congue consectetuer elit.
+    Etiam volutpat metus in enim. Mauris ultricies magna a turpis. Sed molestie.
+    Quisque molestie, diam in pharetra ornare, risus tellus cursus justo, sed vestibulum purus lacus sed justo.
+    Phasellus aliquet mi rhoncus nisl. Duis convallis volutpat velit. In mattis, dui non cursus porta, libero urna convallis lorem, mollis tristique lorem justo id ipsum.&lt;/p&gt;
+
+    &lt;p&gt;Vivamus id eros eget velit faucibus tristique. In eu pede consectetuer tellus dictum commodo. Nunc nulla.
+    Curabitur sit amet ipsum. Fusce massa urna, semper nec, volutpat eu, nonummy vel, pede. Quisque sodales fermentum sapien.
+    Morbi feugiat aliquam enim. Curabitur et urna sed sapien vulputate pellentesque. Sed nec neque.
+    Morbi magna risus, bibendum id, mattis ac, venenatis a, nulla.
+    Aliquam ornare, velit eu placerat commodo, nulla enim ullamcorper est, vel tincidunt ipsum metus ac orci. Maecenas hendrerit lacus ac nisl.
+    Aliquam interdum accumsan nisi. Aliquam erat volutpat.&lt;/p&gt;
+
+    &lt;p&gt;Tack &lt;a href=&quot;http://lipsum.com&quot;&gt;Lorem Ipsum&lt;/a&gt; för allt innehåll!&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;menu&quot;&gt;
+    &lt;ul&gt;
+
+    &lt;li&gt;Jag gillar min menu&lt;/li&gt;
+    &lt;li&gt;Tyck på mig&lt;/li&gt;
+
+    &lt;li&gt;Mumms&lt;/li&gt;
+    &lt;li&gt;Om oss&lt;/li&gt;
+
+    &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;/div&gt;</code></pre></figure>
+
+<p>Först måste vi bestämma oss för hur vi ska tala om bredden på våra delar av sidan. Vi röstar för procent på denna punkt:</p>
+
+<figure><pre><code>div#main {
+    max-width: 60em;
+    width: 90%;
+    background: red;
+    }
+
+div#content {
+    width: 79.9%;
+    background: green;
+    float: left;
+    }
+
+div#menu {
+    width:20%;
+    background: yellow;
+    float: left;
+    }
+
+div#menu ul li {
+    list-style: none;
+    margin-bottom: 1em;
+    }</code></pre></figure>
+
+<p>Som du ser använder vi ett ganska udda värde på <code>div#content</code>:s <code>width</code> (<code>69.9%</code>). Detta kan tyckas onödigt, men det är för att slippa avrundningsbuggar i olika webbläsare, främst IE. Vi vill att båda <code>div</code>:arnas sammanlagda <code>width</code> ska bli så nära <code>100%</code> som möjligt, absolut inte över <code>100%</code> eftersom att då riskerar <code>div#menu</code> att inte få plats och hamna under <code>div#content</code> istället för på höger sida.</p>
+
+<p>Vi ser också att vår röda div (<code>div#main</code>) inte sträcktes ut. Vi kan lösa detta genom att ge den egenskapen <code>overflow: hidden;</code> eller lägga till en <code>div</code> med egenskaperna <code>line-height:0; clear:both;</code>. Precis innan vi stänger <code>div#main</code>, vid <code>&lt;/div&gt;</code> alltså. Vi skulle antagligen ha fått en smal röd linje till höger om menyn eftersom att vi använde <code>width: 79.9%;</code> på <code>div#content</code>, men vi har valt att ta bort färgerna nu eftersom att dom bara skulle visa vart elementen hade placerat sig efter vårt första försök. Vi ger istället <code>body</code> en mörkgrå bakgrund och <code>div#main</code> färgen vit.</p>
+
+<figure><pre><code>body {
+    background: #666;
+    }
+
+div#main {
+    max-width: 60em;
+    width: 90%;
+    background: #FFF;
+    overflow: hidden;
+    }
+
+div#content {
+    width: 79.9%;
+    float: left;
+    }
+
+div#menu {
+    width:20%;
+    float: left;
+    }
+
+div#menu ul li {
+    list-style: none;
+    margin-bottom: 1em;
+    }</code></pre></figure>
+
+<p>Men texten ligger lite nära det vänstra hörnet nu kan tyckas. Det är nu dom riktiga problemen uppstår, <code>padding</code>! Nu måste vi räkna med <code>padding</code> i vår <code>width</code> (vi struntar i bakåtkompatibilitet med gammla webbläsare som t.ex. IE5 i detta exempel eftersom att det skulle behövas ganska avancerade tekniker för att stödja båda, något vi inte gått in på ännu). Det vi får göra är att tilldela <code>padding-left</code> och <code>padding-right</code> t.ex. <code>5%</code> och sedan dra bort det från <code>width</code>, det borde inte vara allt för svårt.</p>
+
+<figure><pre><code>body
+    {
+    background: #666;
+    }
+
+div#main {
+    max-width: 60em;
+    width: 90%;
+    background: #FFF;
+    overflow: hidden;
+    }
+
+div#content {
+    padding: 0 5%;
+    width: 69.9%;
+    float: left;
+    }
+
+div#menu {
+    width:20%;
+    float: left;
+    }
+
+div#menu ul li {
+    list-style: none;
+    margin-bottom: 1em;
+    }</code></pre></figure>
+
+<p>Sedan är det ju diskutabelt om det vart något snyggt resultat eller inte, men vi har i alla fall lyckats skapa en fungerande layout. <code>padding</code> kan användas på samma sätt på <code>div#menu</code> men just nu har vi löst det med att <code>ul</code> har tillräckligt med <code>margin-left</code>.</p>
+
+<h2>Ett tidigt hej då till dig trogna läsare</h2>
+<p>Med detta sagt börjar boken närma sig sitt slut, bara ett kapitel kvar nu. Nu gäller det hur som helst att du lär dig kombinera egenskaperna <code>padding</code>, <code>margin</code>, <code>width</code>, <code>height</code> och <code>float</code>. Kom ihåg att testa webbsidan i många olika webbläsare för att kolla så att du inte stött på någon märklig CSS-bugg. På tal om webbläsarbuggar finns webbplatser som t.ex. <a href="http://positioniseverything.net">Position Is Everything</a> som har tydlig information om hur olika webbläsarbuggar kan skapa problem.</p>
+
+<p>Egenskapen <code>position</code> kan vara bra att känna till när man skapar en mer avancerad layout. Det mesta om det går att hitta genom en <a href="http://google.com/search?q=css+position">Google-sökning på “CSS position”</a>. När vi ändå håller på med att länka kan vi upplysa dig om att det finns mycket bra <a href="http://css-discuss.incutio.com/">länksamlingar</a> som talar om hur och varför du ska designa på ett visst sätt. Nu när du läst igenom större delen av vår bok kommer det troligen inte vara några större problem att förstå vad som försöker säga dig. När man är på denna “avancerade” nivå finns det <em>massor</em> välskrivna resurser på webben om ämmnet, det är oftast grunderna som utelämnas eftersom att de utgår ifrån att du redan kan dem (som du också gör nu, grattis).</p>

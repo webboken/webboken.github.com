@@ -1,0 +1,215 @@
+---
+layout: default
+title: Typografi på webben
+subtitle: Mer än bara Times New Roman och Arial
+desc: Mestadels en lista över olika sätt att påverka text. Diskussion om enheter för teckengrad. Introducerar snabbskriftsmetoden.
+category: grunderna
+---
+<p>Typografi, konsten att sätta stil på text, är ett av de viktigaste momenten i webbutveckling. Innehållet på en sida är det absolut viktigaste, och med bra typsättning kan du lyfta innehållet otroligt högt. Med hjälp av CSS kan du sätta stil på din text på många olika sätt. Syftet är främst att göra texten mer lättläst, men även att få texten att smälta in på rätt sätt med sin omgivning.
+
+<p>Hur lättläst texten är beror bland annat på radhöjden, radernas längd, textens storlek och givetvis typsnittet. Allt detta kan du styra med hjälp av CSS. Vi börjar med att välja typsnitt.
+
+<h2>Typsnittet – <code>font-family</code></h2>
+<p>För att välja det typsnitt vi vill ha används <code>font-family</code>, t.ex. så här:</p>
+
+<figure><pre><code class="css">p {font-family: Georgia, "Times New Roman", serif;}</code></pre></figure>
+
+<p>Som du ser går det alltså välja flera olika typsnitt på en gång. ”Vad ska det var bra för?”, hör vi dig fråga. Jo, det är så att webbläsaren först <em>försöker</em> använda det första typsnittet, men om det typsnittet inte finns tillgängligt på besökaren dator försöker webbläsare med nästa typsnitt. Om inga typsnitt fungerar används standardtypsnittet, det är därför viktigt att specificera en typsnittsfamilj allra sist, så att webbläsaren kan välja ett lämpligt standardtypsnitt. De typsnittsfamiljer som finns är:
+
+<ul>
+<li><code>serif</code>
+<li><code>sans-serif</code>
+<li><code>monospace</code>
+<li><code>fantasy</code>
+<li><code>cursive</code>
+</ul>
+
+<p>De två sistnämnda används väldigt sällan.
+
+<h3>Så, vilket typsnitt ska jag använda?</h3>
+<p>Först och främst bör du bestämma dig för vilken familj av typsnitt du vill använda. Om det är kod du handskas med så är valet givet: då ska du använda ett <code>monospace</code>-typsnitt. Om det är brödtext så är valet mer komplext, även om det oftast bara står mellan <code>serif</code> och <code>sans-serif</code>, och det finns grupper som propagerar för båda.</p>
+
+<figure style="width:256px;">
+<img src="/img/serif-vs-sans.png" alt="">
+<figcaption>Skillnaden mellan serif och sans-serif ligger i detaljerna, serif- har till skillnad mot sans-serif-typsnitt ”tvärstreck” som avslutar tecknen.</figcaption>
+</figure>
+
+<p>Generellt kan sägas att serif-typsnitt är lite elegantare, och ofta används dessa till rubriker, men de går även att använda till brödtext. Vanligast på Internet är dock sans-serif, och då oftast något av typsnitten Verdana eller Arial. (Ja, ”vanligast på Internet” må vara vagt, som vanligt handlar det om egna observationer.) Vad som är lämpligast verkar inte någon komma fram till i någon objektiv mening, det finns åsikter för det mesta som en snabb Google-sökning avsöljar:
+
+<ul>
+<li><a href="http://www.alexpoole.info/academic/literaturereview.html">Which Are More Legible: Serif or Sans Serif Typefaces?</a>
+<li><a href="http://www.symplebyte.com/general_usage/fonts/serif_or_sans-serif.html">What font to use - serif vs. sans-serif</a>, och även artikel den länkar till: <a href="http://articles.sitepoint.com/article/anatomy-web-fonts">The Anatomy of Web Fonts</a>
+<li><a href="http://www.webstyleguide.com/wsg3/8-typography/4-web-typefaces.html">Web Style Guide: Typefaces</a>
+<li>Och så vidare till oändligheten
+</ul>
+
+<p>När du väl bestämt sig för vilken familj av typsnitt att använda är det dags att välja själva typsnittet. Tyvärr är du lite instängda här, då du måste välja ett typsnitt som besökaren har. Vilka typsnitt besökaren har beror på vilket operativsystem denna använder och vilka typsnitt som installerats manuellt, inget av dem är vidare förutsägbart. De typsnitt som tillhör de s.k. <a href="http://en.wikipedia.org/wiki/Core_fonts_for_the_Web">core-typsnitten</a> finns oftast tillgängliga:
+
+<ul>
+<li><strong>Serif</strong>
+<ul>
+<li>Times New Roman
+<li>Georgia
+</ul>
+<li><strong>Sans-serif</strong>
+<ul>
+<li>Arial
+<li>Tahoma
+<li>Trebuchet
+<li>Verdana
+</ul>
+<li><strong>Monospace</strong>
+<ul>
+<li>Andale Mono
+<li>Courier New
+</ul>
+</ul>
+
+<h4>CSS3 och framtiden</h4>
+<p>Det är svårt att förutse vilka typsnitt som kommer finnas tillgängliga, men CSS3 kommer lösa detta problem genom att låta webbläsaren ladda ner typsnitt från webbservern som sedan kan användas på din webbplats. Specifikationen har i skrivande stund följande exempel, där typsnittet Gentium kan hämtas från webbservern:</p>
+
+<figure><pre><code class="css">@font-face {
+  font-family: Gentium;
+  src: url(http://site/fonts/Gentium.ttf);
+}
+
+p {font-family: Gentium, serif;}</code></pre></figure>
+
+<p><code>font-face</code> är ingen selektor utan snarare en @-regel, och adresser märks upp med <code>url(adress)</code> i CSS. Då detta är en del av CSS3 har inte alla webbläsare stöd för det ännu. Det finns egentligen ingen anledning att inte använda detta ännu, om webbläsaren inte har stöd för denna del av CSS3 kommer den bara ignorera @-regeln och om typsnittet inte hittas när webbläsaren går igenom <code>font-family</code>-listan den används i senare går den bara vidare till nästa typsnitt i ledet.
+
+<h2>Textstorlek – <code>font-size</code>, och storlek i allmänhet</h2>
+<p>Nu när du vet hur du går till väga för att välja rätt typsnitt kan det vara vettigt att även veta hur du gör för att ändra storleken på din text; ett bra sätt att skilja mellan olika typer av text, t.ex. brödtext, rubriker eller fotnoter. Det är egenskapen <code>font-size</code> som styr textstorleken. Det kan tyckas vara ett trivialt problem, men det finns många olika enheter som kan användas för att specificera textstorleken med – och vissa är mer lämpliga än andra.
+
+<p>Det första som bör tas i åtanke är att engelska traditioner snarare än svenska sådana används för decimaltecken. Istället för 3,14 skriver vi 3.14 när vi talar om värden i CSS, punkt istället för kommatecken alltså.
+
+<h3>Absoluta och relativa värden</h3>
+<p>Det finns ganska många sätt att specificera storlek på med CSS, boken <cite>Max räckvidd med HTML &amp; CSS</cite> ger en ganska bra sammanfattning:
+
+<blockquote><p>Det finns ett antal olika längdenheter definierade i CSS. De delas in i relativa enheter och absoluta enheter.
+
+<p>De relativa enheterna är <code>em</code>, <code>ex</code> och <code>px</code>.
+
+<p>En <code>em</code> motsvarar den aktuella textstorleken (graden), medan en <code>ex</code> är x-höjden i det aktuella teckensnittet. (Förr motsvarade en <code>em</code> bredden på ett versalt M, därav namnet; och en x-höjd är definierad även i typsnitt som inte innehåller ett gement ”x”.)
+
+<p>En <code>px</code> är en pixel och räknas som en relativ enhet i det här sammanhanget eftersom den inte motsvarar någon exakt fysisk sträcka. CSS-specifikationen ger en lång, komplicerad förklaring av det hela, men kontentan är att en pixel är relativ med avseende på längden hos betraktarens arm(!) och att en standardpixel är ungefär 0,26 mm.
+
+<p>Absoluta enheter är <code>mm</code> (millimeter), <code>cm</code> (centimeter), <code>in</code> (inch, tum), <code>pt</code> (points, punkter) och <code>pc</code> (picas). En tum är 25,4 mm. En punkt är 1/72 tum, eller 0,353 mm, och en pica är 12 punkter = 1/6 tum, eller 4,23 mm.</blockquote>
+
+<p>Det finns som vi ser finns det som sagt många sätt att tala om storlek på, men i de flesta fall nöjer vi oss med att använda <code>em</code>. Alla används iallafall på samma sätt, först ett tal följt av enheten utan mellanrum:</p>
+
+<figure><pre><code>body {font-size: 10px;}
+p {font-size: 2.71828em;}
+p.look-at-me-text {font-size:33cm;}</code></pre></figure>
+
+<p>Ett specialfall finns dock, och det är om värdet är <code>0</code> så behövs ingen enhet (0 cm är ju lika långt som 0 mm som är lika långt som 0 px och så vidare). Detta är dock inte så intressant för just <code>font-size</code>, men för andra egenskaper som även de tar storheter som värde kan det finnas nytta för 0-längder.
+
+<h3>Procent</h3>
+<p>Det går även att ange storlek i procent. Hur procentvärdet tolkas skiljer från egenskap till egenskap. För <code>font-size</code> är det procentdel av det ärvda värdet, så om föräldern till en nod med <code>font-size: 50%</code> har <code>font-size: 20px</code> kommer noden få teckengraden <code>10px</code>.
+
+<h3>Fördefinierade värden</h3>
+<p>Utöver de sätt vi nämnt finns det även ett antal fördefinierade värden som <code>font-size</code> accepterar:
+
+<ul>
+<li><code>xx-small</code>
+<li><code>x-small</code>
+<li><code>small</code>
+<li><code>medium</code>
+<li><code>large</code>
+<li><code>x-large</code>
+<li><code>xx-large</code>
+</ul>
+
+<p>Dessa kan variera i storlek från webbläsare till webbläsare, men vilket oftast är ganska vettiga värden. Till exempel skulle <code>x-small</code> kunna användas till sidfoten, och <code>x-large</code> till sidans huvudrubrik. Det går även att använda de två relativa värdena <code>smaller</code> och <code>larger</code> för att gå ett steg i listan från det ärvda värdet – om ditt element ärver storleken <code>medium</code> och du sätter <code>font-size</code> till <code>smaller</code> kommer storleken att bli <code>small</code>. (Om det ärvda värdet inte när något ur listan försöker webbläsaren göra ett så naturlig förstoring/förminskning som möjligt.)
+
+<h3>Så?! Vilken storlek ska jag använda?</h3>
+<p>Vi har gått igenom många olika sätt att specificera teckengrad, men vilket ska du använda? Som du sett, i t.ex. webbsidan från kapitel 2, tidigare får texten en standardstorlek om ingen anges. Denna standardstorlek är något som går att ställa in i de flesta webbläsare, t.ex. i Firefox finns det under ”Edit” → ”Preferences” → ”Content” → ”Fonts & Colors” (och även till viss del ”Advanced…”). Det är inte många användare som ändrar denna dock (den är ganska väld dold, som Firefox-exemplet visar, i de flesta webbläsare). Det är inte helt ovanligt att dina besökare inte inser att det är deras rätt att tala om hur webbplatsen ska presenteras för dem. Stilmallen du skriver och associerar din webbplats med ska mer ses som en rekommendation för besökaren att det är såhär du tänkt dig att webbplatsen ska se ut, men om besökaren bara vill ha svartvita färger eller/och alltid använda samma teckensnitt är det upp till denna. (Detta kan göras genom inställningar i webbläsaren, eller skriva en användarstilmall.)
+
+<p>Så vi ska respektera besökarens standardteckengradval genom att använda just denna på all brödtext. Så valet är enkelt för hur vi ska välja teckengrad för bördtexten: gör det inte, valet är redan gjort. Ibland sägs det istället <code>font-size: 1em</code> men det påverkar ju inte storleken något, så det är samma sak. Ett undantag från detta är dock att det i vissa fall är acceptabelt att ha större text än <code>1em</code>. Det vi har kvar att ändra storleken på är rubriker, menyer, sidfötter och så vidare, saker som inte är brödtexten helt enkelt.
+
+<p>Denna lösning för brödtextteckengraden är inte helt utan problem, i <a href="http://lists.w3.org/Archives/Public/site-comments/2010Jan/0012.html">en mejltråd</a> som <a href="http://www.w3.org/QA/Tips/font-size">Care With Font Size</a> länkar till sammanfattar Ian Jacobs problemen med ovanstående lösning. Standardteckengraden kan anses vara onödig stor, bl.a. då användaren kanske är van vid att få sin standardteckengrad respektlöst förminskad av andra webbplatser skrivna av webbutvecklare omedvetna om det som diskuteras här. Om nu användaren tycker att standardteckengraden är det ju bara att förminska den? Fast då kommer webbplatser som använder t.ex. <code>font-size: 0.75em</code> på brödtexten bli svårlästa. Så genom att så många webbplatser gör fel (där såvitt vi kan se enbart ignorans är anledningen) är användaren fast vid att ha kvar standardstorleken. Hur vi än gör blir det aldrig optimalt i alla avseenden, om vi använder <code>font-size: 1em</code> gör vi iallafall som det är tänkt att fungera och kan hoppas på att fler och fler förstår varför detta är det enda rätta.
+
+<p><em>Om</em> du nu väljer att gå emot oss och använda något annat än <code>font-size: 1em</code> vill vi informera dig om att de flesta webbläsare har <code>16px</code> som standardvärde, så om du t.ex. anger <code>font-size: 0.75em</code> så resulterar det i en teckengrad på <code>12px</code> och så vidare. Detta är ett antagande du får göra då, men användarna kan fortfarande ha ändrat detta (och återigen: du struntar i deras önskemål!).
+
+<p>Användaren kan även i efterhand göra justeringar på teckengraden genom att hålla in <kbd>ctrl</kbd> och skrolla alternativt <kbd><kbd>ctrl</kbd>+<kbd>+</kbd></kbd> och <kbd><kbd>ctrl</kbd>+<kbd>-</kbd></kbd>. Att detta kan göras måste tas i åtanke när du senare bygger en design för webbplatsen, men just nu påverkar detta inte oss.
+
+<h2>Radavstånd – <code>line-height</code></h2>
+<p>Radavståndet definieras som avståndet mellan en rads baslinje (dvs. den linje bokstäverna ”sitter” på) och nästa rads baslinje. I CSS kan detta avstånd justeras med hjälp av <code>line-height</code>. Generellt så, ju längre rader, desto större bör avståndet mellan dessa vara. Vi tar inte upp hur du kan påverkar radlängden i detta kapitel, då detta har med design av en helt webbplats att göra, det är ofta bredden på webbplatsen som bestämmer radlängden. Normalt brukar radavståndet hursomhelst hamna någonstans mellan 1,2 och 1,5 gånger textstorleken.
+
+<p>Samma enheter som de diskuterade vid <code>font-size</code> kan användas med <code>line-height</code>, men vi rekommenderar att du inte gör det. Det är oftast med naturlig att ange <code>line-height</code> utan någon enhet, t.ex. kommer <code>line-height: 2</code> göra att radavståndet blir <code>font-size</code> × 2. Att ange <code>line-height</code>-värdet utan enhet är fördelaktivt p.g.a. hur arvet fungerar. Om du anger <code>150%</code> som värde istället för <code>1.5</code> så är arvs det beräknade värdet, d.v.s. <code>font-size</code> × 150&nbsp;% istället för <code>1.5</code>; alltså kommer inte <code>line-height</code> beräknas om för de nästlade elementen. För ett längre utlägg om detta se <a href="http://meyerweb.com/eric/thoughts/2006/02/08/unitless-line-heights/">Unitless line-heights</a> av Eric Meyer. Slutsatsen där är samma som vår: använd ingen enhet när du specificerar värde för <code>line-height</code>.
+
+<h2><code>font-weight</code> – textens tjocklek</h2>
+<p>För att styra tjockleken på texten används <code>font-weight</code>, som kan tilldelas värden från 100 till 900, i steg om 100. Det finns även ett par fördefinierade nyckelord, varav enbart följande två bör användas då många typsnitt endast har stöd för just dem:
+
+<ul>
+<li><code>bold</code>
+<li><code>normal</code>
+</ul>
+
+<p>Utöver de två kan <code>bolder</code> och <code>lighter</code> användas för att stega mellan värdena från 100 till 900, men då många typsnitt som sagt saknar stöd för andra lägen än <code>normal</code> och <code>bold</code> är detta inget som syns till vanligen.
+
+<h2>Kursiv stil – <code>font-style</code></h2>
+<p>Om kursiv text är önskad så är det <code>font-style</code> som ska använda. Den här egenskapen tar tre olika värden: <code>normal</code>, <code>italic</code> och <code>oblique</code>. Skillnaden mellan <code>italic</code> (äkta kursiv) och <code>oblique</code> (falsk kursiv) är hårfin: äkta kursiv innebär att de kursiva bokstäverna är specialdesignade, medans falsk kursiv (kan) bestå utav en förvrängning av normalstilen. Serif-typsnitt brukar ha en äkta kursiv, medan moderna sans-serif-typsnitt endast brukar ha falsk kursiv.
+
+<p>Så vilken ska användas? Innan vi skrivit föregående stycke hade vi aldrig hört talas om <code>oblique</code>, i praktiken är det uteslutande <code>normal</code> och <code>italic</code> som specificeras som värde såvitt vi har sett. Vad händer då när ingen specialdesignad kursiv stil finns tillgänglig? Om du anger <code>italic</code> som värde försöker webbläsaren först hitta en äkta kursiv stil, men om en sådan inte finns tillgänglig så används istället en falsk variant.
+
+<h2>Kapitäler med <code>font-variant</code></h2>
+<p>Kapitäler, ”små versaler”, fås genom att använda <code>font-variant</code>. Denna egenskap tar bara två värden: <code>normal</code>, vilket så klart innebär att texten är normal; och <code>small-caps</code>, som anger att texten ska visas med kapitäler. Detta kan ge en elegant effekt på till exempel sidfoten eller så kallade ”bylines”, speciellt när ett serif-typsnitt används.
+
+<h2><code>text-decoration</code> dekorerar din text</h2>
+<p>Egenskapen <code>text-decoration</code> kan användas för att dekorera text, för att t.ex. stryka under den:
+
+<ul>
+<li><code>none</code> – standardvärdet, ingen dekoration
+<li><code>underline</code> – understrykning
+<li><code>overline</code> – överstrykning (ett streck <em>ovanför</em> texten)
+<li><code>line-through</code> – genomstrykning
+<li><code>blink</code> – blinkande text, något som definitivt inte bör anges eftersom att det är jobbigt att läsa sådan text, och kan även störa läsandet av närliggande text
+</ul>
+
+<p>Det som är värt att lägga märke till här är att mer än ett värde i taget går att ange för <code>text-decoration</code>, så t.ex. kan text kan bli under-, över- <em>och</em> genomstruken:</p>
+
+<figure><pre><code>body {text-decoration: underline line-through overline;}</code></pre></figure>
+
+<h2>Snabbskriftsmetoden för <code>font</code></h2>
+<p>Snabbskriftsmetoden innebär att du kan slå ihop alla ovanstående <code>font-*</code>-egenskaper till en, nämligen <code>font</code>. Här är ett exempel på hur icke-minimerad kod kan se ut:</p>
+
+<figure><pre><code class="css">body {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2em;
+  line-height: 1.2;
+  font-weight: bold;
+  }</code></pre></figure>
+
+<p>Istället för att ha fyra rader med olika egenskaper så kan man slå ihop det till denna rad:</p>
+
+<figure><pre><code class="css">body {
+  font: bold 2em/1.2 Georgia, "Times New Roman", serif;
+  }</code></pre></figure>
+
+<p>Snedstrecket används för att specificera <code>line-height</code>. Alla egenskaper måste inte vara med dock, det är enbart <code>font-size</code> och <code>font-family</code> som alltid måste vara med, övriga kan utelämnas om så önskas. Ordningen på egenskaperna är egentligen mer flexibel än vi kommer ange här, men reglerna för vilken ordning de får komma i (alla ordningar är inte tillåtna) är inte överdrivet enkla att komma ihåg från gång till gång så det är lika bra att alltid använda samma ordning:</p>
+
+<figure><pre><code class="html">font: font-style font-variant font-weight font-size/line-height font-family;</code></pre></figure>
+
+<p>CSS2-specifikationen har en rad exempel:</p>
+
+<figure><pre><code>p {font: 12px/14px sans-serif;}
+p {font: 80% sans-serif;}
+p {font: x-large/110% "New Century Schoolbook", serif;}
+p {font: bold italic large Palatino, serif;}
+p {font: normal small-caps 120%/120% fantasy;}</code></pre></figure>
+
+<p>Denna finurliga metod är inte begränsad till just <code>font</code>, utan detta går att göra på alla möjliga attribut – men alla snabbskriftsmetoder fungerar på olika sätt, så dessa kommer vi till när vi går in på de områden som berör dem.
+
+<h2>Övning</h2>
+<p>Nu kan du en hel del egenskaper för att påverkar textens utseende på webbsidan från kapitel 2, som du påbörjade vissa CSS-experiment på i kapitel 3. Öppna webbsidan i din textredigerare och experimentera omkring lite med de nya egenskaperna. T.ex.:
+
+<ul>
+<li>Gör första tecknet i alla <code>p</code>-element större än övriga texten.
+<li>Gör så att alla rubriker är skrivna med kapitäler.
+<li>Stryk över första raden på <code>p</code>-element med klassen <code>strange</code>.
+<li>Tredubbla radavståndet för all text på webbsidan.
+<li>Och så vidare.
+</ul>
+
+<h2>Sammanfattning</h2>
+<p>Det är svårt att göra någon sammanfattning på detta kapitel, då det till större delen består utav en lista med massor egenskaper som påverkar din texts utseende. Det som alltid ska tänkas på är att texten måste förbli läsbar om någon ska vilja läsa den, så gå inte lös med allt för mycket lustiga värden på dina textegenskaper. 

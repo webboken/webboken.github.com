@@ -1,0 +1,219 @@
+---
+layout: default
+title: En hel webbplats
+subtitle: Steget från en bunt webbsidor till en sammanhängande webbplats
+desc: Hur webbsidor länkas samman för att bli en webbplats. Pseudoklasser för länkar. Att inkludera dokument i andra dokument idag <em>alltid</em> innebär serverskript, exempel i PHP.
+category: grunderna
+---
+<p>I detta kapitel tar vi upp hur du kan gå tillväga för att skapa en sammanhängande webbplats utav en samling webbsidor. Även hur du skapar länkar mellan dessa egna webbsidor, och så klart även till andras webbplatser. Det finns många olika sätt att hantera problemet med hur grunden för en webbplats ska se ut, så det vi går igenom här är inte det enda och bästa sättet i alla möjliga fall; men det är en simpel och fungerande lösning.
+
+<p>Till skillnad mot tidigare kapitel behövs här en webbserver, av anledningar vi kommer till snart. Förut, ”förr i tiden”, användes något som kallas för ramar. Vilket är det HTML erbjuder som lösning på webbplatsstrukturproblemet. Kort och gott så är det en förlegad teknik och används inte mer (eller snarare, bör inte användas mer). Designdelen av boken går in lite mer på detta då det samtidigt erbjuder ett sätt att bygga en grundläggande layout. Här nöjer vi oss med att säga att vi inte längre vill använda ramar och att det idag finns bättre alternativ; den största nackdelen med ramlösningen är att det blir onödigt svårt för oerfarna användare att få tag i adressen till aktuell sida, något som du idag troligen tar för givet.
+
+<h2>Länkar, det webben är gjort av och för</h2>
+<p>För att bygga en användbar webbplats så krävs det nästan att man använder sig utav länkar, för att länka ihop sin webbplats och länka till andra webbplatser. För att skapa länkar används <code>a</code>-elementet. Ett <code>a</code>-element har två delar, en <strong>länktext</strong> och en <strong>destinationsdel</strong>.
+
+<ul>
+  <li>Länktexten är den besökaren klickar på, eller på vilket sätt nu webbläsaren används, t.ex. med tangentbordet. Se till att länktexten är informativ och lättförstådd. Det värsta exemplet är länktexter så som ”klicka här”, använd istället något som visar var besökaren kommer till om denna skulle klicka på länken.
+  <li>Destinationen är det dokument webbläsaren går till efter ”klicket”.
+</ul>
+
+<h3><code>href</code>-attributet, länkdestinationen</h3>
+<p>Ett fullständigt <code>a</code>-element kan se ut såhär:</p>
+
+<figure><pre><code>&lt;p&gt;Länk till &lt;a href="http://exempel.net"&gt;exempel.net&lt;/a&gt;.&lt;/p&gt;</code></pre></figure>
+
+<p>Det är alltså i <code>href="http://exempel.net"</code> destinationen bestäms.</p>
+
+<ul>
+  <li>Som du märker så står det <code>http://</code> i början av <code>href</code>-värdet. Detta betyder att det är en <strong>extern länk</strong>, med andra ord en länk som går till en annan sida. Att vi skriver HTTP i början beror på att det helt enkelt är det protokollet som ska användas. Det är nästan alltid <code>http://</code> som du ska använda här. Som vi nämnde i inledningen (som var ett tag sedan nu) så är det HTTP som används vid transport av information på Internet.
+  <li>Det andra är helt enkelt <strong>värdnamnet</strong>, som t.ex. <code>google.com</code>, <code>example.com</code> och så vidare.
+  <li>Om du sedan vill länka till en speciell fil kan du lägga till filnamnet efter, t.ex. <code>http://example.org/om_oss.html</code>.
+</ul>
+
+<h3><code>target</code>-attributet, främst för att öppna länkar i nya fönster</h3>
+<p>Attributet <code>target</code> används för att ange var destinationsdelen ska dyka upp, t.ex. ett nytt fönster. Det finns en rad olika fördefinierade nyckelord att använda, t.ex. för att länken ska öppnas i ett nytt fönster finns <code>target="_blank"</code>. Detta är inte rekommenderat då vi ännu en gång använder HTML för något det inte är tänkt för. Attributet skriver om standardbeteendet för beteendelagret, och detta är inget HTML ska göra. Det är upp till beteendelagret att göra det.
+
+<p>Det går att göra önskad förändring i beteendelagret istället, men det är inte att vi är i fel lager för att göra denna förändring som är problemet. Det är först och främst att det blir förvirrande för användaren. Genom att bara kolla på länken är det omöjligt att tala om huruvida den kommer att öppnas i ett nytt fönster eller ej. Om användaren vill öppna länken i ett nytt fönster kan denna <em>bestämma detta själv</em> genom att t.ex. använda mittenmusknappen eller hålla in <kbd>Ctrl</kbd>-tangenten och vänsterklicka på länken för att öppna den i ett nytt fönster eller tabb/flik. Om <em>vi</em> bestämmer att länken <em>alltid</em> ska öppnas i nytt fönster (genom att lägga till <code>target="_blank"</code>) har användaren inte längre något val, den öppnas alltid i ett nytt fönster, oberoende av vad användaren vill. Så om vi låter standardbeteendet vara kvar kan användaren förutsätta att länkar alltid öppnas i aktuellt fönster, och om det inte är önskat så kan användaren själv välja att öppna länken i ett nytt fönster.
+
+<p>Ursprungligen används detta attribut för att specificera hur, de tidigare nämnda, ramarna skulle fungera tillsammans med varandra. Ramar är som sagt en förlegad teknik som vi inte längre använder, så vi går inte in på hur <code>tagret</code> används till ramar.
+
+<p>Sammanfattning blir alltså: använd inte <code>target</code>-attributet, och speciellt inte för att öppna nya fönster. Gör inte på något annat sätt för att webbläsaren ska öppna nya fönster för den delen heller. Låt användaren bestämma över <em>sin</em> webbläsare!
+
+<h3><code>title</code>-attributet, en föklarande text</h3>
+<p><code>title</code>-attribut kan ge en liten hänvisning till var länken går, en förklaring eller liknande. Bra för bl.a. förkortade länktexter, t.ex. tidningar gillar att använda ”Läs mer …”-länkar för sina artiklar, då kan ett mellanalternativ mot dessa ”Klicka här”-länkar vara:</p>
+
+<figure><pre><code>&lt;a href="http://example.org" title="Läs mera om hunden Göran och hans äventyr"&gt;Läs mer …&lt;/a&gt;</code></pre></figure>
+
+<p>Om du själv tycker att länken är något otydlig och det är svårt att förstå var länken går kan det vara en bra idé att lägga till ett <code>title</code>-attribut.
+  
+<h3>Ankare</h3>
+<p>Det är möjligt att med <code>id</code>-attributet (samma som ibland används för att koppla CSS till dokumentet) länka till en speciell position på sidan, eller en annan webbsida för den delen. Genom att lägga till <code>#</code> följt av <code>id</code>-namnet i slutet av adressen:</p>
+
+<figure><pre><code>&lt;p&gt;&lt;a href="#example"&gt;Hoppa till rubriken ”Exempel”&lt;/a&gt;&lt;/p&gt;
+
+[…]
+
+&lt;h2 id="example"&gt;Exempel&lt;/h2&gt;</code></pre></figure>
+
+<p>När besökaren klickar på länken så kommer webbläsaren skrolla ner till ”Exempel”-rubriken.
+
+<p>Eller om det skulle vara till en position på <code>example.org</code>:</p>
+
+<figure><pre><code>&lt;p&gt;Vilket är dokumenterat under &lt;a href="http://example.org#example"&gt;”exempel” hos example.org&lt;/a&gt;&lt;/p&gt;</code></pre></figure>
+
+<p>En gammal variant på ankare är använda ett <code>a</code>-element utan varken länktext eller destinationsdel, vilket innebär att det blir ”osynligt”. Då används <code>name</code>-attributet istället för <code>id</code> på valfritt ”vanligt” element. Detta bör inte användas då <code>a</code>-elementet inte används till vad det ursprungligen var tänkt för, samt att koden har en tendens att bli rörig. Vi tog bara upp detta om du någon gång skulle tvingas att länka till en sidan som använder denna teknik.
+
+<h3>Länkars utseende</h3>
+<p>Oberoende av hur genomtänkta länkarna så spelar det ingen roll om man inte ser dem, otroligt nog … Vad menar vi nu med detta? Jo, vi ska gå tillbaka hur man ändrar utseende på länkar med hjälp av CSS. Ännu en del när vi nu kombinerar våra nya kunskaper med tidigare bemästrade sådana alltså. Vi har tidigare gått igenom pseudoklasser och pseudoelement, och sade där att pseudoklasserna från CSS2 främst används för att ändra utseendet på länkar. Dessa pseudoklasser är:
+
+<ul>
+  <li><code>:link</code>, icke-besökt länk (ja, det är ett ganska olyckligt namnval)
+  <li><code>:visited</code>, besökt länk
+  <li><code>:hover</code>, markerad länk (t.ex. att musmarkören hålls över den, brukar även kallas att man ”hovrar”).
+  <li><code>:active</code>, har en ganska luddig definition; något förenklat kan vi säga att från det ögonblicket när musknappen tryckts ner tills det den släppts. (Vilket inte är den riktiga definitionen men används nästan alltid endast till det.)
+</ul>
+
+<p>När dessa används är det för enkelhetsens skull bäst att ange reglerna i ovanstående ordning. För att komma ihåg ordning var det någon (vem det var har vi glömt bort) för länge sedan som skapade denna minnesregel: <em>LoVe HAte</em>. Där versalerna står för respektive pseudoklass.
+
+<p>Varför ”LoVe HAte”-ordningen, varför spelar det någon roll? Jo, som du förhoppningsvis minns så är kaskad ett centralt koncept när det kommer till CSS. Alla selektorer kommer ju här få samma specifitetsvärde! Så det skulle finnas risk för att de skulle skriva över varandra om de kom i olämplig ordning, eftersom att en länk kan befinnas sig i mer än ett tillstånd samtidigt, t.ex. kan en länk både vara obesökt och aktiv.
+
+<p>Så med all denna nya information skapar vi följande CSS-kod:</p>
+
+<figure><pre><code>a:link {
+  color:green;
+  font-weight:bold;
+}
+
+a:visited {
+  color:red;
+}
+
+a:hover {
+  color:yellow;
+}
+
+a:active {
+  text-decoration:line-through;
+}</code></pre></figure>
+
+<p>Ibland kan det även vara en bra idé att utelämna <code>:link</code> från första selektorn om du t.ex. vill att länkar alltid ska vara feta, oberoende av tillstånd. Nu är den bara fet så länge den inte är besökt. Innan du går vidare rekommenderar vi att du skapar ett testdokument där du experimenterar omkring med dessa selektorer och några länkar (t.ex. en länk som är besökt och en som inte är det brevid varandra så att du ser vilka selektorer som matchar vad).
+
+<p>Det finns en <a href="http://meyerweb.com/eric/css/link-specificity.html">känd artikel om detta problem</a> där Eric Meyer svarar på frågan: ”I tried to apply CSS to my hyperlinks and the hovering didn't work. How come? Is this another case of browsers being stupid?” Där går Meyers igenom problemet mer grundligt om du fortfarande har problem att förstå vad som händer.
+
+<h4>Några avslutande riktlinjer</h4>
+<p>Följande är bra att fundera över när du ändrar länkars utseende:
+
+<ul>
+  <li>Först och främst ska länkarna vara lätta att urskilja från resten av texten
+  <li>Även om länkarna ska vara lätta att urskilja får de inte vara så utstickande att de gör det svårt att läsa närliggande text
+  <li>Det ska lätt att se vilka länkar som besökts innan, med hjälp av <code>:visited</code>
+  <li>Tänka på att det finns en möjlighet att en besökare med nedsatt syn och/eller färgseende kan trilla in på webbplatsen och det är därför bra att ha något mer än färgen som skiljer länkarna från resten av texten; t.ex. en understrykning, fetstil eller något annat uppfinningsrikt
+</ul>
+
+<h2>DRY-principen återigen</h2>
+<p>Låt säga att du har följande tre sidor på din webbplats:</p>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Startsidan | Anonym webbplats&lt;/title&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul id="menu"&gt;
+&lt;li&gt;&lt;a href="start.html"&gt;Hem&lt;/a&gt;
+&lt;li&gt;&lt;a href="dikter.html"&gt;Dikter&lt;/a&gt;
+&lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;Välkommen till den ananyma webbplatsen&lt;/h1&gt;
+&lt;p&gt;Detta är min första riktiga webbplats, då den består utav mer än en webbsida.&lt;/p&gt;
+
+&lt;p&gt;Är den inte snygg?&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<figcaption><code>start.html</code></figcaption>
+</figure>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Dikter | Anonym webbplats&lt;/title&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul id="menu"&gt;
+&lt;li&gt;&lt;a href="start.html"&gt;Hem&lt;/a&gt;
+&lt;li&gt;&lt;a href="dikter.html"&gt;Dikter&lt;/a&gt;
+&lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;Dikter på den ananyma webbplatsen&lt;/h1&gt;
+&lt;p&gt;Här skulle jag publicera mina bästa dikter, men jag kom inte på några så det är istället tomt.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<figcaption><code>dikter.html</code></figcaption>
+</figure>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;Kontakt | Anonym webbplats&lt;/title&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul id="menu"&gt;
+&lt;li&gt;&lt;a href="start.html"&gt;Hem&lt;/a&gt;
+&lt;li&gt;&lt;a href="dikter.html"&gt;Dikter&lt;/a&gt;
+&lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;Kontakta ansvarig för den ananyma webbplatsen&lt;/h1&gt;
+&lt;p&gt;Jag tänkte lägga ut min mejladress här så du kunde nå mig, men sedan ångrade jag mig. Inte mycket blev som planerat på min första webbplats.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<figcaption><code>kontakt.html</code></figcaption>
+</figure>
+
+<p>När du hållit på med utveckling (inte nödvändigtvis bara för webben) skriker hela din kropp av plåga och djup smärta när du ser ett så uppenbart brott mot DRY-principen. När du vill ändra i menyn måste du ju ändra i alla filer på hela webbplatsen och så vidare och allt annat som följer av att bryta mot DRY.
+
+<p>Utöver ramar erbjuder HTML inte någon lösning på detta. Det är nu webbservern kommer in. Vi kan med den inkludera (alt. infoga) en bit HTML-kod i en annan bit HTML-kod, där HTML-koden som den förstnämnda HTML-koden inkluderas i är genensam för alla webbsidor på webbplatsen. Det är inte så svårt att se vilka delar som är gemensamma för alla sidor på vår nuvarande webbplats:</p>
+
+<figure>
+<pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;title&gt;%Här skriver vi titlen på sidan% | Anonym webbplats&lt;/title&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;ul id="menu"&gt;
+&lt;li&gt;&lt;a href="start.html"&gt;Hem&lt;/a&gt;
+&lt;li&gt;&lt;a href="dikter.html"&gt;Dikter&lt;/a&gt;
+&lt;li&gt;&lt;a href="kontakt.html"&gt;Kontakt&lt;/a&gt;
+&lt;/ul&gt;
+
+&lt;h1&gt;%Titeln på sidan igen%&lt;/h1&gt;
+&lt;p&gt;%Här är själva innehållet på sidan sedan, några textstycken troligen.%&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<figcaption>Mallen för alla webbsidor på vår webbplats</figcaption>
+</figure>
+
+<h2>Installation av webbservern</h2>
+<p>Så, var får vi tag i en webbserver? Och först och främst vad ska vi använda för webbserver? Vi ska först nämna att det inte räcker med en webbserver, det behövs även att serverskriptspråk som utför själva inkluderingen. Till webbserver har vi valt Apache och serverskriptspråk PHP. Det finns många val här, just dessa val motiveras av att båda är mycket välanvända och gratis.
+
+<p>Om du använder Windows så finns ett färdigt paket som installerar Apache och PHP åt dig och gör alla nödvändiga konfigurationer åt dig. Detta paket heter <a href="http://wampserver.com">WAMP</a> och står för ”Apache, MySQL, PHP on Windows”. Följ instruktionerna på webbplatsen och installationsprogrammet så kommer det lösa sig.
+
+<p>Om du använder GNU/Linux finns det troligen något färdigt paket att använda för din distribution, t.ex. för Ubuntu finns det dokumenterat för hur du <a href="https://help.ubuntu.com/10.04/serverguide/C/web-servers.html">installerar och konfigurerar både Apache och PHP</a> (notera att länken kan vara utdaterad, i skrivande stund är 10.04 den nyaste stabila versionen). Kortfattat bör följande räcka:</p>
+
+<figure><pre><code>sudo apt-get install apache2 php5 libapache2-mod-php5 && sudo /etc/init.d/apache2 restart</code></pre></figure>
+
+<p>Om du använder något annat operativsystem får du tyvärr lösa problemet själv, vi kan inte enumerera alla operativsystem av uppenbara anledningar. Alternativt kan du köpa en plats på något billigare webbhotell, då slipper du att installera någon programvara.

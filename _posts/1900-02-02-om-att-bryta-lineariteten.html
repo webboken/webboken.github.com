@@ -1,0 +1,173 @@
+---
+layout: default
+title: Om att bryta lineariteten
+subtitle: "Nu och då: Hur flyttade man runt sina element?"
+desc: Introducerar boxmodellen och floats.
+category: design
+---
+<p>Den HTML och CSS du fått lära sig än så länge har resulterat i ganska tråkiga, dokument-liknande sidor. Detta är kanske fullt tillräckligt i en del fall, men oftast vill man bryta det ordbehandlarliknande resultatet och kunna positionera element lite mer utförligt. Man vill kanske lägga en meny brevid sitt textinnehåll, eller åstadkomma något enklare som att få en bild att ”flyta” till höger om texten. I detta kapitel kommer du få se två förlegade metoder och lära dig en modern metod för att göra just dessa saker.</p>
+
+<h2>En kort prolog om hur man gjorde förr</h2>
+<p>Sedan HTML kom till 1993 har utvecklingen gått på många olika håll, och under tiden har man använt ett antal olika metoder för att bryta den dokumentlika strukturen HTML hade från början. Den första tekniken, <strong>ramar</strong>, föddes av ett behov att kunna ha en och samma meny och titel på alla undersidor, utan att behöva synkronisera alla filer. Idag görs sådant med skript på serversidan.</p>
+
+<h3>1993–1998: Ramar</h3>
+<p>Man kunde dessutom använda ramarna för att placera olika delar av sidan i ett slags rutnät. På så sätt kunde man placera en meny på höger/vänster sida, ett sidhuvud i toppen och en sidfot på botten. Man kunde sedan komma undan med att bara uppdatera mittendelen (den del med allt innehåll), vilket sparade mycket bandbredd i en tid då många satt på 28.8k-modem.</p>
+
+<p>Tyvärr skapade ramar även en rad oförutsedda problem, som först på senare tid uppmärksammats:</p>
+
+<ul>
+  <li><strong>De är väldigt begränsade.</strong> Med ramar kan du endast dela upp skärmen i ett rutnät, som alltid kommer att fylla hela skärmen. På så sätt begränsas möjligheterna att skapa en vettig layout.</li>
+  <li><strong>De är otillgängliga.</strong> Ramar skapar en uppsjö problem för besökare med dålig syn, rörelseförmåga, och så vidare. De gör även din sida otillgänglig för s.k. <em>spindlar</em>, som söker igenom internet för att till exempel indexera din sida på olika sökmotorer.</li>
+  <li><strong>Du förvirrar besökaren.</strong> En grundläggade princip på internet är att varje dokument representeras av en egen address. Med ramar gör du så att i princip alla dina dokument representeras av samma address, vilket gör det svårt att referera till enskilda sidor och svårare för besökaren navigera. Gundläggande webbläsarfunktioner som till exempel bokmärken fungerar dåligt ihop med ramar.</li>
+</ul>
+
+<p>Ramar var mycket användbara under internets barndom, innan serverspråken utvecklats ordentligt och när uppkopplingarna fortfarande var långsamma. I dagsläget är ramar fullständigt förlegade och <a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/obsolete.html#non-conforming-features">HTML5-specifikationen</a> rekommenderar man andra lösningar:</p>
+
+<blockquote><p>Använd antingen <code>iframe</code> och CSS istället, eller serverinkluderingar för att generera fullständiga sidor med de olika delarna inlagda. (Fritt översatt.)</p></blockquote>
+
+<h3>1998–2004: Tabeller</h3>
+<p>När serverspråken till slut utvecklats insåg många att man kunde använda dessa istället för ramar för att inkludera menyer och dylikt. Man sökte andra metoder för att kunna placera sina element på sidan, och med rutnätstänkandet från ramarna i färskt minne beslöt många sig för att gå över till en mycket liknande konstruktion: <strong>tabeller</strong>.</p>
+
+<p>Tabellerna inkluderades i HTML under dess tidiga år då det var tänkt att man skulle kunna använda HTML för att publicera vetenskapliga rapporter; tabeller är så klart en mycket viktig konstruktion i sådana sammanhang. Med tiden började folk dock använda dem på andra sätt; de "klippte" upp sina layouter i rektangulära bitar och använde tabeller, speciellt dess attribut <code>colspan</code> och <code>rowspan</code> för att tvinga de rektangulära bitarna till rätt plats.</p>
+
+<p>Med tabeller utan kanter kunde man enkelt dölja det faktum att det var just tabeller. Besökare märkte inget, utvecklare tyckte att det var praktiskt och enkelt, alla var nöjda. Tyvärr blir en lösning inte bra för att man döljer fulhacket — att använda tabeller till layout ger upphov till många problem:</p>
+
+<ul>
+  <li><strong>Det försvårar utveckling.</strong> Koden blir onödigt lång och komplicerad, speciellt för lite större och mer avancerade layouter.</li>
+  <li><strong>De är oflexibla.</strong> Vill du göra en liten ändring — kanske flytta menyn en liten bit — så måste du regenerera hela tabellen, och potentiellt ändra hundratals rader kod.</li>
+  <li><strong>Det förstör semantiken.</strong> En grundläggande tanke i HTML är semantik, att de element man använder <em>betyder</em> något, t.ex. att <code>&lt;em&gt;</code> innebär att texten ska betonas. Lägger man design i tabeller kastar man ut all semantik genom fönstret.</li>
+  <li><strong>De är osökbara.</strong> Använder du tabeller till din layout blir det svårare för spindlar att indexera innehållet på ett bra sätt, vilket gör att din sida med all säkerhet kommer att placeras långt ner bland sökresultaten.</li>
+</ul>
+
+<p><a href="http://www.whatwg.org/specs/web-apps/current-work/multipage/tabular-data.html#table-intro">HTML5-specifikationen</a> avråder starkt från att använda tabeller till layout:</p>
+
+<blockquote><p>Tabeller <strong>får inte</strong> användas till layouter. Historiskt sett har många webbutvecklare missbrukat tabeller för att kontrollera sin layout. Detta är dåligt, eftersom verktyg som försöker extrahera tabulär data från sådana dokument får fram väldigt konstiga resultat. Mer specifikt får användare av <em>screen readers</em> väldigt svårt att navigera sidor som använder tabeller för layout. (Fritt översatt)</p></blockquote>
+
+<p>Notera dock att tabeller inte är bara dåliga; man bör definitivt använda tabeller för att presentera tabulär data, eftersom det är därför de inkluderats i HTML. <a href="http://www.456bereastreet.com/lab/developing_with_web_standards/full/#accessibility">Roger Johansson förklarar</a> det hela:</p>
+
+<blockquote><p>Det är ganska vanligt att folk tolkar ”använd inte tabeller för layout” som ”använd inte tabeller alls”. Det är inte så det ska tolkas. Om det du skriver är tabulär data så hör det hemma i en tabell, och då är det en tabell du ska använda.</blockquote>
+
+<h3>2004–nu: CSS-layout</h3>
+<p>Under ett av de sista Seybold-seminarierna 2003 hölls en <a href="http://standardice.com/seybold/">mycket viktig presentation</a> som satte en boll i rullning. Presentationen försökte presentera ett antal mycket starka argument till varför man skulle använda CSS, en då ganska oanvänd teknik, istället för tabeller för att bygga upp sin layout. Denna boll har nu varit i rullning i många år, och med den har CSS fått en rejäl knuff i sin utveckling. Idag utvecklas CSS3, som kommer att ge helt fantastiska möjligheter för designers och utvecklare. Det är denna teknik som används idag, och som kommer användas ett bra tag framöver. Det är denna teknik du nu ska få bekanta dig närmre med.</p>
+
+<p class="note">Har vi ett kapitel om det fantastiska i CSS3, t.ex. <code>@font-face</code>?</p>
+
+<h2>CSS — ett kraftfullt verktyg</h2>
+<p>Kommer du ihåg början av boken, då vi presenterade <a href="/struktur-och-betydelse-lagret-html">struktur-</a> och <a href="/presentationslagret-css">presenations</a>lagren? Nu ska du få se <em>varför</em> man väljer att separera dessa två. Vi börjar med att sätta ihop en ”typisk” sida, bestående av ett par grundläggande delar: sidhuvud, meny, innehåll och sidfot. I detta kapitel kommer vi att använda oss av de nya HTML5-elementen <code>header</code>, <code>nav</code>, <code>article</code> och <code>footer</code> till respektive del av sidan. Vi börjar med att sätta ihop struktur-delen till exemplet, som vi sedan kommer använda CSS på:</p>
+
+<figure><pre><code class="html">&lt;header&gt;
+    &lt;h1&gt;En enkel sida&lt;/h1&gt;
+    &lt;h2&gt;En tagline till sidan&lt;/h2&gt;
+&lt;/header&gt;
+&lt;nav&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Hem&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Köttbullar&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Tellurianer&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;article&gt;
+    &lt;h1&gt;En enkel artikel&lt;/h1&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+    &lt;p&gt;Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat, facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat…&lt;/p&gt;
+&lt;/article&gt;
+&lt;footer&gt;
+    &lt;p&gt;Senast uppdaterad &lt;time datetime="1789-07-14"&gt;för en herrans massa år sedan&lt;/time&gt;.&lt;/p&gt;
+&lt;/footer&gt;
+</code></pre></figure>
+
+<p>Som du säkert kan gissa dig till så utgör alla de ”äldsta” elementen (de som ligger närmst roten av elementträdet) var sin grundläggande del av sidan. Detta innebär att vi kan positionera dessa på det sätt vi önskar. Utan CSS ser vårt dokument ut så här:</p>
+
+<figure><img src="/img/layout-ostilad.png" alt="HTML-dokumentet ser mycket tråkigt ut innan några CSS-stilar tillämpats"><figcaption>HTML-dokumentet utan några CSS-stilar</figcaption></figure>
+
+<p>Denna HTML kommer vi använda utan modifikation i alla de layouter vi nu ska presentera för dig; det är <em>därför</em> man separerar struktur och presentation — man behöver bara ändra på <em>ett</em> ställe om man vill ändra presentationen eller strukturen).</p>
+
+<h3>Den enklaste layouten: centrering</h3>
+
+<p>För små sidor, enkla dokument eller liknande saker behöver man oftast inte någon komplex layout. Det kan räcka med att lägga en fin liten ram runt menyn, introducera några snygga typsnitt och centrera sidan. Det är det vi ska göra nu.</p>
+
+<p>För att centrera sidan krävs det ju så klart att sidan är smalare än fönstret. Normalt sett så är alla blockelement 100% breda, dvs. de fyller hela sin förälders bredd. För vårt dokument innebär det att alla våra element fyller hela fönstret. I stora fönster gör detta textraderna väldigt långa och svårtlästa; textrader ska helst inte vara mer än <a href="http://www.maxdesign.com.au/articles/em/">cirka tolv ord långa</a>, vilket är mellan 30 och 40 tecken.</p>
+
+<p>Hur vet vi hur brett ”ett tecken” är då? Jo, lyckligtvis har man i CSS inkluderat enheten <code>em</code>, och <code>1em</code> är då så långt som bredden på gemena bokstaven ”m” i det typsnitt som används. Detta är en hyfsat bra approximation till bredden av ett tecken. Denna enhet kan vi använda tillsammans med CSS-attributet <code>width</code> för att sätta en lämplig bredd på de grundelement vi har i HTML-dokumentet.</p>
+
+<p>När vi sedan vill centrera elementen finns det ett trick (som endast fungerar på blockelement): om man sätter vänster- och högermarginalen på ett element till <code>auto</code>, så kommer webbläsaren försöka balansera elementet så att dessa två blir lika stora. Voilá, centrering!</p>
+
+<figure><pre><code class="css">header, nav, article, footer {
+    width: 35em;
+    margin: 1em auto;
+}</code></pre></figure>
+
+<p>Bra, nu har vi en begränsad bredd på alla element, och dessa är centrerade. Nu vill vi kanske separera de olika elementen lite mer stilmässigt för att ytterligare visa att de är olika saker. Vi börjar med vårt sidhuvud.</p>
+
+<p>Först och främst vill vi centrera texten i vårt sidhuvud; det kommer att se snyggare ut. För att göra detta använder vi så klart CSS-attributet <code>text-align</code>, och sätter det till <code>center</code>:</p>
+
+<figure><pre><code class="css">header {
+    text-align: center;
+}</code></pre></figure>
+
+<p>Nu vill vi dessutom minska storleken på vår tagline; den är ju löjligt stor! Givetvis har CSS även en egenskap för detta, nämligen <code>font-size</code> (mer om dessa textförändrande attribut får du veta i ett annat kapitel, ”<a href="/typografi-pa-webben">Typografi på webben</a>”). Vi sätter den till <code>100%</code>, dvs. 100% av storleken på förälderns text (vilket i vårt fall ger normal textstorlek):</p>
+
+<figure><pre><code class="css">header h2 {
+    font-size: 100%;
+}</code></pre></figure>
+
+<p>Nu ser vårt sidhuvud lite bättre ut, och det är dags att hoppa på menyn. Som du kanske redan märkt så använder vi en oordnad lista för att skapa en sorts meny — detta är mycket vanligt. Vi vill dock inte ha några listpunkter i vår meny, och i det här fallet vill vi dessutom att elementen lägger sig på rad istället för på höjden. Det första problemet löser vi enkelt med attributet <code>list-style-type</code>. Det andra kräver att vi använder CSS för att göra om våra <code>li</code>-element från blockelement till inline-element. För detta använder vi attributet <code>display</code>.</p>
+
+<p>Attributet <code>display</code> används för att ändra grundläggande beteenden hos element. Det kan ta många värden, men de viktigaste är relativt enkla att komma ihåg:</p>
+
+<ul>
+    <li><code>block</code> får elementet att visa sig som ett blockelement: radbrytning sker före och efter elementet, och det kan ha både bredd och höjd. Några element som har denna stil från början är <code>h1</code>, <code>p</code> och <code>blockquote</code>.</li>
+    <li><code>inline</code> får element att ”följa med” texten. De kan inte ha höjd eller bredd, och kan inte flyttas runt som blockelementen. Element som <code>strong</code>, <code>a</code> och <code>img</code> är inline-element.</li>
+    <li><code>inline-block</code> är ett specialvärde som får elementet att bete sig som en blandning mellan inline- och blockelement: det kan ha bredd och höjd, men det sker inga radbrytningar runt det. Inga element har denna stil från början.</li>
+    <li><code>none</code> gör att elementet helt enkelt ignoreras. Det visas inte på sidan och påverkar inte några andra element över huvud taget. Kan användas för att dölja element.</li>
+</ul>
+
+<p>Vi vill ge våra <code>li</code>-element värdet <code>inline-block</code> så att de läggs på rad men så att vi ändå kan ge dem en bredd. På så vis kan vi skapa en ”låda” med en specifik bredd, centrerad text, <code>padding</code> och en fin liten bakgrund så att listelementen ser mer ut som knappar:</p>
+
+<figure><pre><code class="css">nav li {
+    list-style-type: none;
+    display: inline-block;
+    width: 6em;
+    text-align: center;
+    background: #eef;
+    padding: .25em 0;
+}</code></pre></figure>
+
+<p>Nu kommer menyvalen att lägga sig brevid varandra, men justeras till vänster. Det vill vi ju inte! Ingen fara; vi kan ju centrera <code>ul</code>-elementet, så centreras hela menyn. För att göra detta sätter vi först en bredd på elementet — en bredd på 20em bör räcka för att alla tre menyelementen ska få plats på bredden. Vi måste även ta bort den <code>padding</code> som <code>ul</code>-elementet har från början:</p>
+
+<figure><pre><code class="css">ul {
+    padding: 0;
+    margin: 0 auto;
+    width: 20em;
+}</code></pre></figure>
+
+Till sist ramar vi in hela menyn med en fin, vag dubbelram. Det kanske inte blir världens snyggaste meny, men det fungerar för tillfället:
+
+<figure><pre><code class="css">nav {
+    padding: .25em;
+    border: 4px double #ccc;
+}</code></pre></figure>
+
+<p>Vi väljer att låta själva artikeln se ut som den gör, och ändrar bara sidfoten genom att minska textstorleken och centrera:</p>
+
+<figure><pre><code class="css">footer {
+    font-size: smaller;
+    text-align: center;
+}</code></pre></figure>
+
+<p>Resultatet är en klar förbättring (nåja, förändring) från vårt fullständigt stillösa dokument. Kom ihåg att vi gjort detta endast genom att ändra presentationslagret — all HTML ser fortfarande likadan ut!
+
+<figure><img src="/img/layout-centrerad.png" alt="Med den nya stilmallen ser vårt dokument betydligt bättre ut.">
+<figcaption>Vår nya, centrerade ”layout”.</figcaption></figure>
+
+<h3>Något mer avancerat: meny till vänster</h3>
+
+<p class="note">TODO: En annan layout</p>
+<p>…</p>
+
+<h2>Redundans och CSS-resets</h2>
+<p>Som du kanske märkt så ändrar man ganska mycket på de stilar som redan är definierade av webbläsaren. Vissa har därför fått för sig att det är bra med så kallade CSS-resets, som ”nollställer” all CSS och tar bort webbläsarens förinställda attribut. På senare tid har detta fått en del <a href="http://snook.ca/archives/html_and_css/no_css_reset/">negativ uppmärksamhet</a>, och vi avråder starkt från att använda CSS-resets.</p>
+
+<p>Webbläsarens förinställningar finns där av en anledning; de definierar stilar som webbutvecklaren inte tänker på, lägger upp en grundläggande typografistil så att dokument är läsbara även utan CSS och hjälper ofta till när du bygger upp din egen layout. Istället för att nollställa allt så bör man använda webbläsarens stil där den passar, och ändra den vid de tillfällen den inte gör det.</p>
+
+<p>Detta får som konsekvens att alla sidor inte kommer se <em>exakt</em> likadana ut, men i stort sett kommer de att ha samma utseende; det kommer att skilja på några pixlar hit eller dit. Man får helt enkelt fråga sig om <a href="http://dowebsitesneedtolookexactlythesameineverybrowser.com/">varje sida måste sidan se likadan ut i alla webbläsare</a>, och sedan motarbeta webbläsaren eller låta den göra halva jobbet utifrån det. Du kan ju fundera på vad som tar mest tid.</p>
