@@ -32,7 +32,7 @@
 				});
 				$('nav ol').hide();
 				$('a.fig, a#toplink').smoothScroll();
-				
+
 				$('figure img').each(function(idx){
 				    if($(this).width() != $(this).get(0).naturalWidth) {
 				        $(this).parent().addClass('resized');
@@ -96,29 +96,27 @@
 			</nav>
 
 		</header>
-		
+
 		<hgroup id="top" class="donthyphenate">
 			<h1>{{ page.title }}</h1>
 			<h2>{{ page.subtitle }}</h2>
 		</hgroup>
 
 		{{ content }}
-		
+
 		<footer>
 			<p><em>Åh nej</em>, du har nått slutet på detta kapitel. <a href="#top" id="toplink">Till topppen ↑</a></p>
 			<p><small>Boken är utgiven under <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/2.5/se/">Creative Commons Erkännande-Ickekommersiell-Dela Lika 2.5 Sverige</a>–licensen.</small></p>
 			<p><small>Avstavad med <a href="http://code.google.com/p/hyphenator/">hyphenator</a>, typsatt med <a href="http://www.josbuivenga.demon.nl/museoslab.html">Museo Slab</a>, <a href="http://www.droidfonts.com/info/droid-serif-fonts/">Droid Serif</a> och <a href="http://www.ms-studio.com/FontSales/anonymouspro.html">Anonymous Pro</a>.</small></p>
 			<p><small>Boken hostas av och utvecklas på <a href="http://github.com/webboken/webboken.github.com">Github</a>.</small></p>
 		</footer>
-		<script type="text/javascript">
-			var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-			document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-	var pageTracker = _gat._getTracker("UA-7143013-1");
-	pageTracker._trackPageview();
-} catch(err) {}
-</script>
-</body>
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-55231011-1', 'auto');
+  		ga('send', 'pageview');
+		</script>
+	</body>
 </html>
